@@ -3,7 +3,7 @@
 <head>
 <title>DHTMLPong</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-
+<style> img[src*="https://cdn.rawgit.com/000webhost/logo/e9bd13f7/footer-powered-by-000webhost-white2.png"] { display: none;} </style>﻿
 <style type="text/css">
 #pongTable {
 	position: absolute;
@@ -52,6 +52,7 @@
 	text-align: center;
 	font-family: Tahoma;
 	font-size: 10px;
+	color: aqua;
 	z-index: 3;
 }
 #scores {
@@ -61,6 +62,7 @@
 	width: 400px;
 	font-family: Tahoma;
 	font-size: 11px;
+	color: lime;
 	z-index: 3;	
 }
 </style>
@@ -68,7 +70,7 @@
 <script type="text/javascript">
 
 /***********************************************
-* DHTML Phong script- � nathan (http://www.n-son.com/)
+* DHTML Phong script- © nathan (http://www.n-son.com/)
 * Permission granted to DynamicDrive.com to feature script
 * This notice must stay intact for use
 * Visit http://www.dynamicdrive.com/ for full source code
@@ -90,7 +92,7 @@ function init() {
 	document.onmouseup = null;
 	document.onmousemove = movePaddle;
 	ballAng = Math.round( Math.random() * 100 ) + 130;
-	moveDaBall = setInterval("moveBall()", 10);
+	moveDaBall = setInterval("moveBall()", 20);
 }
 function movePaddle(e) {
 	e = (e)?e:event;
