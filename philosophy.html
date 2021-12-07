@@ -1,0 +1,1097 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">
+/* Center the loader */
+#loader {
+	position: fixed !important;
+	/*display: -webkit-flexbox !important;
+    display: -ms-flexbox !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+    -webkit-flex-align: center !important;
+    -ms-flex-align: center !important;
+    -webkit-align-items: center !important;
+    align-items: center !important;
+    justify-content: center !important;*/
+    left: 50% !important;
+  top: 50% !important;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0px 0px -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+	/*-moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);*/
+	    
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative !important;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#myDiv {
+  display: none;
+  text-align: left; /* center*/
+}
+</style>
+<title>Psychotic Opposition™ Philosophy Dystopian Paramedia [This Side of Paradise]</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-us" />
+<meta name="keywords" content="comp sci, philosophy, writing, newssource" />
+<meta name="description" content="The coolest fansite\ script source on the web... Find almost anything _interesting_ in here..." />
+<meta content="Shadow Company" name="author" />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="stylesheet" type="text/css" href="nuke-ice.css" />
+<script type="text/javascript" src="basiccalendar.js"></script>
+<style type="text/css">
+<!--
+.kisser {
+	position: absolute;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	visibility: hidden;
+}
+-->
+</style>
+<script language="JavaScript1.2" type="text/JavaScript">
+
+<!-- cloak
+
+
+//Kissing trail- By dij8 (dij8@dij8.com)
+//Modified by Dynamic Drive for bug fixes
+//Visit http://www.dynamicdrive.com for this script
+
+
+kisserCount = 15 //maximum number of images on screen at one time
+curKisser = 0 //the last image DIV to be displayed (used for timer)
+kissDelay = 1000 //duration images stay on screen (in milliseconds)
+kissSpacer = 50 //distance to move mouse b4 next heart appears
+theimage = "lips_small.gif" //the 1st image to be displayed
+theimage2 = "small_heart.gif" //the 2nd image to be displayed
+
+
+//Browser checking and syntax variables
+var docLayers = (document.layers) ? true:false;
+var docId = (document.getElementById) ? true:false;
+var docAll = (document.all) ? true:false;
+var docbitK = (docLayers) ? "document.layers['":(docId) ? "document.getElementById('":(docAll) ? "document.all['":"document."
+var docbitendK = (docLayers) ? "']":(docId) ? "')":(docAll) ? "']":""
+var stylebitK = (docLayers) ? "":".style"
+var showbitK = (docLayers) ? "show":"visible"
+var hidebitK = (docLayers) ? "hide":"hidden"
+var ns6=document.getElementById&&!document.all
+
+//Variables used in script
+var posX, posY, lastX, lastY, kisserCount, curKisser, kissDelay, kissSpacer, theimage
+lastX = 0
+lastY = 0
+
+//Collection of functions to get mouse position and place the images
+function doKisser(e) {
+
+  posX = getMouseXPos(e)
+  posY = getMouseYPos(e)
+  if (posX>(lastX+kissSpacer)||posX<(lastX-kissSpacer)||posY>(lastY+kissSpacer)||posY<(lastY-kissSpacer)) {
+    showKisser(posX,posY)
+    lastX = posX
+    lastY = posY
+  }
+}
+
+// Get the horizontal position of the mouse
+function getMouseXPos(e) {
+  if (document.layers||ns6) {
+    return parseInt(e.pageX+10)
+  } else {
+    return (parseInt(event.clientX+10) + parseInt(document.body.scrollLeft))
+  }
+}
+
+// Get the vartical position of the mouse
+function getMouseYPos(e) {
+  if (document.layers||ns6) {
+    return parseInt(e.pageY)
+  } else {
+    return (parseInt(event.clientY) + parseInt(document.body.scrollTop))
+  }
+}
+
+//Place the image and start timer so that it disappears after a period of time
+function showKisser(x,y) {
+  var processedx=ns6? Math.min(x,window.innerWidth-75) : docAll? Math.min(x,document.body.clientWidth-55) : x
+  if (curKisser >= kisserCount) {curKisser = 0}
+  eval(docbitK + "kisser" + curKisser + docbitendK + stylebitK).left =  processedx + 'px'
+  eval(docbitK + "kisser" + curKisser + docbitendK + stylebitK).top = y + 'px'
+  eval(docbitK + "kisser" + curKisser + docbitendK + stylebitK + ".visibility = '" + showbitK + "'")
+  if (eval("typeof(kissDelay" + curKisser + ")")=="number") {
+    eval("clearTimeout(kissDelay" + curKisser + ")")
+  }
+  eval("kissDelay" + curKisser + " = setTimeout('hideKisser(" + curKisser + ")',kissDelay)")
+  curKisser += 1
+}
+
+//Make the image disappear
+function hideKisser(knum) {
+  eval(docbitK + "kisser" + knum + docbitendK + stylebitK + ".visibility = '" + hidebitK + "'")
+}
+
+function kissbegin(){
+
+//Let the browser know when the mouse moves
+if (docLayers) {
+  document.captureEvents(Event.MOUSEMOVE)
+  document.onMouseMove = doKisser
+} else {
+  document.onmousemove = doKisser
+}
+}
+
+window.onload=kissbegin
+// decloak -->
+    </script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="scrolltopcontrol.js">
+
+        /***********************************************
+        * Scroll To Top Control script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+        * Please keep this notice intact
+        * Visit Project Page at http://www.dynamicdrive.com for full source code
+        ***********************************************/
+
+    </script>
+<script type="text/JavaScript">
+		
+function FP_swapImg() {//v1.0
+ var doc=document,args=arguments,elm,n; doc.$imgSwaps=new Array(); for(n=2; n<args.length;
+ n+=2) { elm=FP_getObjectByID(args[n]); if(elm) { doc.$imgSwaps[doc.$imgSwaps.length]=elm;
+ elm.$src=elm.src; elm.src=args[n+1]; } }
+}
+
+function FP_preloadImgs() {//v1.0
+ var d=document,a=arguments; if(!d.FP_imgs) d.FP_imgs=new Array();
+ for(var i=0; i<a.length; i++) { d.FP_imgs[i]=new Image; d.FP_imgs[i].src=a[i]; }
+}
+
+function FP_getObjectByID(id,o) {//v1.0
+ var c,el,els,f,m,n; if(!o)o=document; if(o.getElementById) el=o.getElementById(id);
+ else if(o.layers) c=o.layers; else if(o.all) el=o.all[id]; if(el) return el;
+ if(o.id==id || o.name==id) return o; if(o.childNodes) c=o.childNodes; if(c)
+ for(n=0; n<c.length; n++) { el=FP_getObjectByID(id,c[n]); if(el) return el; }
+ f=o.forms; if(f) for(n=0; n<f.length; n++) { els=f[n].elements;
+ for(m=0; m<els.length; m++){ el=FP_getObjectByID(id,els[n]); if(el) return el; } }
+ return null;
+}
+</script>
+<style type="text/css">
+.style2 {
+	margin: 0px auto;
+	padding: 0px;
+	width: 460px;
+	position: relative;
+    text-overflow: clip !important;
+	/*overflow: auto;*/
+    word-break: break-all !important;
+	font-family: Verdana;
+	font-size: 0.7em !important;
+	text-decoration: none;
+	color: #6a7c98;
+}
+	.btn-disable:not(.nohover):hover {  
+    border-width: 0px;
+	border-style: none;	
+}
+
+a {
+	font-weight: normal;
+}
+a:link {
+	color: #6A7C98;
+}
+a:visited {
+	color: #6A7C98;
+}
+a:hover {
+	text-decoration: none;
+	color: white;
+	background-color: green;
+	border-width: 2px;
+	border-style: dotted;
+	border-color: purple;
+}
+a:active {
+	color: aqua;
+	background-color: navy;
+}
+.style3 {
+	font-size: 11px;
+	letter-spacing: normal;
+	background-color: #141A21;
+}
+.style4 {
+	font-size: 6px;
+	color: #FF0000;
+}
+.style5 {
+	font-size: 6px;
+	color: #FF0000;
+}
+.style6 {
+	font-family: Webdings;
+}
+</style>
+</head>
+
+<body style="direction: ltr;"><!--onload="FP_preloadImgs(/*url*/'buttonB3.gif',/*url*/'buttonB4.gif',/*url*/'buttonC4.gif',/*url*/'buttonC5.gif',/*url*/'buttonC7.gif',/*url*/'buttonC8.gif');>-->
+    <script language="JavaScript" type="text/JavaScript">
+function start() {
+  myFunction();
+  kissbegin();
+}
+window.onload = start;
+</script>
+<div id="loader"></div>
+<div style="display:none;" id="myDiv" class="animate-bottom">
+<div id="wrapper">
+  <div id="banner">
+    <div id="banner-edit"><img style="width: 100px; height: 75px;" alt="Green Skulls (Rotating" src="skullgre.gif" align="middle" vspace="30" /><img style="width: 600px; height: 48px;" alt="Logo text banner" src="coollogo_com-32082252.png" align="middle" /><img style="width: 100px; height: 75px;" alt="Green Skulls (Rotating" src="skullgre.gif" align="top" vspace="30" /></div>
+  </div>
+  <div id="container">
+    <div id="col-1">
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::SiteMap::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="nav-menu">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about-this-blog.html">About Us</a> <strong><sup><span class="style4">New!</span></sup></strong></li>
+              <li>Services</li>
+              <li>Products</li>
+              <li><a href="http://alien-fx-fiend.livejournal.com/">Blog</a></li>
+              <li><a href="comp-sci.html">Comp Engineering</a> <strong><sup><span class="style5">New!</span></sup></strong></li>
+              <li><a href="#">Science</a></li>
+              <li><a href="philosophy.html">Philosophy</a> <strong><sup><span class="style4">New!</span></sup></strong></li>
+              <li><a href="#">Creative Writing/Lingu</a></li>
+              <li><a href="pc-games.html">PC Games</a> <strong><sup><span class="style4">New!</span></sup></strong></li>
+              <li><a href="#">World Domination</a></li>
+              <li><a href="exp2.html#"> Studies-Related</a></li>
+              <li><a href="#">Miscellaneous</a></li>
+              <li><a href="exp2.html#">E-Zine</a></li>
+              <li><a href="mailto:alien.fx_fiend@yahoo.com?subject=Enquiry">Contact Us</a></li>
+              <li><a href="http://users2.smartgb.com/g/g.php?a=s&amp;i=g26-34462-59">Guestbook</a></li>
+              <li><a href="http://neoviper10.boards.net/">Message Board</a></li>
+              <li>Win Tweaks?!</li>
+              <li>Forum</li>
+              <li>Photo Gallery</li>
+            </ul>
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::Update Logz::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="NavInfo"> Testing The Small Content Box For Demo Purposes<br />
+            22/11 11:13 Added Tickertape+mousetrailx<br />
+            4/12 22:00 Expanded Computer Sections+Nav Links+Switched to MSEW<br />
+            6/12 1:50 Added favicon<br />
+            10/12 1:37 Improved Design<br />
+            23/1 16:00 Added CSS hover link effect<br />
+            5/7 00:52 MouseTrail + Fixed Phong + Encoding + link + Scrolltop + Snow<br />
+            8/7 10:45 Malicious virus script s.igmhb finally eradicated<br />
+            9/7 22:20 Few additional links, Uploading directly from MSEW now:rollouts<br />
+            24/7 00:00 Added comp-sci &amp; pc-games pages<br />
+            16/8 16:00 Added Nav Buttons &amp; Custom Search Engine, Switched to Dreamviewer (EW buggy+discn)<br />
+            24/8 3:32 Minor touches to the site —mostly ripping gifs &amp; imgsearching<br />
+            8/9 7:25 Minor additions &amp; few more links<br />
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::SiteGear Poll::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="NavInfo"> Testing The Small Content Box For Demo Purposes </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+    </div>
+    <div id="col-2">
+      <div class="CntBox">
+        <div class="CntHead">
+          <div class="CntHeadInfo"> <span class="style6">&quot; </span>[Hierarchical] Table of Contents: <span class="style6">&quot;</span> </div>
+        </div>
+        <div class="CntFill">
+          <div class="style2"> <br />
+            [ <a href="index.html" class="btn-disable"> <img style="border: 0" id="img1" src="button86.gif" height="20" width="100" alt="Back" onmouseover="FP_swapImg(1,0,/*id*/'img1',/*url*/'buttonB3.gif')" onmouseout="FP_swapImg(0,0,/*id*/'img1',/*url*/'button86.gif')" onmousedown="FP_swapImg(1,0,/*id*/'img1',/*url*/'buttonB4.gif')" onmouseup="FP_swapImg(0,0,/*id*/'img1',/*url*/'buttonB3.gif')" /><!-- MSComment="ibutton" fp-style="fp-btn: Soft Capsule 7; fp-transparent: 1" fp-title="Back" --></a> ] &nbsp;&nbsp; [ <a href="index.html" class="btn-disable"> <img style="border: 0" id="img2" src="button8C.gif" height="20" width="100" alt="Home" onmouseover="FP_swapImg(1,0,/*id*/'img2',/*url*/'buttonC7.gif')" onmouseout="FP_swapImg(0,0,/*id*/'img2',/*url*/'button8C.gif')" onmousedown="FP_swapImg(1,0,/*id*/'img2',/*url*/'buttonC8.gif')" onmouseup="FP_swapImg(0,0,/*id*/'img2',/*url*/'buttonC7.gif')" /><!-- MSComment="ibutton" fp-style="fp-btn: Soft Capsule 7; fp-transparent: 1" fp-title="Home" --></a> ] &nbsp;&nbsp; [ <img style="border: 0" id="img3" src="button92.gif" height="20" width="100" alt="Forward" onmouseover="FP_swapImg(1,0,/*id*/'img3',/*url*/'buttonC4.gif')" onmouseout="FP_swapImg(0,0,/*id*/'img3',/*url*/'button92.gif')" onmousedown="FP_swapImg(1,0,/*id*/'img3',/*url*/'buttonC5.gif')" onmouseup="FP_swapImg(0,0,/*id*/'img3',/*url*/'buttonC4.gif')" /><!-- MSComment="ibutton" fp-style="fp-btn: Soft Capsule 7; fp-transparent: 1" fp-title="Forward" --> ]<br />
+            <br />
+            <br />
+            <br />
+            
+            <br />
+            <a href="http://web.archive.org/web/20070228152135/http://www.counterorder.com/">Online Nihilism</a><br />
+            <a href="http://web.archive.org/web/20041214074925/http://www.holology.com:80/">Holology (Wayback Machine Archived)</a><br />
+            <a href="http://www.philosophybasics.com/">Philosophy Basics</a><br />
+            <a href="https://pastebin.com/Hmn5eA3r">~The Nihilist Void~</a><br />
+            <a href="https://pastebin.com/yWaakifR">..::Reorder - Phiregod::..</a><br />
+            <a href="https://pastebin.com/25ugFEhw">anarchism {Encyclopædia Britannica Article}</a><br />
+            <a href="https://theanarchistlibrary.org/library">https://theanarchistlibrary.org/library</a> <a href="https://theanarchistlibrary.org/library/william-gillis-15-post-primitivist-theses">https://theanarchistlibrary.org/library/william-gillis-15-post-primitivist-theses</a> <a href="https://theanarchistlibrary.org/library/renzo-novatore-toward-the-creative-nothing">https://theanarchistlibrary.org/library/renzo-novatore-toward-the-creative-nothing</a> <a href="https://theanarchistlibrary.org/library/william-gillis-the-retreat-of-the-immidiate">https://theanarchistlibrary.org/library/william-gillis-the-retreat-of-the-immidiate</a><br />
+<a href="http://dwardmac.pitzer.edu/anarchist_archives/bright/berkman/prison/chapter1.html">http://dwardmac.pitzer.edu/anarchist_archives/bright/berkman/prison/chapter1.html</a><br />
+<a href="http://anarchy.org.au/anarchist-texts/">http://anarchy.org.au/anarchist-texts/</a><br />
+<a href="https://onlinebooks.library.upenn.edu/webbin/book/browse?type=subject&c=x&key=Philosophy">https://onlinebooks.library.upenn.edu/webbin/book/browse?type=subject&c=x&key=Philosophy</a><br />
+<a href="https://web.archive.org/web/20080509164720/http://www.lifesucks.info/">Life Sucks Info (Wayback Machine Archived)</a><br />
+           <a href="https://www.vocabulary.com/lists/258109">https://www.vocabulary.com/lists/258109</a><br />
+           <a href="http://www.bigwords.com/bigwords/">http://www.bigwords.com/bigwords/</a><br />
+            <br />
+            <br />
+            <br />
+            <br />
+          </div>
+        </div>
+        <div class="CntFooter"></div>
+      </div>
+      <div class="CntBox">
+        <div class="CntHead">
+          <div class="CntHeadInfo">Favorite Quotes:</div>
+        </div>
+        <div class="CntFill">
+          <div style="text-align: justify;" class="CntInfo"><br />“Time is a great teacher, but unfortunately it kills all its pupils. Berlioz”<br />leadership is the ability to disguise panic Henry Ford: If you think you can, you can, if you think you can't, you can't<br />"Good fences make good neighbors."<br />
+“Why do we argue? Life's so fragile, a successful virus clinging to a speck of mud, suspended in endless nothing.” -Alan Moore, Watchmen<br />
+"Rorschach: You see, Doctor, God didn't kill that little girl. Fate didn't butcher her and destiny didn't feed her to those dogs. If God saw what any of us did that night he didn't seem to mind. From then on I knew... God doesn't make the world this way. We do."<br />
+"John McLaughlin: On a scale of 0 to 10 - zero being impossible, ten being complete metaphysical certitude - what are the chances the Russians will actually attack the United States? Pat Buchanan.<br />
+Pat Buchanan: Zero. The Soviets would never risk going to war when we have a walking nuclear deterrent on our side."<br />
+"once you realize what a joke everything is, being the comedian is the only thing that makes sense."<br />
+"we re all puppets laurie i m just a puppet who can see the strings"<br />
+"never compromise, not even in the face of armageddon"<br />
+“I see in the fight club the strongest and smartest men who've ever lived. I see all this potential and I see squandering. God damn it, an entire generation pumping gas, waiting tables, slaves with white collars, advertising has us chasing cars and clothes, working jobs we hate so we can buy shit we don't need. We're the middle children of the history man, no purpose or place, we have no Great war, no Great depression, our great war is a spiritual war, our great depression is our lives, we've been all raised by television to believe that one day we'd all be millionaires and movie gods and rock stars, but we won't and we're slowly learning that fact. and we're very very pissed off.”<br />
+- Chuck Palahniuk, Fight Club<br />
+As to marriage or celibacy, let a man take which course he will, he will be sure to repent.He is a man of courage who does not run away, but remains at his post and fights against the enemy. -Socrates<br />
+Bring your desires down to your present means. Increase them only when your increased means permit.All paid jobs absorb and degrade the mind. -Aristotle<br />
+Narrator: On a long enough timeline the survival rate for everyone drops to zero. - Fight Club.<br />
+Our lives are not determined by what happens to us, but how we react to what happens; not by what life brings us, but by the attitude we bring to life. A positive attitude causes a chain reaction of positive thoughts, events and outcomes. It is a catalyst a spark that creates extraordinary results. (Anonymus)<br />
+Call Back Later: Gods On Vacation<br />
+Stop The World I Want To Get Off !<br />
+Welcome To The World Of Survival Horror !<br /> In Advanced Haemorrhaging Conditions<br />
+The only consistency in life is inconsistency. As one Greek saying put it: You cannot cross the same river twice, because the river has changed.<br />
+True knowledge exists in knowing that you know nothing. –Socrates<br />
+"It is only the dead who have seen the end of war" -Plato<br />
+"The goal of all life is death". (Sigmund Freud)<br />
+a gURLs wURLd - Series 1 Ep 1<br />
+Neither a lofty degree of intelligence nor imagination nor both together go to the making of genius. Love, love, love, that is the soul of genius.<br />
+~ Wolfgang Amadeus Mozart<br />
+Experience teaches slowly and at the cost of mistakes.<br />
+~ James A. Froude (1818 - 1894)<br />
+Useless laws weaken necessary laws.<br />
+~ Charles de Secondat, Baron de Montesquieu (1689-1775)<br />
+An eye for eye only ends up making the whole world blind.<br />
+~ M.K. Gandhi<br />
+Keep away from people who try to belittle your ambitions. Small people always do that, but the really great make you feel that you, too, can become great.<br />
+~ Mark Twain<br />
+Great works are performed, not by strength, but by perseverance.<br />
+~ Samuel Johnson<br />
+Success is the ability to go from failure to failure without losing your enthusiasm.<br />
+~ Sir Winston Churchill<br />
+Imagination is more important than knowledge.<br />
+~ Albert Einstein<br />
+The way to get started is to quit talking and begin doing.<br />
+~ Walt Disney<br />
+When you come to a fork in the road, take it.<br />
+~ Yogi Berra<br />
+Cioran, Nietzsche, Camus, Sartre, Heidegger, Schopenhauer, Stirner, Kierkegaard, Voltaire etc, etc <br />
+Misfortune shows those who are not really friends. -Aristotle<br />
+Employ your time in improving yourself by other mens writings, so that you shall gain easily what others have labored hard for. -Socrates The vices respectively fall short of or exceed what is right in both passions and actions, while virtue both finds and chooses that which is intermediate. -Aristotle<br />
+There is only one way to happiness and that is to cease worrying about things which are beyond the power of our will. ( Epictetus)<br />
+Courage is the first of human qualities because it is the quality which guarantees the others. -Aristotle If a man is proud of his wealth, he should not be praised until it is known how he employs it. -Socrates<br />
+One night a guy & a girl were<br />
+driving home from the movies. The<br />
+boy sensed there was<br />
+something wrong because of the painful<br />
+silence they shared between them<br />
+that night. The girl then asked the boy to pull over<br />
+because she wanted to talk. She told him that her<br />
+feelings had changed & that it was time to move on.<br />
+A silent tear slid down his cheek as he<br />
+slowly reached into his pocket & passed her a folded note.<br />
+At that moment, a drunk driver was speeding down<br />
+that very same street. He swerved<br />
+right into the drivers seat, killing the boy.<br />
+Miraculously, the girl survived. Remembering the note, she<br />
+pulled it out & read it.<br />
+"Without your love, I would die."<br />
+Never say I love you, if it isn't really there<br />
+Never talk about feelings, if you really don't care<br />
+Never hold my hand, if you're gonna break my heart<br />
+Never say you are gonna, if you don't plan to start<br />
+Never look into my eyes and all you do is lie<br />
+Never say hello if you really mean goodbye<br />
+If you really mean forever, Then please say you'll try ..<br />
+Never say forever.. Because forever makes me cry...<br />
+Forget his name<br />
+Forget his face<br />
+Forget his kiss<br />
+His warm embrace<br />
+Forget the love that you once knew<br />
+Remember he has someone new<br />
+Forget him when they played your song<br />
+Remember when you cried all night long<br />
+Forget how close you once were<br />
+Remember he has choosen her<br />
+Forget how you memorized his walk<br />
+Forget the way he use to talk<br />
+Forget the things he use to say<br />
+Remember he has gone away<br />
+Forget his laugh forget his grin<br />
+Forget the dimples on his face<br />
+Forget the way he held you tight<br />
+Remember hes with her tonight<br />
+Forget the time that went so fast<br />
+Forget the love that moved, its past<br />
+Forget he said he'd leave you never<br />
+Remember that he's gone forever<br />
+You can hear it in my voice, read it on my face, I'm drowing in memories of the things I can't replace.<br />Life Is like a dick.... when it gets hard... f**k it<br />
+Sex is like snow. You never know how many inches you're going to get or how long it will last.<br />
+I lost my puppy, can you come help me look in my cheap hotel room across the street?<br />
+Homework: /hom'wurk'/ (n.) A punishment given to students by evil teachers after the students have already put in 7 hours of hard labor. (See evil, torture, wrong, cruel, unjust, satan, bull crap, mean, and devil-like)<br />
+Hot steamy shower ************* sogging naked wet bodies************** care to join me ****************** its free admission<br />
+Burning a cd.....go away so you don't waste my system resources!!!<br />
+Im busy doing some very sexual stuff with %n's boy friend.<br />
+Ok I'm out of breath so we're gonna stop.<br />
+Cant find my bra, oh well, we will have to keep going. *tee hee*<br />
+<3 Tell her why she's perfect for you. Pick her up & pretend like you're going to throw her in the pool. She'll kick & scream , but secretly she'll love it. Protect her. Hold her hand when you talk to her. Look at her like she's the only girl you ever want to be with. When she least expects it, pull her in & kiss her, hard. Tell her she looks beautiful. Tickle her, even if she says stop. =]. Let her fall asleep in your arms. Call her. Kiss her forehead. Give her piggy back rides. Be slow, don't push anything. Make her feel needed & loved. Kiss her in the rain. & when you fall in love with her... tell her. <3<br />
+Laughter is like changing a baby"s diaper. It doesn"t permanently solve any problems, but it makes things more acceptable for a while. ( Anonymus) Dignity does not consist in possessing honors, but in deserving them. -Aristotle Beauty is a short-lived tyranny. -Socrates<br />
+Better to have loved and lost, than to have never loved at all. ( Alfred Loyd T.)<br />
+False words are not only evil in themselves, but they infect the soul with evil. -Socrates<br />
+:: [Knowledge is not an object, it´s a flow] ::<br />
+"What can be broken, should be broken." - Dmitrii Pisarev, Nihilist spokesman and 19th century Russian literary critic.<br />
+I used to have a handle on life, but then it broke.<br />
+I hope your life is like toilet paper, long and useful.<br />
+WHY?<br />
+1)Why do you need a driver's license to buy liquor when you can't drink n drive?<br />
+2)Why are cigarettes sold in gas stations when smoking is prohibited there?<br />
+3)When a man talks dirty to a woman, its sexual harassment,When a woman talks dirty to a man, it's $3.95 per minute.<br />
+You only live once . but if you live it right, once is enough.<br />
+Never argue with an idiot. They'll drag you down to their level then beat you with experience.<br />
+"Some people are alive because it's illegal to kill them"<br />
+"If at first you don't suceed, destroy all evidence that you tried."<br />
+"Kids, you tried your best and failed miserably. The lesson is- never try." -Homer Simpson<br />
+"I love the smell of cold leather." -Jessica Simpson<br />
+Give a man a fish and you will feed him for a day....give a man religion and he will starve to death while praying for a fish<br />
+Sorry I don't eat buffalo! -Jessica Simpson<br />
+~ You see things; and you say why? But I dream things that never were; and I say why not?~<br />
+-George Bernard Shaw<br />
+Monkey see, Monkey do. If I shut up,Will you too?<br />
+"Save the Environment...Plant a Bush back in Texas" -- Bumper Sticker<br />
+There was a camel and an elephant talking. The elephant started to laugh and said "HA... you have boobs on your back!" the camel looked at him and said "Ya... thats really funny coming from someone with a dick on their face."<br />
+What kind of bees make milk instead of honey? Boobies.<br />
+ I wish my homework was asexual so it would do itself.<br />
+Studying is knowledge, knowledge is power, power corrupts....i'm learning how to corrupt.<br />
+Blondes have more fun but at least brunettes can remember it the next day.<br />
+When someone annoys you it takes 42 muscles to frown about it but it only takes 4 muscles to extend your arm and punch the crap out of them.<br />
+When you get pulled over and the cop says "Your eyes look red have you been drinking?" repond with "Well officer your eyes look glazed have you been eating doughnuts?"<br />
+Don't drink and drive...You might hit a bump and spill your drink....Out Partying...Leave a Message....:-D<br />
+Aoccdrnig to a rscheearch at Cmabrigde Uinervtisy, it deosn't mttaer in waht oredr the ltteers in a wrod are, the olny iprmoetnt tihng is taht the frist and lsat ltteer be at the rghit pclae. The rset can be a total mses and you can sitll raed it wouthit porbelm. Tihs is bcuseae the huamn mnid deos not raed ervey lteter by istlef, but the wrod as a wlohe.<br />
+While Im gone, think about these things:<br />
+1. If one synchronized swimmer drowns, do they all have to drown?<br />
+2. If you choke a smurf, what color does it turn?<br />
+3. Why do they report power outages on TV?<br />
+If toast always lands butter-side down, and cats always land on their feet, what happens if you strap toast on the back of a cat and drop it?<br />
+We must add in a complete life. One swallow does not make a summer, nor does one day; and so too one day, or a short time, does not make a man blessed and happy. -Aristotle<br />
+If you can"t forgive, don"t ask to be forgiven. ( Napoleon Hill)<br />
+The world is a book and those who do not travel read only a page! (St. Augustine)<br />
+Fahrenheit 451 (1953) by Ray Bradbury, a novel based on his own short story "The Fireman" (originally published in Galaxy Science Fiction Vol. 1 No. 5 in February 1951), follows the exploits and self-examination of fireman Guy Montag in a dystopian society where books are banned and firemen create fires rather than put them out in order to protect society from the supposed dangers of reading. Dystopian Survivor<br />
+Bigger the population, the more minorities. Don't step on the toes of the dog lovers, the cat lovers, doctors, lawyers, merchants, chiefs, Mormons, Baptists, Unitarians, second-generation Chinese, Swedes, Italians, Germans, Texans, Brooklynites, Irishmen, people from Oregon or Mexico. The people in this book, this play, this TV serial are not meant to represent any actual painters, cartographers, mechanics anywhere. The bigger your market, Montag, the less you handle controversy, remember that!... Authors, full of evil thoughts, lock up your typewriters. They did.<br />
+-You can't build a house without nails and wood. If you don't want a house built, hide the nails and wood.' If you don't want a man unhappy politically, don't give him two sides to a question to worry him; give him one. Better yet, give him none. Let him forget there is such a thing as war <br />
+Fear is pain arising from the anticipation of evil. -Aristotle<br />
+Education is an ornament in prosperity and a refuge in adversity. -Aristotle<br />
+I know that I am intelligent, because I know that I know nothing. -Socrates<br />
+Choose a job you love and you"ll never have to work a day in your life. ( Confucius)<br />
+From the deepest desires often come the deadliest hate. -Socrates<br />
+Dignity does not consist in possessing honors, but in deserving them. -Aristotle <br />
+An honest man is always a child. -Socrates<br />
+Wisdom begins in wonder -Socrates<br />
+Change in all things is sweet. -Aristotle<br />
+The unexamined life is not worth living. -Socrates<br />
+He is richest who is content with the least, for content is the wealth of nature. -Socrates<br />
+Tiberium Alliances: Strategize very carefully, bring down their structures with Aircraft; or pit them against well-suited units. 
+Bad men are full of repentance. -Aristotle<br />
+Not life, but good life, is to be chiefly valued. -Socrates<br />
+I am careful not to confuse excellence with perfection. Excellence, I can reach for; perfection is God"s business.( Michael J. Fox)<br />
+For the things we have to learn before we can do, we learn by doing. -Aristotle<br />
+True wisdom comes to each of us when we realize how little we understand about life, ourselves, and the world around us. -Socrates<br />
+Without friends no one would choose to live, though he had all other goods. -Aristotle<br />
+The greatest way to live with honor in this world is to be what we pretend to be. -Socrates<br />
+One day is worth a thousand tomorrows. (Benjamin Franklin)<br />
+The world is unfolding before our eyes<br />
+Ladders are falling from the deep blue skies<br />
+Reach up and grab your fate<br />
+Before this day becomes too late<br />
+Leap across the purple fields and green meadows<br />
+Say goodbye to friends and past fellows<br />
+Seek only what you yearn for and need<br />
+Stand up tall and take the lead<br />
+Open your eyes and see the sun<br />
+Clear your mind and let your thoughts run<br />
+Feel no pain or sorrow for the end<br />
+It’s nothing but a place for your heart to mend<br />
+Race time.<br />
+Be free.<br />
+Stand Tall.<br />
+<a href="https://adistantlullaby131.deviantart.com/art/Race-Time-Be-Free-Stand-Tall-73805019">https://adistantlullaby131.deviantart.com/art/Race-Time-Be-Free-Stand-Tall-73805019</a><br />
+"Electricity, language are the modern evils", "Matrix of Domination" "Intersectionality"<br />
+When we are no longer able to change a situation... We are challenged to change ourselves. ( Victor Frankl)<br /> 
+I know nothing except the fact of my ignorance. -Socrates<br />
+All virtue is summed up in dealing justly. -Aristotle<br />
+Bashfulness is an ornament to youth, but a reproach to old age. -Aristotle Worthless people live only to eat and drink; people of worth eat and drink only to live. -Socrates <br />
+I didn't choose the thug life, the thug life chose me.<br />
+With regard to excellence, it is not enough to know, but we must try to have and use it. -Aristotle<br />
+Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it! ( Goethe)<br />
+{Rush Team, Begone, Red Crucible 2, Uber Strike, Brick-Force, Verdun, Ballistic, Contract Wars}<br />
+Beauty is the bait which with delight allures man to enlarge his kind. -Socrates<br />
+Tunnel Rat (Infiltrator extraordinaire) Tempest Ghostly Image: It is most gratifying that your enthusiasm for our planet continues unabated. As a token of our appreciation, we hope you will enjoy the two thermonuclear missiles we've just sent to converge with your craft. To ensure ongoing quality of service, your death may be monitored for training purposes. Thank you.<br />
+If you see a snake, just kill it. Don't appoint a committee on snakes. <br />Ross Perot Prowl, Quickstrike, Riptide, Sky blast, Smokescreen<br />
+https://maizzi.deviantart.com/art/Withered-417885996<br />Everything fades from gray to black...<br />
+Hell is in people...<br />
+Anti-Life forever and ever...<br />
+I mean, what is the point of eveything if we're all going to die anyway...-freydisii<br />
+Reality is contextual...<br />
+All I do is sit and rock back and forth, or stare off into space, and scream at non-existent terrors...<br />
+Clearly, all that's left to do in life is to occupy the daily hours, and acquire the full complement of emotions (as opposed to emotional myopia) until we're satiated, and to replay it through the enzymes at will; My eyes are like little viddy recorders. Everything is either eternal recurrence or tautology...-gfromagee<br />
+When I rule the world, there will be a place for all the deformed mutants and odd-ball psychotics...<br />
+xtacy Psychotic Opposition/ Soul De-forgeryx<br />
+. o O (In my free time I like to download entire websites to my comp (content aggragation), (hint:textfiles.com))<br />
+I hate VB, it's twisted, and teaches bad programming habits can't live without it heh)<br />
+Stop the world, I want to get off!<br />
+I'm stuck up here tighter than a frogs butt in a watermelon seed fight!<br />
+How do you like having societys fake-ass morality shoved down yer throat every day by people who don't believe in it themselves?<br />
+world=exist to torture freydis and me and (add your name here)<br />
+Question Authority<br />
+The aphorism in which I am the first master among Germans, are the forms of "eternity"; my ambition is to say in ten sentences what everyone else says in a book - what everyone else does not say in a book. Friedrich Nietzche <br />“ The most common way people give u their freedom is by thinking they don't have any. “ - Alice Walker Detroit, MI 48226<br />
+“ What if nothing exists and we're all in somebody's dream, or what's worse what if only that fat guy in the third row exists? “ - Woody Allen<br />
+“ The truth will set you free, but first it will piss you off. “ Gloria Steinem<br />
+I'm a one-man wrecking ball with nothing to lose... and nothing to prove...!<br />
+“ It's a death-trap, it's a suicide-rap...! “<br />
+- Bruce Springsteen<br />
+Tyler Durden: Listen up maggots! You are not special! You are not a beautiful or unique snowflake! You are the same
+decaying organic matter as everything else! We are the all singing, all dancing crap of the world! We are all
+part of the same compost keep.<br />That Doesn't Sit Well With My Survival Code<br />A great city is not to be confounded with a populous one. -Aristotle<br /><br />
+<a href="http://www.higherperspectives.com/8-life-changing-lessons-everyone-can-learn-from-lao-tzu-1429977337.html">http://www.higherperspectives.com/8-life-changing-lessons-everyone-can-learn-from-lao-tzu-1429977337.html</a><br /><br />
+From:: <a href="http://www.hereandair.com/quotes-that-changed-my-life">http://www.hereandair.com/quotes-that-changed-my-life</a><br />
+The meaning of life is to find your gift. The purpose of life is to give it away. –William Shakespeare<br />
+The secret of getting ahead is getting started. –Mark Twain<br />
+The doors will be opened to those who are bold enough to knock. –Tony Gaskins<br />
+Big things often have small beginnings. –Unknown<br />
+Be not simply good – be good for something. –Henry David Thoreau<br />
+Every morning you have two choices; continue to sleep with your dreams, or wake up and chase them. –Unknown<br />
+Experience is the name we give to our mistakes. –Oscar Wilde<br />
+Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do, so throw off the bowlines, sail away from safe harbor, catch the trade winds in your sails. Explore, Dream, Discover. –Mark Twain<br />
+To live is the rarest thing in the world. Most people exist, that is all. –Oscar Wilde<br />
+You drown not by falling into a river, but by staying submerged in it. –Paulo Coelho<br />
+An unexamined life is not worth living. –Socrates<br />
+Whether you think you can or you think you can’t, you’re right. –Henry Ford<br />
+Build your own dreams, or someone else will hire you to build theirs. –Farrah Gray<br /> It’s not the years in your life that count. It’s the life in your years. –Abraham Lincoln<br />
+There is only one thing that makes a dream impossible to achieve: the fear of failure. –Paulo Coelho<br />
+People often say that motivation doesn’t last. Well, neither does bathing. That’s why we recommend it daily. –Zig Ziglar<br /><br />
+<img style="width: 101px; height: 121px;" alt="Aristotle portrait" src="https://dl.dropboxusercontent.com/s/9sgwmywdeudj3qr/topimage1.jpg" align="bottom" hspace="5">Misfortune shows those who are not really friends.
+ -Aristotle<br /><br />
+<img style="width: 93px; height: 124px;" alt="Socrates portrait" src="https://dl.dropboxusercontent.com/s/mvo6goyscwhog2w/sideimage.jpg" align="bottom" hspace="5">As to marriage or celibacy, let a man take which course he will, he will be sure to repent. -Socrates<br /></font><br /><br /><img src="https://dl.dropboxusercontent.com/s/u81fak0zzi6c0e6/blueline.gif" alt="HRule bluebar" height="10" width="100%" />
+
+<br /><br /><br /><center> -[ Favorite Quotes Table of Contents ]-</center><br />
+<br />
+1. <a href="#-[ Miscellanous ]-">Miscellaneous:</a> Other displaced topics<br />
+2. <a href="#-[ Favourite Quotes ]-">Favorite Qutoes:</a> Personal favorite 
+quotes (mostly philosophical)<br />
+<br />
+<br />
+<a name="-[ Miscellanous ]-"><center>-[ 1. Miscellanous ]-</center></a><br />
+<br />
+<a href="http://web.archive.org/web/20110304055433/http://www.freewebtown.com/knightmare602/Favorite%20Quotes/Favorite%20Philosophical%20Quotes.htm">Favourite Philosophical Quotes (popular philosophical quotes)</a><br />
+<br />
+<a href="http://web.archive.org/web/20110304055433/http://www.freewebtown.com/knightmare602/Favorite%20Quotes/Philosophical%20Quotes%20Kant.htm">Philosophical quotes: food for thought selected quotes</a></font><br />
+<br />
+<a href="http://web.archive.org/web/20110304055433/http://www.freewebtown.com/knightmare602/Favorite%20Quotes/Quotes.htm">Lunatics Favorite Quotes</a><br />
+<br />
+<a href="http://web.archive.org/web/20110304055433/http://www.freewebtown.com/knightmare602/Favorite%20Quotes/QDB%20Top%20100%20Quotes.htm">Funny chat conversations</a><br />
+<br />
+<a name="-[ Favourite Quotes ]-"><center>-[ 2. Favorite Quotes ]-</center></a><br />
+<br />
+"Know your abilities well, but never be satisfied with what you can do today. 
+Strive to surpass today's feats tomorrow and each day thereafter." - Kain, 
+Command and Conquer Storyline<br />
+<br />
+"Nothing is impossible till you stop trying." - Saying<br />
+<br />
+"Oh but the grass is always greener on the other side, neighbours got a new car 
+that you wanna drive, time is running out you wanna stay alive, we all live we 
+all will die, we all live under earth and sky, there is no wrong there is no 
+right, the circle only has one side" - Invisible Band "side"<br />
+<br />
+"Life isn't fair because what's defined as 'fair' is self-centered and the 
+universe simply does not revolve around any single person."<br />
+<br />
+"Our universal existence isn’t some grandiose concept or a playpen for God"<br />
+<br />
+"Physics doesn't care, genetics is pitiless, and the whole universe doesn't give 
+a damn because it is all operating on a time scale significantly longer than any 
+single human life!"<br />
+<br />
+"If you want a theological scale-conundrum to ruminate over ask yourself who 
+created God?"<br />
+<br />
+"Randomness is created by heat because it is the heat that causes molecules and 
+atoms to move around, so literally the chaotic nature of our reality is a 
+product of some mere three degrees Kelvin that our universe is currently warmed 
+to!!"<br />
+<br />
+"Meaning truly is 'all in the mind' for your own personal perspective and 
+attitude literally determines whether you live or you commit suicide; the 
+physical universe doesn't care at all one way or the other and will continue 
+humming away long after you're gone just as it did long before you were around."<br />
+<br />
+"If you wait on your ass here the avalanche will bury you"<br />
+<br />
+"If you can't get it right don't do it at all"<br />
+<br />
+"Between thought and life there is a wide abyss." <br />
+<br />
+"The source of life's excitement is the unknown, the chance and risk residing 
+within all new encounters. Take it away, make everything predictable, knowable 
+and the result is stasis, boredom, hatred for life and eventual suicide."<br />
+<br />
+"Just think of the simple fact that the laws of the universe and biology are all 
+even capable of being comprehended with a modicum of human effort."<br />
+<br />
+"Free economics only enriches the already rich"<br />
+<br />
+"When we conclude that we each only get one life, the goal becomes painfully 
+obvious, as unpleasant as the sight of the predator messily devouring the prey 
+on Wild Kingdom. I think humans are the gods, but the corporal package is a 
+powerful dichotomy. Worm and god side by side. We need no higher power for 
+justification or success, only the desire and willpower. Each human life has the 
+potential, but unless one strives to be a god they are only a worm. We can do 
+anything the question is will we?"<br />
+<br />
+"Although evolution has no goal and our purpose may be just as elusive that 
+doesn't void significance, it doesn't make action and consequence irrelevant..."<br />
+<br />
+"Our very identity is defined by relative connections. If you want to alter who 
+you are you must control what surrounds you, what the inputs are. Identity just 
+like meaning itself is largely (but not completely discounting genetic origins) 
+relative to surroundings."<br />
+<br />
+"Artificial law is primarily an exercise in futility because forcing someone to 
+be something they aren't inevitably leads to repression, perversion and anguish. 
+Nihilism rejects human justice because it is based upon the whims of fashion and 
+culture, meaning morality. It is not based upon fact or what actually happens, 
+indeed most every historical example of morality is one of a square peg being 
+forced through a round hole"<br />
+<br />
+Factors that made advanced life possible include the Earth's having:<br />
+* The proper distance from the sun to allow development of habitat for complex 
+life and ensure that water remains liquid, not vapor or ice. <br />
+* The proper mass to retain atmosphere and ocean. <br />
+* Plate tectonics, which act as a sort of atmospheric thermostat, build land 
+masses and enhance biotic diversity. <br />
+* A neighbor the size of Jupiter, not too close and not too far away, that can 
+use its gravity to protect the planet from too many life-extinguishing 
+collisions with comets and asteroids. <br />
+* A stable orbit unperturbed by giant planets. <br />
+* A large moon at the right distance to stabilize tilt, thus ensuring seasonal 
+climate fluctuations that are not too severe. <br />
+* Enough carbon to support development of life but not so much to allow for 
+runaway greenhouse conditions. <br />
+In addition, Brownlee and Ward contend, the solar system's position in the Milky 
+Way galaxy also is key to life development on Earth. At the edge of the galaxy, 
+many stars are too metal-poor for planet formation, while the center of the 
+galaxy has extreme energy processes that would hinder complex life.<br />
+<br />
+If there IS extra-terrestrial life they would be far more advanced species since 
+Earth is a new planet and they would have much more time for evolution! 
+(possibly billions of years more)<br />
+<br />
+a deficit of matter appears to exist in the universe to account for the 
+gravitational mechanics that are observed. Thus one conclusion is that large 
+quantities of unknown or undetected matter must exist to account for the 
+structure of the known universe. It could be simple like neutrinos (if they have 
+enough mass and quantity) or something totally unknown yet. But one answer I 
+haven’t seen explored has to do with black holes (maybe I should research Mr. 
+Hawkings work?). Since black holes suck in matter and energy without producing 
+anything at all in return, then logically the universe today has less matter and 
+energy than it did 10-15 billion years ago when it started out. And since the 
+observed distant universe is farther back in time, perhaps the 
+mass-gravitational characteristics of our universe are changing. This is 
+actually fairly profound because it could mean that the very laws of physics are 
+changing as well.<br />
+<br />
+"Reality is heaven and hell at the same time! Like a beggar in a grocery store. 
+So much potential for so few to gain!!"<br />
+<br />
+"Sex is the cheapest, most basal form of entertainment humanly possible 
+(violence is second)."<br />
+<br />
+"The most incomprehensible thing about the universe is that it is 
+comprehensible," Albert Einstein<br />
+<br />
+"Life is a diversion from the inevitable ending"<br />
+<br />
+"Everything beyond survival consists of the search for escape; collecting money 
+or toys, mindless entertainment, drugs, etc."<br />
+<br />
+"What is good and bad? Nothing. What does that mean? Nothing."<br />
+<br />
+"Parents tell kids not to swear for example but kids demand a reason to back up 
+the argument, especially when the parents swear anyway."<br />
+<br />
+"Once you’re gone you’re gone forever but parts of you can remain physically 
+through genetic continuity and memetically through fame and ideas."<br />
+<br />
+"All existence is struggle, life is war and peace is death; suicide is just 
+getting there prematurely"<br />
+<br />
+"Why does it seem like when we live for today everything fails and strategic 
+planning was what should have been done; yet whenever we try to plan ahead the 
+results get destroyed by future events anyway?! It's all so pointless, we don't 
+really know anything! Quantum fluctuations create the presents future - it's 
+probably impossible to control all of the choices - how much power does one 
+individual have. Besides all structures are dynamic and rely on multiple choices 
+to determine the outcome."<br />
+<br />
+"Basically all of human endeavor is wrapped up within the inveterate quest for 
+immortality; after all, if your just going to die then what's the point of 
+anything?"<br />
+<br />
+"Sexual and maternal bonding is just Oxytocin produced by the Pitutary gland."<br />
+<br />
+"Everyone has their own reality. <br />
+Everything is ME, I am the universe; reality is my own filmstrip."<br />
+<br />
+- Extracted from CounterOrder.com and Holology.com<br />
+<br />
+I CaN SmelL YouR WickeD RigormortiS A MilE FroM ThE MorguE. ThE ScorN IN YouR 
+SouL MaY TelL YoU TO HumiliatE YouR EnemieS HavE NoT YoU ReaD ThE ArT OF WaR, 
+AbsenT MindeD TO ThE EndurinG, PourinG YouR CuP OF DamnatioN IN ThE MidsT OF MY 
+WorlD YoU GottA BE OuttA YouR MonkeY AsS MinD. NO MorE WilL ThE LooK OF MedusA 
+SeducE ThE PredecessorS AnD EntrepreneurS.<br />
+<br />
+Keep it real, keep your sanity (or not), and of course... keep your enemies 
+close.<br />
+|[xHostiLe]|<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+            <img alt="BomberHR" src="hr-planeani.gif" width="458" height="55" /><br />
+          </div>
+        </div>
+        <div class="CntFooter"></div>
+      
+        <!-- Insert contentBox here --> 
+      </div>
+    </div>
+    <div id="col-3">
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::Calendar::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="NavCal"> 
+            <script type="text/javascript">
+                                var todaydate = new Date()
+                                var curmonth = todaydate.getMonth() + 1 //get current month (1-12)
+                                var curyear = todaydate.getFullYear() //get current year
+                                document.write(buildCal(curmonth, curyear, "main", "month", "daysofweek", "days", 0));
+                            </script> 
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+      <div id="col-3">
+        <div class="NavBox">
+          <div class="NavHead">
+            <div class="NavHeadInfo">..::Top 10 Games::..</div>
+          </div>
+          <div class="NavFill">
+            <div class="NavInfo"> 1. Command and Conquer Alpha<br />
+              2. Empire Earth III<br />
+              3. 18 Wheels<br />
+              4. Sims Makin Magic<br />
+              5. Gangsters: Organized Crime<br />
+              6. Mortal Kombat X + Gold<br />
+              7. Rayden 2 Demo<br />
+              8. Incoming<br />
+              9. Carmageddon 2: Carpolypse Now<br />
+              10. Delta Force IV: Task Force Dagger<br />
+              11. Infestation<br />
+              12. Midtown Madness 2<br />
+              13. Watchdogs<br />
+              14. The Crew 2<br />
+              15. GTA V<br />
+              16. Crysis 4<br />
+              17. Titanfall 2<br />
+              18. Psi-Ops: The Mindgate Conspiracy<br />
+              19. Mafia<br />
+              20 Saints Row<br />
+              21. War Chess<br />
+              22. Star Wars: GB Saga<br />
+              23. Age of Mythology: TotD<br />
+              24. Red Alert 2: Yuri's Revenge<br />
+              25. Metal Fatigue </div>
+            <div class="NavFooter"></div>
+          </div>
+        </div>
+      </div>
+      <div id="col-3">
+        <div class="NavBox">
+          <div class="NavHead">
+            <div class="NavHeadInfo">..::Links (Ext.)::..</div>
+          </div>
+          <div class="NavFill">
+            <div class="NavInfo"> <a href="http://www.tuts4you.com/">Tuts4You</a><br />
+              <a href="http://ocw.mit.edu/">MIT OCW</a><br />
+              <a href="http://vx.netlux.org/">VX Heavens</a><br />
+              <a href="http://www.textfiles.com/">Textfiles.com (Ezine)</a><br />
+              <a href="http://chronos.ws/">Chronos Time Travel</a><br />
+              <a href="http://deoxy.org/">Deoxy</a><br />
+              <a href="http://www2.lv.psu.edu/jkl1/runawaylives/readstories.html"> Runaway
+              Lives </a><br />
+              <a href="http://w3.cultdeadcow.com/cms/texXxt.html">cDc Paramedia</a><br />
+              <a href="http://www.mymiserablelife.com/">Miserable Life Comp</a><br />
+              <a href="http://www.thescriptsource.net/Scripts/FightClub.pdf"> Movie Scripts
+              FightClub </a><br />
+              <a href="https://www.magrent.com/torrent-magnet/download/4d516685754b42154b4d7210d924a58c94d439c7"> PC Strategy Guides </a><br />
+              <a href="http://users.cs.cf.ac.uk/Dave.Marshall/C/CE.html"> C Programming </a><br />
+              <a href="https://www.youtube.com/watch?v=XU_xLcYohtk"> MM2 lag fix </a><br />
+              <a href="http://www.mm2x.com/page.php?name=Downloads&amp;d_op=viewdownloaddetails&amp;cid=2&amp;lid=1388&amp;ttitle=Chicago#dldetails"> MM2 Chicago Track </a><br />
+              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=636984276"> SWGB:CC Widesreen fix </a><br />
+              <a href="https://thepiratebay.org/torrent/6276218/War_Chess_v1.1_[PC_GAME]_(2006)__INSTALL_"> War Chess 1.1 </a><br />
+              <a href="http://developer.download.nvidia.com/books/HTML/gpugems/gpugems_pref01.html"> NVIDIA GPU Gems </a><br />
+              <a href="http://pages.cs.wisc.edu/~remzi/OSTEP/"> Operating Systems: Three Easy Pieces </a><br />
+              <a href="http://philip.greenspun.com/seia/"> Software Engineering for Internet Applications </a><br />
+              <a href="http://www.coderholic.com/25-free-computer-science-books/"> 25 Free Computer Science Books </a><br />
+              <a href="http://www.ebook777.com"> Vast e-book Library </a><br />
+              <a href="https://megagames.com/fixes/grand-theft-auto-3-v10-gereng"> GTA 3 No-CD crack </a><br />
+              <a href="http://www.thegtaplace.com/downloads/f1186-gta-iii-27-trainer"> GTA 3 +27 Trainer </a><br />
+              <a href="http://www.thegtaplace.com/downloads/f80-vice-city-11-patch"> GTA VC 1.1 Patch </a><br />
+              <a href="https://megagames.com/fixes/grand-theft-auto-vice-city-5"> GTA VC No-CD crack </a><br />
+              <a href="http://www.gameesc.com/archives/grand-theft-auto-vice-city-trainer-11-by-xeonbyte/"> GTA VC Trainer </a><br />
+              <a href="http://www.e-booksdirectory.com/listing.php?category=264"> Game Programming [HTML] books </a><br />
+              <a href="http://www.goanwap.com/ebook-kee-list2-ndms.html">Nancy Drew [HTML] eBooks</a></div>
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="clearB"></div>
+  <div id="foot">
+    <div id="foot-Info-Left"> Welcome to the Hells Lab Team<span class="style3">™</span> website.<br />
+      You are visitor # <!-- Start of StatCounter Code for Default Guide --> 
+      <script type="text/javascript">
+var sc_project=11230248; 
+var sc_invisible=0; 
+var sc_security="91ab42c0"; 
+var sc_text=5; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+      <noscript>
+      <div class="statcounter"><a title="Web Analytics"
+href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="//c.statcounter.com/11230248/0/91ab42c0/0/" alt="Web
+Analytics"></a></div>
+      </noscript>
+      <!-- End of StatCounter Code for Default Guide --> 
+      to enter this site ! <br />
+      My new site following the termination of my old PS+Frontpage site on TFT
+      (The FreeWeb Town.) Using templates have helped streamline &amp; automate gfx
+      |processes.<br />
+      -&gt; f4t4l_3rr0r <img style="width: 43px; height: 15px;" alt="Netscape Compatible"
+ src="now8.gif" /> <img src="blueribbon.gif" width="43" height="15" alt="Free Speech Now!"/> <img src="mircnow.gif" width="43" height="15" alt="mIRC Now"/><br />
+      Enjoy! Copyright © (2016-21) The Shadow Company®. All Rights Reserved. <img style="width: 43px; height: 15px;" alt="W3 Compatible" src="valid-css2.png" /> </div>
+    <div id="foot-Info-Right" align="right"> 
+      <script src="foot_scroller_edit.js" type="text/javascript"></script> 
+    </div>
+    <div class="clearB"></div>
+  </div>
+</div>
+<script type="text/javascript">
+
+        /******************************************
+        * Snow Effect Script- By Altan d.o.o. (http://www.altan.hr/snow/index.html)
+        * Visit Dynamic Drive DHTML code library (http://www.dynamicdrive.com/) for full source code
+        * Last updated Nov 9th, 05' by DD. This notice must stay intact for use
+        ******************************************/
+        function openwindow() {
+            window.open("autumn_effect.htm", "", "width=350,height=500")
+        }
+
+        //Configure below to change URL path to the snow image
+        var snowsrc = "snow.gif"
+        // Configure below to change number of snow to render
+        var no = 10;
+        // Configure whether snow should disappear after x seconds (0=never):
+        var hidesnowtime = 0;
+        // Configure how much snow should drop down before fading ("windowheight" or "pageheight")
+        var snowdistance = "pageheight";
+
+        ///////////Stop Config//////////////////////////////////
+
+        var ie4up = (document.all) ? 1 : 0;
+        var ns6up = (document.getElementById && !document.all) ? 1 : 0;
+
+        function iecompattest() {
+            return (document.compatMode && document.compatMode != "BackCompat") ? document.documentElement : document.body
+        }
+
+        var dx, xp, yp;    // coordinate and position variables
+        var am, stx, sty;  // amplitude and step variables
+        var i, doc_width = 800, doc_height = 600;
+
+        if (ns6up) {
+            doc_width = self.innerWidth;
+            doc_height = self.innerHeight;
+        } else if (ie4up) {
+            doc_width = iecompattest().clientWidth;
+            doc_height = iecompattest().clientHeight;
+        }
+
+        dx = new Array();
+        xp = new Array();
+        yp = new Array();
+        am = new Array();
+        stx = new Array();
+        sty = new Array();
+        snowsrc = (snowsrc.indexOf("dynamicdrive.com") != -1) ? "snow.gif" : snowsrc
+        for (i = 0; i < no; ++i) {
+            dx[i] = 0;                        // set coordinate variables
+            xp[i] = Math.random() * (doc_width - 50);  // set position variables
+            yp[i] = Math.random() * doc_height;
+            am[i] = Math.random() * 20;         // set amplitude variables
+            stx[i] = 0.02 + Math.random() / 10; // set step variables
+            sty[i] = 0.7 + Math.random();     // set step variables
+            if (ie4up || ns6up) {
+                if (i == 0) {
+                    document.write("<div id=\"dot" + i + "\" style=\"POSITION: absolute; Z-INDEX: " + i + "; VISIBILITY: visible; TOP: 15px; LEFT: 15px;\"><img src='" + snowsrc + "' border=\"0\"><\/div>");
+                } else {
+                    document.write("<div id=\"dot" + i + "\" style=\"POSITION: absolute; Z-INDEX: " + i + "; VISIBILITY: visible; TOP: 15px; LEFT: 15px;\"><img src='" + snowsrc + "' border=\"0\"><\/div>");
+                }
+            }
+        }
+
+        function snowIE_NS6() {  // IE and NS6 main animation function
+            doc_width = ns6up ? window.innerWidth - 10 : iecompattest().clientWidth - 10;
+            doc_height = (window.innerHeight && snowdistance == "windowheight") ? window.innerHeight : (ie4up && snowdistance == "windowheight") ? iecompattest().clientHeight : (ie4up && !window.opera && snowdistance == "pageheight") ? iecompattest().scrollHeight : iecompattest().offsetHeight;
+            if (snowdistance == "windowheight") {
+                doc_height = window.innerHeight || iecompattest().clientHeight
+            }
+            else {
+                doc_height = iecompattest().scrollHeight
+            }
+            for (i = 0; i < no; ++i) {  // iterate for every dot
+                yp[i] += sty[i];
+                if (yp[i] > doc_height - 50) {
+                    xp[i] = Math.random() * (doc_width - am[i] - 30);
+                    yp[i] = 0;
+                    stx[i] = 0.02 + Math.random() / 10;
+                    sty[i] = 0.7 + Math.random();
+                }
+                dx[i] += stx[i];
+                document.getElementById("dot" + i).style.top = yp[i] + "px";
+                document.getElementById("dot" + i).style.left = xp[i] + am[i] * Math.sin(dx[i]) + "px";
+            }
+            snowtimer = setTimeout("snowIE_NS6()", 10);
+        }
+
+        function hidesnow() {
+            if (window.snowtimer) clearTimeout(snowtimer)
+            for (i = 0; i < no; i++) document.getElementById("dot" + i).style.visibility = "hidden"
+        }
+
+
+        if (ie4up || ns6up) {
+            snowIE_NS6();
+            if (hidesnowtime > 0)
+                setTimeout("hidesnow()", hidesnowtime * 1000)
+        }
+
+    </script> 
+<script language="JavaScript" type="text/JavaScript">
+
+<!-- cloak
+
+// Add all DIV's of hearts
+if (document.all||document.getElementById||document.layers){
+for (k=0;k<kisserCount;k=k+2) {
+  document.write('<div id="kisser' + k + '" class="kisser"><img src="' + theimage + '" alt="" border="0"></div>\n')
+  document.write('<div id="kisser' + (k+1) + '" class="kisser"><img src="' + theimage2 + '" alt="" border="0"></div>\n')
+}
+}
+
+		
+
+// decloak -->
+
+    </script>
+         <script type="text/javascript">
+var myVar;
+function myFunction() {
+  myVar = setTimeout(showPage, 500); /*3000|8000tweaked*/
+}
+
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("myDiv").style.display = "block";
+}
+	</script>    
+</body>
+</html>

@@ -1,0 +1,932 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">
+/* Center the loader */
+#loader {
+	position: fixed !important;
+	/*display: -webkit-flexbox !important;
+    display: -ms-flexbox !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+    -webkit-flex-align: center !important;
+    -ms-flex-align: center !important;
+    -webkit-align-items: center !important;
+    align-items: center !important;
+    justify-content: center !important;*/
+    left: 50% !important;
+  top: 50% !important;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0px 0px -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+	/*-moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);*/
+	    
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative !important;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#myDiv {
+  display: none;
+  text-align: left; /* center*/
+}
+</style>
+<title>Psionic Symbiosis xtc™ PC Games [Unphamiliar Territory]</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-us" />
+<meta name="keywords" content="comp sci, philosophy, writing, newssource" />
+<meta name="description" content="The coolest fansite\ script source on the web... Find almost anything _interesting_ in here..." />
+<meta content="Shadow Company" name="author" />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="stylesheet" type="text/css" href="nuke-ice.css" />
+<script type="text/javascript" src="basiccalendar.js"></script>
+<style type="text/css">
+<!--
+.kisser {
+	position: absolute;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	visibility: hidden;
+}
+
+</style>
+<script language="JavaScript1.2" type="text/JavaScript">
+
+
+//Kissing trail- By dij8 (dij8@dij8.com)
+//Modified by Dynamic Drive for bug fixes
+//Visit http://www.dynamicdrive.com for this script
+
+kisserCount = 15 //maximum number of images on screen at one time
+curKisser = 0 //the last image DIV to be displayed (used for timer)
+kissDelay = 1000 //duration images stay on screen (in milliseconds)
+kissSpacer = 50 //distance to move mouse b4 next heart appears
+theimage = "lips_small.gif" //the 1st image to be displayed
+theimage2 = "small_heart.gif" //the 2nd image to be displayed
+
+
+//Browser checking and syntax variables
+var docLayers = (document.layers) ? true:false;
+var docId = (document.getElementById) ? true:false;
+var docAll = (document.all) ? true:false;
+var docbitK = (docLayers) ? "document.layers['":(docId) ? "document.getElementById('":(docAll) ? "document.all['":"document."
+var docbitendK = (docLayers) ? "']":(docId) ? "')":(docAll) ? "']":""
+var stylebitK = (docLayers) ? "":".style"
+var showbitK = (docLayers) ? "show":"visible"
+var hidebitK = (docLayers) ? "hide":"hidden"
+var ns6=document.getElementById&&!document.all
+
+//Variables used in script
+var posX, posY, lastX, lastY, kisserCount, curKisser, kissDelay, kissSpacer, theimage
+lastX = 0
+lastY = 0
+
+//Collection of functions to get mouse position and place the images
+
+function doKisser(e) {
+  posX = getMouseXPos(e)
+  posY = getMouseYPos(e)
+  if (posX>(lastX+kissSpacer)||posX<(lastX-kissSpacer)||posY>(lastY+kissSpacer)||posY<(lastY-kissSpacer)) {
+    showKisser(posX,posY)
+    lastX = posX
+    lastY = posY
+  }
+}
+
+// Get the horizontal position of the mouse
+function getMouseXPos(e) {
+  if (document.layers||ns6) {
+    return parseInt(e.pageX+10)
+  } else {
+    return (parseInt(event.clientX+10) + parseInt(document.body.scrollLeft))
+  }
+}
+
+// Get the vartical position of the mouse
+function getMouseYPos(e) {
+  if (document.layers||ns6) {
+    return parseInt(e.pageY)
+  } else {
+    return (parseInt(event.clientY) + parseInt(document.body.scrollTop))
+  }
+}
+
+//Place the image and start timer so that it disappears after a period of time
+function showKisser(x,y) {
+  var processedx=ns6? Math.min(x,window.innerWidth-75) : docAll? Math.min(x,document.body.clientWidth-55) : x
+  if (curKisser >= kisserCount) {curKisser = 0}
+  eval(docbitK + "kisser" + curKisser + docbitendK + stylebitK).left =  processedx + 'px'
+  eval(docbitK + "kisser" + curKisser + docbitendK + stylebitK).top = y + 'px'
+  eval(docbitK + "kisser" + curKisser + docbitendK + stylebitK + ".visibility = '" + showbitK + "'")
+  if (eval("typeof(kissDelay" + curKisser + ")")=="number") {
+    eval("clearTimeout(kissDelay" + curKisser + ")")
+  }
+  eval("kissDelay" + curKisser + " = setTimeout('hideKisser(" + curKisser + ")',kissDelay)")
+  curKisser += 1
+}
+
+//Make the image disappear
+function hideKisser(knum) {
+  eval(docbitK + "kisser" + knum + docbitendK + stylebitK + ".visibility = '" + hidebitK + "'")
+}
+
+function kissbegin(){
+
+//Let the browser know when the mouse moves
+if (docLayers) {
+  document.captureEvents(Event.MOUSEMOVE)
+  document.onMouseMove = doKisser
+} else {
+  document.onmousemove = doKisser
+}
+}
+
+window.onload=kissbegin
+// decloak -->
+    </script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="scrolltopcontrol.js">
+
+        /***********************************************
+        * Scroll To Top Control script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+        * Please keep this notice intact
+        * Visit Project Page at http://www.dynamicdrive.com for full source code
+        ***********************************************/
+
+    </script>
+<script type="text/JavaScript">
+	
+function FP_swapImg() {//v1.0
+ var doc=document,args=arguments,elm,n; doc.$imgSwaps=new Array(); for(n=2; n<args.length;
+ n+=2) { elm=FP_getObjectByID(args[n]); if(elm) { doc.$imgSwaps[doc.$imgSwaps.length]=elm;
+ elm.$src=elm.src; elm.src=args[n+1]; } }
+}
+
+function FP_preloadImgs() {//v1.0
+ var d=document,a=arguments; if(!d.FP_imgs) d.FP_imgs=new Array();
+ for(var i=0; i<a.length; i++) { d.FP_imgs[i]=new Image; d.FP_imgs[i].src=a[i]; }
+}
+
+function FP_getObjectByID(id,o) {//v1.0
+ var c,el,els,f,m,n; if(!o)o=document; if(o.getElementById) el=o.getElementById(id);
+ else if(o.layers) c=o.layers; else if(o.all) el=o.all[id]; if(el) return el;
+ if(o.id==id || o.name==id) return o; if(o.childNodes) c=o.childNodes; if(c)
+ for(n=0; n<c.length; n++) { el=FP_getObjectByID(id,c[n]); if(el) return el; }
+ f=o.forms; if(f) for(n=0; n<f.length; n++) { els=f[n].elements;
+ for(m=0; m<els.length; m++){ el=FP_getObjectByID(id,els[n]); if(el) return el; } }
+ return null;
+}
+	</script>    
+<style type="text/css">
+.style2 {
+	margin: 0px auto;
+	padding: 0px;
+	width: 460px;
+	position: relative;
+    text-overflow: clip !important;
+	/*overflow: auto;*/
+    word-break: break-all !important;
+	font-family: Verdana;
+	font-size: 0.7em !important;
+	text-decoration: none;
+	color: #6a7c98;
+}
+	.btn-disable:not(.nohover):hover {  
+    border-width: 0px;
+	border-style: none;	
+}
+
+a {
+	font-weight: normal;
+}
+a:link {
+	color: #6A7C98;
+}
+a:visited {
+	color: #6A7C98;
+}
+a:hover {
+	text-decoration: none;
+	color: white;
+	background-color: green;
+	border-width: 2px;
+	border-style: dotted;
+	border-color: purple;
+}
+a:active {
+	color: aqua;
+	background-color: navy;
+}
+.style3 {
+	font-size: 11px;
+	letter-spacing: normal;
+	background-color: #141A21;
+}
+.style4 {
+	color: #FF0000;
+	font-size: 6px;
+}
+.style5 {
+	color: #FF0000;
+	font-size: 6px;
+}
+.style6 {
+	font-family: Wingdings;
+}
+</style>
+</head>
+
+<body style="direction: ltr;"><!--onload="FP_preloadImgs(/*url*/'buttonB3.gif',/*url*/'buttonB4.gif',/*url*/'buttonC4.gif',/*url*/'buttonC5.gif',/*url*/'buttonC7.gif',/*url*/'buttonC8.gif');>-->
+    <script language="JavaScript" type="text/JavaScript">
+function start() {
+  myFunction();
+  kissbegin();
+}
+window.onload = start;
+</script>
+<div id="loader"></div>
+<div style="display:none;" id="myDiv" class="animate-bottom">
+<div id="wrapper">
+  <div id="banner">
+    <div id="banner-edit"><img style="width: 100px; height: 75px;" alt="Green Skulls (Rotating" src="skullgre.gif" align="middle" vspace="30" /><img style="width: 600px; height: 48px;" alt="Logo text banner" src="coollogo_com-32082252.png" align="middle" /><img style="width: 100px; height: 75px;" alt="Green Skulls (Rotating" src="skullgre.gif" align="top" vspace="30" /></div>
+  </div>
+  <div id="container">
+    <div id="col-1">
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::SiteMap::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="nav-menu">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about-this-blog.html">About Us</a> <strong><sup><span class="style4">New!</span></sup></strong></li>
+              <li>Services</li>
+              <li>Products</li>
+              <li><a href="http://alien-fx-fiend.livejournal.com/">Blog</a></li>
+              <li><a href="comp-sci.html">Comp Engineering</a> <strong><sup><span class="style4">New!</span></sup></strong></li>
+              <li><a href="#">Science</a></li>
+              <li><a href="philosophy.html">Philosophy</a> <strong><sup><span class="style4">New!</span></sup></strong></li>
+              <li><a href="#">Creative Writing/Lingu</a></li>
+              <li><a href="pc-games.html">PC Games</a> <strong><sup><span class="style5">New!</span></sup></strong></li>
+              <li><a href="#">World Domination</a></li>
+              <li><a href="exp2.html#"> Studies-Related</a></li>
+              <li><a href="#">Miscellaneous</a></li>
+              <li><a href="exp2.html#">E-Zine</a></li>
+              <li><a href="mailto:alien.fx_fiend@yahoo.com?subject=Enquiry">Contact Us</a></li>
+              <li><a href="http://users2.smartgb.com/g/g.php?a=s&amp;i=g26-34462-59">Guestbook</a></li>
+              <li><a href="http://neoviper10.boards.net/">Message Board</a></li>
+              <li>Win Tweaks?!</li>
+              <li>Forum</li>
+              <li>Photo Gallery</li>
+            </ul>
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::Update Logz::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="NavInfo"> Testing The Small Content Box For Demo Purposes<br />
+            22/11 11:13 Added Tickertape+mousetrailx<br />
+            4/12 22:00 Expanded Computer Sections+Nav Links+Switched to MSEW<br />
+            6/12 1:50 Added favicon<br />
+            10/12 1:37 Improved Design<br />
+            23/1 16:00 Added CSS hover link effect<br />
+            5/7 00:52 MouseTrail + Fixed Phong + Encoding + link + Scrolltop + Snow<br />
+            8/7 10:45 Malicious virus script s.igmhb finally eradicated<br />
+            9/7 22:20 Few additional links, Uploading directly from MSEW now:rollouts<br />
+            24/7 00:00 Added comp-sci &amp; pc-games pages<br />
+            16/8 16:00 Added Nav Buttons &amp; Custom Search Engine, Switched to Dreamviewer (EW buggy+discn)<br />
+            24/8 3:32 Minor touches to the website &mdash;mostly ripping gifs &amp; imgsearching<br />
+            8/9 7:25 Minor additions &amp; few more links<br />
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::SiteGear Poll::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="NavInfo"> Testing The Small Content Box For Demo Purposes </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+    </div>
+    <div id="col-2">
+      <div class="CntBox">
+        <div class="CntHead">
+          <div class="CntHeadInfo">Main Content:</div>
+        </div>
+        <div class="CntFill">
+          <div class="style2"> <br />
+            [ <a href="index.html" class="btn-disable"> <img style="border: 0" id="img1" src="button1C.gif" height="20" width="100" alt="Back" onmouseover="FP_swapImg(1,0,/*id*/'img1',/*url*/'buttonAA.gif')" onmouseout="FP_swapImg(0,0,/*id*/'img1',/*url*/'button1C.gif')" onmousedown="FP_swapImg(1,0,/*id*/'img1',/*url*/'buttonAB.gif')" onmouseup="FP_swapImg(0,0,/*id*/'img1',/*url*/'buttonAA.gif')" /><!-- MSComment="ibutton" fp-style="fp-btn: Soft Capsule 7; fp-transparent: 1" fp-title="Back" --></a> ] &nbsp; [ <a href="index.html" class="btn-disable"> <img style="border: 0" id="img4" src="buttonA3.gif" height="20" width="100" alt="Home" onmouseover="FP_swapImg(1,0,/*id*/'img4',/*url*/'buttonAD.gif')" onmouseout="FP_swapImg(0,0,/*id*/'img4',/*url*/'buttonA3.gif')" onmousedown="FP_swapImg(1,0,/*id*/'img4',/*url*/'buttonAE.gif')" onmouseup="FP_swapImg(0,0,/*id*/'img4',/*url*/'buttonAD.gif')" /><!-- MSComment="ibutton" fp-style="fp-btn: Soft Capsule 7; fp-transparent: 1" fp-title="Home" --></a> ] &nbsp; [ <img style="border: 0" id="img3" src="button35.gif" height="20" width="100" alt="Forward" onmouseover="FP_swapImg(1,0,/*id*/'img3',/*url*/'buttonB0.gif')" onmouseout="FP_swapImg(0,0,/*id*/'img3',/*url*/'button35.gif')" onmousedown="FP_swapImg(1,0,/*id*/'img3',/*url*/'buttonB1.gif')" onmouseup="FP_swapImg(0,0,/*id*/'img3',/*url*/'buttonB0.gif')" /><!-- MSComment="ibutton" fp-style="fp-btn: Soft Capsule 7; fp-transparent: 1" fp-title="Forward" --> ] <br />
+            <br />
+            <a href="http://www.jafgames.com/game/the-king-of-fighters-wing-v14-54"> King
+            of Fighters Online </a><br />
+            <a href="http://gamers2play.com/game/uno-online"> UNO Online - Game -
+            Gamers2Play.com </a><br />
+            <a href="http://cs.gameflare.com/">Cartoon Strike: Lite Online</a><br />
+            <a href="http://www.pogo.com/games/monopoly?utm_medium=apps&utm_source=chromeapp&utm_campaign=monopolyworldedition"> Monopoly | Pogo.com® Free Online Games </a><br />
+            <a href="http://libertygalaxy.com/ebooks/starwars/">Index of /ebooks/starwars</a><br />
+            <a href="http://www.chesscorner.com/tutorial/openings/opening_survey.htm"> A
+            Survey of the Openings </a><br />
+            <a href="https://www.naclbox.com/gallery/wolf">Play Wolfenstein 3D - Naclbox</a><br />
+            <a href="http://mediafire-bank.blogspot.com/2011/09/monopoly-2008-portable-mediafire-link.html"> Monopoly 2008 portable (mediafire link) </a><br />
+            <a href="http://www.gahe.com/Nascar-Racing-3"> Nascar Racing 3 - Play The
+            Game Online </a><br />
+            <a href="https://docs.google.com/document/d/1H0wOPdA-RzHkgITUywiB1DgqkX2V7CrUtskb2EqSlUA/edit?usp=sharing">TA new economy guide</a><br />
+            <a href="https://thepiratebay.org/torrent/10258959/The_Sims_1_-_Complete_With_All_Expansions">The Sims 1 - Complete With All Expansions [Torrent]</a><br />
+            <a href="https://thepiratebay.org/search/The%20Sims%20Complete%20Collection%20-%20virtualdon/0/99/400">The Sims Complete Collection - virtualdon [Torrent Search] Link#2</a><br />
+            <a href="http://thugracing.com/junior-chess/fullscreen/">Junior Chess</a><br />
+            <a href="https://en.lichess.org">Lichess.org</a><br />
+            <a href="https://www.chess.com/play/computer">Chess.com</a><br />
+            <a href="https://dopewars.sourceforge.io/">DopeWars (Druglord (by John E. Dell))</a><br />
+            Harry Potter [2] and the Chamber of Secrets CD Key: 2501-5635676-9791120-3400<br />
+            <a href="https://thepiratebay.org/torrent/3938863/GEARHEAD_GARAGE__UPDATES___NEW_VEHICLES">GEARHEAD GARAGE +UPDATES &amp; NEW VEHICLES</a><br />
+            <a href="https://thepiratebay.org/torrent/16437232/Houdini_5.01_UCI_Chess_Engines_[Full]">Houdini 5.01 UCI Chess Engines [Full]</a><br />
+            <a href="https://thepiratebay.org/torrent/18226879/Komodo_11.01_UCI_Chess_Engines">Komodo_11.01_UCI_Chess_Engines</a><br />
+            <a href="http://playwitharena.com/?User_Files%2C_Engines:Arena_Graphics%2C_Intros:Intro_Sounds">Arena Chess GUI 3.5.1</a><br />
+            <a href="http://pcgaming.ws/viewgame.php?game=chess_it3">Chess-It! 3</a> <br />
+            <a href="http://www.metacritic.com/game/pc/command-conquer-tiberium-alliances">Tiberium Alliances [PC] trailer</a><br />
+            <a href="http://ts1depot.hfguide.net/houses/index.html">More Sims Lots\ Objects and stuff...</a><br />
+            <a href="http://www.8bbit.com/play/battle-city/2010">Battle City 2010 [Flash]</a><br />
+            <a href="http://www.betterthanchess.com/">BetterThanChess: 3D Chess Game [online] for Beginners (Great graphics)</a><br />
+            http://www.sparkchess.com/ http://www.mdgx.com/chess3.htm<br />
+            <a href="http://www.webbattleship.com/">Online Battleship</a><br />
+Desktop toy progs: <a href="http://esheep.petrucci.ch/">Desktop eSheep\ Stray Sheep/</a> &amp; <a href="http://www.softpedia.com/hubs/Desktop-Screenmates/">Softpedia Screenmates (Ants\ Heineken\ Frog)</a><br />
+<a href="http://www.snapfiles.com/get/alarmtarry.html">Alarm Clock by Tarry91</a>: Awesome &amp; robust —incorporates multi-Alarm Clock + Countdown timer (which gets translated into actual time —novel idea !) Professional, freeware &amp; feature-laden yet tiny size, this is a must have replacement for Alarms and Clock Windowz 10 app.<br />
+Choose Your Theme The Microsoft Solitaire Collection features several beautiful themes, from the simplicity of "Classic" to the serenity of an Aquarium that comes to life before you while you play. You can even create custom themes from your own photos! Xbox Live Integration Sign in with your Microsoft account to earn ...<br />
+https://www.microsoft.com/en-us/store/p/microsoft-solitaire-collection/9wzdncrfhwd2<br />
+<a href="http://www.muppetlabs.com/~breadbox/software/tworld/">Chip's Challenge freeware (Windows 10)</a><br />
+<a href="https://ski.ihoc.net/">Ski Free</a><br />
+[x] http://home.gna.org/vodovod/ pd<br />
+<a href="http://www.gametop.com/download-free-games/jezzball/">http://www.gametop.com/download-free-games/jezzball/</a><br />
+<a href="http://www.gameswin.org/gameen.php?id=176">Pitfall: The Mayan Adventure</a><br />
+<a href="https://www.mediafire.com/file/2hfnd2hk5si9yvz/wail32.dll">Sound fix for crashing</a><br />
+https://www.neowin.net/forum/topic/863796-anyone-tried-to-play-bowep-games-on-7/<br />
+<a href="https://winaero.com/blog/40-free-store-games-for-windows-8-including-new-and-classic-ones/">https://winaero.com/blog/40-free-store-games-for-windows-8-including-new-and-classic-ones/</a>(Real Chess Online by Alienforce !!)<br />
+<a href="http://ahmedateeqzia.blogspot.ro/2014/07/red-alert-2-plus-yuri-full-free-download.html">Red Alert 2: Yuri's Revenge Full setup (recommended !)</a><br />
+How to fix flickering + blackscreen: follow instructions, then install CnCNet Lobby, then search for nasoul DDraw &amp; copy |rename to ddraw.dll for the superior DDraw wrapper from CnCNet ! <a href="http://patrikkopac.blogspot.sk/2015/09/c-red-alert-2-yuris-revenge-windows.html">http://patrikkopac.blogspot.sk/2015/09/c-red-alert-2-yuris-revenge-windows.html</a> &amp; <a href="http://cncnet.org/yuris-revenge">http://cncnet.org/yuris-revenge</a><br />
+Cheat Tables for the game: <a href="http://fearlessrevolution.com/viewtopic.php?f=4&t=1026">http://fearlessrevolution.com/viewtopic.php?f=4&t=1026</a> &amp; <a href="http://www.gamepatchplanet.com/game/command_and_conquer_red_alert_2_yuris_revenge">http://www.gamepatchplanet.com/game/command_and_conquer_red_alert_2_yuris_revenge</a><br />
+<a href="http://www.mediafire.com/file/e1dlplcow4cuh7e/1137+RA2+%26+YR+Maps+%28unsorted%29.zip">Red Alert 2: Yuri's Revenge: Free large collection of maps</a><br />
+For the movies: <a href="https://thepiratebay.org/torrent/15966593/C_amp_C_Red_Alert_2___Yuri_s_Revenge_[Win10_Fixed]_-_V2">https://thepiratebay.org/torrent/15966593/C_amp_C_Red_Alert_2___Yuri_s_Revenge_[Win10_Fixed]_-_V2</a><br />
+<a href="https://gamegix.com/tetravex/game">Tetravex Online !</a><br />
+<a href="https://thepiratebay.org/torrent/3739101/Windows_Entertainment_Pack_Collection_Disks_1_-_4">https://thepiratebay.org/torrent/3739101/Windows_Entertainment_Pack_Collection_Disks_1_-_4</a><br />
+<a href="https://thepiratebay.org/torrent/4793630/Microsoft_Entertainment_Pack">https://thepiratebay.org/torrent/4793630/Microsoft_Entertainment_Pack</a> (error)<br />
+<a href="https://thepiratebay.org/torrent/3509003/Best_of_Windows_Entertainment_pack_(Classic_games)">https://thepiratebay.org/torrent/3509003/Best_of_Windows_Entertainment_pack_(Classic_games)</a><br />
+<a href="http://collectionchamber.blogspot.com/2016/01/star-wars-chess.html">http://collectionchamber.blogspot.com/2016/01/star-wars-chess.html</a><br />
+<a href="http://www.chessmania.narod.ru/chess2005/ChessKids.rar">http://www.chessmania.narod.ru/chess2005/ChessKids.rar</a><br />
+<a href="https://www.youtube.com/watch?v=26OQONzwHF0">https://www.youtube.com/watch?v=26OQONzwHF0</a> &amp; <a href="https://www.youtube.com/watch?v=QU3v28mhnyg">https://www.youtube.com/watch?v=QU3v28mhnyg</a>:VirtualBox XP 32 bit How-to<br /><a href="http://vetusware.com/download/Microsoft%20Entertainment%20Pack%204%20SE/?id=8357">For Tic-Tac-Drop WEP</a><br />
+<a href="https://fearlessrevolution.com/threads/red-alert-2-and-yuris-revenge.1026/">https://fearlessrevolution.com/threads/red-alert-2-and-yuris-revenge.1026/</a> <a href="https://fearlessrevolution.com/attachments/ddraw-rar.9580/">https://fearlessrevolution.com/attachments/ddraw-rar.9580/</a> (Alt+Tab DDraw) (Put the dll in your game folder.) <a href="http://patrikkopac.blogspot.sk/2015/09/c-red-alert-2-yuris-revenge-windows.html">http://patrikkopac.blogspot.sk/2015/09/c-red-alert-2-yuris-revenge-windows.html</a><br />
+<a href="http://hdvds9.com/file/download?id=62IW2zl3m8U">http://hdvds9.com/file/download?id=62IW2zl3m8U</a> (MK videos) <a href="https://www.mksecrets.net/forums/eng/viewtopic.php?f=11&t=4211">https://www.mksecrets.net/forums/eng/viewtopic.php?f=11&t=4211</a> <a href="http://www.mediafire.com/file/okycuxu6fzy75cz/UMK4.zip">http://www.mediafire.com/file/okycuxu6fzy75cz/UMK4.zip</a> <a href="https://www.myabandonware.com/game/mortal-kombat-4-450">https://www.myabandonware.com/game/mortal-kombat-4-450</a><br />
+<a href="https://eltorrents.com/torrent/5792702/Command+&+Conquer+Red+Alert+2+++Yuri's+Revenge+%5bWin10+Fixed%5d+-+V2.html">https://eltorrents.com/torrent/5792702/Command+&+Conquer+Red+Alert+2+++Yuri's+Revenge+%5bWin10+Fixed%5d+-+V2.html</a><br />
+<a href="https://thepiratebay.org/torrent/5324742/COMMAND.AND.CONQUER.RED.ALERT.2.YURIS.REVENGE-DEViANCE">https://thepiratebay.org/torrent/5324742/COMMAND.AND.CONQUER.RED.ALERT.2.YURIS.REVENGE-DEViANCE</a><br />
+<a href="http://parsimonious.org/sims1.html">http://parsimonious.org/sims1.html</a><br />
+<a href="https://www.thesimszone.co.uk/files/index.php?Section=7">https://www.thesimszone.co.uk/files/index.php?Section=7</a><br />
+<a href="https://arstechnica.com/civis/viewtopic.php?t=919321">https://arstechnica.com/civis/viewtopic.php?t=919321</a><br />
+<a href="https://www.youtube.com/watch?v=W4tSs7whlQ0&t=0s&list=LLjQOKYaWG3OXNzBsGWzI_gg&index=2">https://www.youtube.com/watch?v=W4tSs7whlQ0&t=0s&list=LLjQOKYaWG3OXNzBsGWzI_gg&index=2</a><br />
+{<a href="https://www.gamerstemple.com/games/000126/000126t00.asp">https://www.gamerstemple.com/games/000126/000126t00.asp</a><br />
+<a href="http://ultimateconsoledatabase.com/articles/yuri.htm">http://ultimateconsoledatabase.com/articles/yuri.htm</a><br />
+<a href="http://www.neoseeker.com/command-conquer-yuris-revenge/faqs/52333-yuris-revenge-tech.html">http://www.neoseeker.com/command-conquer-yuris-revenge/faqs/52333-yuris-revenge-tech.html</a> **<br />
+<a href="http://xwis.net/forums/index.php/topic/62084-yr-players-guide/">http://xwis.net/forums/index.php/topic/62084-yr-players-guide/</a><br />
+<a href="http://xwis.net/forums/index.php/topic/59475-ra2-players-guide/">http://xwis.net/forums/index.php/topic/59475-ra2-players-guide/</a><br />
+<a href="https://www.supercheats.com/pc/walkthroughs/commandandconqueryurisrevenge-walkthrough01.txt">https://www.supercheats.com/pc/walkthroughs/commandandconqueryurisrevenge-walkthrough01.txt</a><br />
+<a href="http://en.gameslol.net/monopoly-1122.html">http://en.gameslol.net/monopoly-1122.html</a><br />
+<a href="https://www.pacogames.com/driving/evo-f">https://www.pacogames.com/driving/evo-f</a><br />
+<a href="https://www.pacogames.com/strategy/epic-city-builder-2">https://www.pacogames.com/strategy/epic-city-builder-2</a><br />
+<a href="https://www.pacogames.com/action/lego-city-my-city-2">https://www.pacogames.com/action/lego-city-my-city-2</a><br />
+<a href="https://www.pacogames.com/driving/car-wrecker">https://www.pacogames.com/driving/car-wrecker</a><br />
+<a href="https://worldoftanks.asia/join/2481_EN1?utm_campaign=292&sid=SIDY3mZtOVGD2N8Y9zKflQhMEzLv1n4cSooPSPZFT2tySfnR4M919y67-PBmjFZ9xBiY16QuAko8nGa-mSv_HYaTuPl3yRfGe1fRS5JpsmrxzQ7asBgf5UHXGys90MZDTphfBx7Gzswxd1Y-CoIaH02QS8wnNZQokLQ9vH0ekB_OsLYQUtrBI85Rk3KHceUXz_BtB9mQ377Kf4PO690CgHiXq4PH-jiE8KJ9DY&utm_medium=4021&utm_source=wotcpu&lpsn=WoT+Light1+RegDark+ns">https://worldoftanks.asia/join/2481_EN1?utm_campaign=292&sid=SIDY3mZtOVGD2N8Y9zKflQhMEzLv1n4cSooPSPZFT2tySfnR4M919y67-PBmjFZ9xBiY16QuAko8nGa-mSv_HYaTuPl3yRfGe1fRS5JpsmrxzQ7asBgf5UHXGys90MZDTphfBx7Gzswxd1Y-CoIaH02QS8wnNZQokLQ9vH0ekB_OsLYQUtrBI85Rk3KHceUXz_BtB9mQ377Kf4PO690CgHiXq4PH-jiE8KJ9DY&utm_medium=4021&utm_source=wotcpu&lpsn=WoT+Light1+RegDark+ns</a><br />
+<a href="https://www.pacogames.com/logic/caveman-adventure">https://www.pacogames.com/logic/caveman-adventure</a><br />
+<a href="http://fearlessrevolution.com/threads/empire-earth-gold-gog-gm-and-more.2278/">http://fearlessrevolution.com/threads/empire-earth-gold-gog-gm-and-more.2278/</a><br />
+<a href="https://www.supercheats.com/pc/walkthroughs/empireearth-walkthrough03.txt">https://www.supercheats.com/pc/walkthroughs/empireearth-walkthrough03.txt</a><br />
+<a href="https://skidrowgamez.net/starcraft-remastered-pc-free-download/">https://skidrowgamez.net/starcraft-remastered-pc-free-download/</a><br />
+<a href="http://yuanpaper.blogspot.com/2013/05/starcraft-widescreen-with-mods-tutorials.html?m=1">http://yuanpaper.blogspot.com/2013/05/starcraft-widescreen-with-mods-tutorials.html?m=1</a><br />
+<a href="http://diabloonvista.uw.hu">http://diabloonvista.uw.hu</a><br />
+<a href="https://ia600206.us.archive.org/6/items/Tekken3_20160329/Tekken%203.exe">https://ia600206.us.archive.org/6/items/Tekken3_20160329/Tekken%203.exe</a><br />
+<a href="http://www.racketboy.com/retro/best-sega-genesis-action-platformers#">http://www.racketboy.com/retro/best-sega-genesis-action-platformers#</a><br />
+<a href="http://www.racketboy.com/retro/the-best-sega-genesis-games-hidden-gem">http://www.racketboy.com/retro/the-best-sega-genesis-games-hidden-gem</a><br /><br />
+<a href="https://github.com/OpenRA/OpenRA/">OpenRA GitHub</a><br />
+<a href="https://www.openra.net/download/">OpenRA Homepage Installer</a><br />
+<a href="https://github.com/OpenRA/OpenRA/wiki/Compiling">OpenRA Compile How-to</a><br />
+<a href="https://github.com/OpenRA/ra2">OpenRA Red Alert 2 GitHub</a><br /><br />
+<a href="https://pastebin.com/BscJ9zW6">Red Alert 2: Yuri's Revenge Download Links + How To Setup</a><br />
+<a href="https://www.thesettlersonline.com/en/homepage">The Settlers Online</a>: [browser-based RTS] Unparalleled graphics &amp; attention to detail ! Powerful &amp; good replay value (get you hooked.)<br />
+<a href="https://forum.thesettlersonline.com/threads/31942-PinkTutuPrincess-Guide-for-newbies">https://forum.thesettlersonline.com/threads/31942-PinkTutuPrincess-Guide-for-newbies</a><br />
+<a href="https://forum.thesettlersonline.net/threads/17502-Gio-s-guide-to-the-dreaded-0-production-quests">https://forum.thesettlersonline.net/threads/17502-Gio-s-guide-to-the-dreaded-0-production-quests</a><br />
+<a href="https://forum.thesettlersonline.com/threads/19136-FAQ-How-to-Adventure!">https://forum.thesettlersonline.com/threads/19136-FAQ-How-to-Adventure!</a><br />
+<a href="https://forum.thesettlersonline.com/threads/25571-Guide-Detailed-combat-guide">https://forum.thesettlersonline.com/threads/25571-Guide-Detailed-combat-guide</a><br />
+<a href="https://forum.thesettlersonline.net/threads/21045-A-beginner%E2%80%99s-guide-by-Moonlime">https://forum.thesettlersonline.net/threads/21045-A-beginner%E2%80%99s-guide-by-Moonlime</a><br />
+<a href="https://forum.thesettlersonline.com/threads/15383-Guide-Combat-Guide-amp-FAQ">https://forum.thesettlersonline.com/threads/15383-Guide-Combat-Guide-amp-FAQ</a><br />
+<a href="http://settlersonlinewiki.eu/en/island/conquer-island/">http://settlersonlinewiki.eu/en/island/conquer-island/</a><br />
+           <a href="https://www.myabandonware.com/game/comix-zone-1s1">https://www.myabandonware.com/game/comix-zone-1s1</a><br />
+           <a href="https://archive.org/details/Comix_Zone_1995_Sega">https://archive.org/details/Comix_Zone_1995_Sega</a><br />
+           <a href="http://www.freeminesweeper.org/">http://www.freeminesweeper.org/</a><br />
+<a href="https://rokawar.itch.io/war-attack">https://rokawar.itch.io/war-attack</a><br />
+<a href="https://nasser.itch.io/dialogue-3-d">https://nasser.itch.io/dialogue-3-d</a><br />
+<a href="https://itch.io/games/html5/tag-first-person">https://itch.io/games/html5/tag-first-person</a><br />
+<a href="https://rokawar.itch.io/rush-team">https://rokawar.itch.io/rush-team</a><br />
+<a href="https://snootboop.itch.io/november">https://snootboop.itch.io/november</a><br />
+<a href="https://aidenstudios.itch.io/gun-game">https://aidenstudios.itch.io/gun-game</a><br />
+<a href="https://wf.my.com/en/">https://wf.my.com/en/</a><br />
+<a href="https://www.crazygames.com/game/bullet-force-multiplayer">https://www.crazygames.com/game/bullet-force-multiplayer</a><br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+          </div>
+        </div>
+        <div class="CntFooter"></div>
+      </div>
+      <div class="CntBox">
+        <div class="CntHead">
+          <div class="CntHeadInfo"><span class="style6">&gt; </span>War Stories:</div>
+        </div>
+        <div class="CntFill">
+          <div style="text-align: justify;" class="CntInfo">
+            <center>
+              /-/-/-/-/-/ -[ The Revenge of The Technobots ]- /-/-/-/-/-/
+            </center>
+            <br />
+            <center>
+              Command and Conquer Showdown
+            </center>
+            <br />
+            acrid.There&#39;s a problem in the algorithm.She was running the code typing it
+            out from the source code book, using the define, void, string,printf tags
+            The war was blazing underway,the Imperial Empire set foot /wo it&#39;s
+            stronghold on the Comanche base which took place on the barren plains of
+            Eternia.When the smoke cleared on the red surface it lay before it a dismal
+            sight.All around lay wreckage &amp; the dunes made it a hard surface to
+            cross,creating a no-mans-land forr both warring factions.Red fumes still
+            ember from the arid landscape,destiny awaits the dogged pirate who steals
+            from this battle-weary onslaught.Back at the Soviet hq plans were underway
+            for the Allies insidious plot to use Chrono-Legionnaires &amp; spy&#39;s to steal &amp;
+            wreck the Nuke Silo,the secondary Iron Curtain was to be used,in an attempt
+            to drive back the Allied tank raids.In the heated battle the Allies planned
+            a Mirage attack Satellite Uplink<br />
+            <br />
+            <img alt="BomberHR" src="hr-planeani.gif" width="458" height="55" /><br />
+          </div>
+        </div>
+        <div class="CntFooter"></div>
+      </div>
+      <div class="CntBox">
+        <div class="CntHead">
+          <div class="CntHeadInfo"><span class="style6">&amp; </span>AOE II HD\ Star Wars Galactic Battlegrounds Saga Strats:</div>
+        </div>
+        <div class="CntFill">
+          <div class="style2">
+            <div>
+              <center>
+                -=Age of Empires Gold Guide v0.001=-
+              </center>
+              <br />
+              <img style="width: 150px; height: 210px; float: left;" hspace="5" alt="Aoeiirotr-cover" src="Aoeiirotr-cover.png"/>Shore Bombardment | Choke Points | Kill Zones | Economic Warfare\Chipping |
+              Huns are the best 4 their Huskarls | Big Boomers | Rushers\Raiding Party |
+              Paved Bombard-Tower Doom Ground Zero | Pick Island maps (/w Easy not
+              Easiest) for better defence&mdash;wall it up\place towers every few spaces | Play
+              as Korea for Naval domination | Picks Goths or Vikings as your ally &amp; Persia
+              as your enemy:Beware of Elephant + Priest + Onager hoards Steal resources to
+              stay ahead of the game | Teutonic Knights are fun &amp; cool plus can be formed
+              in large groups easily | Palisade Walls are cheap for making &#39;em in large
+              no.s for keeping the enemy out *+&amp; esp. bleeding them of resources |
+              Building Wonders to win are great for practicing your army groups &amp; winning
+              /w the least headache!!\Also Defend the Wonder is ideal for Advanced players
+              to hone their skillz | Paladins plus Trebuchets are lethal versus Castles
+              even in low numbers | Blue Lagoons are breathtaking\beautiful | Hand
+              Cannoneers are the best unit in this game!They&#39;re second to none | I miss
+              the cheat for Photon Man&mdash;if you had an older Alpha (not in Beta) build then
+              it has it&mdash;extra-ordinary way to finish the game! | Naval blockade | Last-Ditch Attempt<br />
+              <br />
+              <center>
+                -=Red Alert 2:Yuri's Revenge Battle [Strategy] Guide v0.01=-
+              </center>
+              <br />
+              <img style="width: 128px; height: 182px; float: left"; hspace="5" alt="Cncra2-cover" src="Cncra2-cover.jpg"/><img style="width: 120px; height: 171px; float: left;" hspace="5"
+ alt="cnc:yrcover"
+ src="Cncyr-cover.jpg" /> Magnetrons are lethal &amp; the best part: You need them in small numbers | How
+              to fight Yuri | How to deal /w Apocalypse Tank groups | Base Building 101
+              {Tesla Coils+Battle Bunkers} | Floating Disc hoarders {lose!} Rhinos
+              squadrons <br />
+              <img src="ball.gif" width="14" height="14" alt=""/> 1 'bail' of Ores has a value of 25.<br />
+              1 'bail' of Minerals has a value of 50.<br />
+              1 Chrono Miner can hold 20 bails at maximum.<br />
+              1 War Miner can hold 40 bails at maximum.<br />
+              1 Slave Worker can hold 4 bails at maximum.<br />
+              Tech Oil Derricks give you small credits (20 credits) every
+              time and give 1000 credits for the first time you capture them<br />
+              <img src="ball.gif" width="14" height="14" alt=""/> 3-4 War Factories (+25&#37; Prod) &amp; 2 MCV's at least. Pick a corner or the Turf War map (so that the Allies shield you —make cheap Base Defenses (Battle Bunkers) every 3 cells &amp; a few advanced Base Defenses (Prism Tower) here &amp; there. Make Boris ASAP, &amp; Ore Purifier. Test out different strats with the Trainer (Groza.) Sea maps are great fun !.Use Force Shield a lot. Note: I play with Speed reduced to 4 &amp; no Superweapons. Also, Yuri faction is a nuisance at best —just wait for the robot tanks to invade ;-) Boomer\ Floating Discs are their best doom troopers. Watch out for Yuri Clone groups &amp; everything else should be no different —Always play as Iraq - Desolators &amp; hone your skills. Prism Towers grouped [so should you] could be unstoppable ! Remember to scout early on with a [Waypoints] tank. SEALS\ Crazy Ivans get rid of bridges where avail.<br />
+              <img src="ball.gif" width="14" height="14" alt=""/> Turf War:: Iraq [Player West] (Green) Russia (Blue) Libya (Pale Blue) America (Yellow.) Speed 4, Build Off Ally CY, Short Game, MCV Repacks Orig.: Yuri (Purple) [West|Human] Korea (Pink) German (Orange) Russia (Red)<br />
+              <img src="ball.gif" width="14" height="14" alt=""/> #1 Drive-by shootings with Tanks. #2 place Crazy Ivan bombs on Infantry, then garrison in Flak Trak, &amp; use them as a makeshift Demo Truck. #3 Also force-fire on Ore patches with Tanks to wipe them out. #4 Hide Tanks behind War Factories to draw out enemy fire as fodder while you attack their army. Glitch: Terror Drones don't head to over to a waypoint once repaired at the Service Depot. Ctrl+Firing a Desolator in the immediate direction increases it's range &amp; firepower. Tank Destroyers &amp; Tesla Tanks are useless, they make fitting AI opponents 'cause of their weaker class, easy to OverPower. Hope I've covered all the units —never underestimate Air Superiority —once I made 35 Harriers hit the Con Yard &amp; Repair Depots to cripple the AI during the campaign —it seemed like the only way at the time. Desperate times call for desperate actions. It takes 12 Harriers to take out a Con Yard, &amp; the rest are fodder\ compensating for casualties.<br />
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+          </div>
+        </div>
+        <div class="CntFooter"></div>
+      </div>
+      <div class="CntBox">
+        <div class="CntHead">
+          <div class="CntHeadInfo"><span class="style6">! </span>Command and Conquer: Tiberium Alliances Strats:</div>
+        </div>
+        <div class="CntFill">
+          <div style="text-align: justify;" class="CntInfo">
+            <center>
+              -=CnC: Tiberium Alliances 101
+              Strategy Guide v3=-
+            </center>
+            <br />
+            <img style="width: 150px; height: 79px; float: left;" hspace="5" alt="cnc:tacover"
+ src="ab968a40-615d-4322-a028-1e32d07336dc.jpg" /> Bone-chilling suspense, gripping storyline of the Cnc: TS &amp; you live forever
+            (Immortal Legends) are some of the things that give this game its charm &amp;
+            appeal &mdash;Enough rambling. I’m amused. It’s all staged for the grand finale (You
+            can find the videos on Youtube.) <br />
+            <img src="ball.gif" width="14" height="14" alt=""/> Command points are replenished every 6
+            minutes (10 per hour.)<br />
+            <img src="ball.gif" width="14" height="14" alt=""/> Don’t waste your time with the MCV &mdash;focus on researching new units like
+            the BlackHand.<br />
+            <img src="ball.gif" width="14" height="14" alt=""/> Wait for your resources cap to amass [at 1M] &amp; then spend the lumpsum on
+            economy (after Base defenses.)<br />
+            <img src="ball.gif" width="14" height="14" alt=""/> Try to get 10k RP min. for every 12 CP. It doesn’t matter if you get
+            Total Defeat, as long as you rake in the RP ! Avatars are good for raiding ! Check if Forgotten actually attack in your server &mdash;waste of Base Defenses otherwise.<br />
+            <img src="ball.gif" width="14" height="14" alt=""/> Use cnc-opt.com to optimize your base layout for efficiency. &amp; Battle
+            Simulator V2 &mdash;indispensable tool that tells you how much RP you get in advance.<br />
+            <img src="ball.gif" width="14" height="14" alt=""/> Fnck continuous production &mdash;leave your comp on to receive Package
+            bonuses &mdash;’tis the best way ‘sno joke !<br />
+            <img src="ball.gif" width="14" height="14" alt=""/> You change your base name by clicking on base info there should be a button
+            at the bottom of window <br />
+            <img src="ball.gif" width="14" height="14" alt=""/> Current stats:: lvl 41 Resource Structures &amp; lvl 42 Silos\Accu |Def tech upgr first or you'll be exposed\ vuln to attack.<br />
+            <img src="ball.gif" width="14" height="14" alt=""/> Support Structures - Skystrike, Ion Canon, Falcon<br />
+<img src="ball.gif" width="14" height="14" alt=""/> To change game ID: 1) login in to origin @ http://www.origin.com 2) go through the security questions (if any) 3) change to the new name you wish to have 4) log out of origin 5) log into https://gamecdnorigin.alliances.commandandconquer.com/WebWorldBrowser/index.aspx immediately before logging into any TA:CnC world <a href="https://forums.ea.com/en/commandandconquer/discussion/111835/changing-your-in-game-id#latest">Click here to see article</a><br />
+<img src="ball.gif" width="14" height="14" alt=""/> <a href="https://sites.google.com/site/tiberiumalliancesfieldmanual/">Tiberium Alliances Field Manual</a><br />
+<img src="ball.gif" width="14" height="14" alt=""/> Needs more info on finding good base layout from ruins...<br />
+<img src="ball.gif" width="14" height="14" alt=""/> Refinery next to PP\ and\or Tib field boosts credit production<br />
+<img src="ball.gif" width="14" height="14" alt=""/> <a href="https://www.gamespot.com/articles/ea-phenomic-shut-down-report/1100-6411370?utm_source=gamefaqs&utm_medium=partner&utm_content=news_module&utm_campaign=gamespace_news">EA Phenomic shut down</a><br />
+<img src="ball.gif" width="14" height="14" alt=""/> Each alliance member that obtained a satellite code can inject a virus to weaken the Forgotten Fortress, once its shield is down.<br /><br />
+
+<center>-=Red Alert Tips=-</center><br /><br />
+<a href="https://gamefaqs.gamespot.com/pc/196962-command-and-conquer-red-alert/faqs/47905">https://gamefaqs.gamespot.com/pc/196962-command-and-conquer-red-alert/faqs/47905</a><br />
+<a href="https://gamefaqs.gamespot.com/pc/196962-command-and-conquer-red-alert/faqs/13721">https://gamefaqs.gamespot.com/pc/196962-command-and-conquer-red-alert/faqs/13721</a><br />
+<a href="https://gamefaqs.gamespot.com/pc/196962-command-and-conquer-red-alert/faqs/1699">https://gamefaqs.gamespot.com/pc/196962-command-and-conquer-red-alert/faqs/1699</a><br />
+<a href="https://gamefaqs.gamespot.com/pc/196962-command-and-conquer-red-alert/faqs/7857">https://gamefaqs.gamespot.com/pc/196962-command-and-conquer-red-alert/faqs/7857</a><br />
+AT instead of AP, Turret instead of Flame Tower, Parabombs on Artillery, 10 MIG, Chinook, Camo Pillbox, Fake Structures, The Mine Layer carries 
+only 5 mines, and can be reloaded at the Service Depot. Mobile Gap Generator Don't bother with these against the CPU. (Mobile Radar Jammer) - If near the enemy's radar dome (within 15 spaces), this unit will effectively shut down the enemy's radar.  Good to put near an enemy base, before attacking. Mammoth Tank Also, it can repair itself to half health for free, if given time. Only vehicles can be chronoshifted to a new destination; living matter will spontaneously combust. The Iron Curtain will change the molecular structure of a unit, making it impervious to all damage. This effect lasts for 45 seconds. Iron Curtain Charges every 11 minutes. Nuke
+Charges every 13 minutes. Parabomb Charges every 14 minutes. Paratrooper
+Charges every seven minutes. Chronoshift Charges every seven minutes. Only structures that have over 75 percent structural damage can be taken over by an engineer. If the arrows are red, the engineer can only damage the building. When it is green, it's okay to take it over. Engineers can repair friendly structures back to full health.<br />
+            <br />
+            <img alt="BomberHR" src="hr-planeani.gif" width="458" height="55" /><br />
+          </div>
+        </div>
+        <div class="CntFooter"></div>
+      </div>
+    	  <!-- from here onwards (1 div deleted ^^) -->
+<!--	  <div id="col-2">-->
+	  <div class="CntBox">
+        <div class="CntHead">
+          <div class="CntHeadInfo">The Sims: Complete Collection Guide</div>
+        </div>
+        <div class="CntFill">
+          <div style="text-align: justify;" class="CntInfo">
+<!--			  <div class="style2">-->
+	  <br /> <img style="width: 150px; height: 211px; float: left;" hspace="5" alt="Simscc-cover" src="Simscc-cover.jpg"/> Sims:CC Links: <a href="https://drive.google.com/drive/folders/0B_J6tdQjStiDd184a1VUa0Y3VTQ">Full Game + Mod Objects</a> \ <a href="https://gamefaqs.gamespot.com/pc/930408-the-sims-complete-collection/faqs/6840">Strategy Guide</a> <br /><br /><br /><br /><br /><br /><br />
+	  </div>
+        </div>
+        <div class="CntFooter"></div>
+      </div>
+<!--		</div>-->
+<!--	  </div>-->
+<!--	  </div>-->
+	  <!-- next code -->
+	  
+	  	  <!-- from here onwards #2 -->
+<!--	  <div id="col-2">-->
+	  <div class="CntBox">
+        <div class="CntHead">
+          <div class="CntHeadInfo">Counter Strike: Source Maps\ Strats</div>
+        </div>
+        <div class="CntFill">
+          <div style="text-align: justify;" class="CntInfo">
+<!--			  <div class="style2">-->
+	  <br /> <img style="width: 152px; height: 211px; float: left;" hspace="5" alt="CSS-cover" src="Css-cover.jpg"/> CSS Links &amp; Advanced Strats: Pick Arctic Magmum Sniper for long-range &amp; Desert Eagle for close-quarters <br /><br /><br /><br /><br /><br /><br />
+	  </div>
+        </div>
+        <div class="CntFooter"></div>
+      </div>
+		</div>
+<!--	  </div>-->
+<!--	  </div>-->
+	  <!-- next code #2 -->
+    <div id="col-3">
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::Calendar::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="NavCal"> 
+            <script type="text/javascript">
+                                var todaydate = new Date()
+                                var curmonth = todaydate.getMonth() + 1 //get current month (1-12)
+                                var curyear = todaydate.getFullYear() //get current year
+                                document.write(buildCal(curmonth, curyear, "main", "month", "daysofweek", "days", 0));
+                            </script> 
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+      <div id="col-3">
+        <div class="NavBox">
+          <div class="NavHead">
+            <div class="NavHeadInfo">..::Top 10 Games::..</div>
+          </div>
+          <div class="NavFill">
+            <div class="NavInfo"> 1. Command and Conquer Alpha<br />
+              2. Empire Earth III<br />
+              3. 18 Wheels<br />
+              4. Sims Makin Magic<br />
+              5. Gangsters: Organized Crime<br />
+              6. Mortal Kombat X + Gold<br />
+              7. Rayden 2 Demo<br />
+              8. Incoming<br />
+              9. Carmageddon 2: Carpolypse Now<br />
+              10. Delta Force IV: Task Force Dagger<br />
+              11. Infestation<br />
+              12. Midtown Madness 2<br />
+              13. Watchdogs<br />
+              14. The Crew 2<br />
+              15. GTA V<br />
+              16. Crysis 4<br />
+              17. Titanfall 2<br />
+              18. Psi-Ops: The Mindgate Conspiracy<br />
+              19. Mafia<br />
+              20 Saints Row<br />
+              21. War Chess<br />
+              22. Star Wars: GB Saga<br />
+              23. Age of Mythology: TotD<br />
+              24. Red Alert 2: Yuri's Revenge<br />
+              25. Metal Fatigue </div>
+            <div class="NavFooter"></div>
+          </div>
+        </div>
+      </div>
+      <div id="col-3">
+        <div class="NavBox">
+          <div class="NavHead">
+            <div class="NavHeadInfo">..::Links (Ext.)::..</div>
+          </div>
+          <div class="NavFill">
+            <div class="NavInfo"> <a href="http://www.tuts4you.com/">Tuts4You</a><br />
+              <a href="http://ocw.mit.edu/">MIT OCW</a><br />
+              <a href="http://vx.netlux.org/">VX Heavens</a><br />
+              <a href="http://www.textfiles.com/">Textfiles.com (Ezine)</a><br />
+              <a href="http://chronos.ws/">Chronos Time Travel</a><br />
+              <a href="http://deoxy.org/">Deoxy</a><br />
+              <a href="http://www2.lv.psu.edu/jkl1/runawaylives/readstories.html"> Runaway
+              Lives </a><br />
+              <a href="http://w3.cultdeadcow.com/cms/texXxt.html">cDc Paramedia</a><br />
+              <a href="http://www.mymiserablelife.com/">Miserable Life Comp</a><br />
+              <a href="http://www.thescriptsource.net/Scripts/FightClub.pdf"> Movie Scripts
+              FightClub </a><br />
+              <a href="https://www.magrent.com/torrent-magnet/download/4d516685754b42154b4d7210d924a58c94d439c7"> PC Strategy Guides </a><br />
+              <a href="http://users.cs.cf.ac.uk/Dave.Marshall/C/CE.html"> C Programming </a><br />
+              <a href="https://www.youtube.com/watch?v=XU_xLcYohtk"> MM2 lag fix </a><br />
+              <a href="http://www.mm2x.com/page.php?name=Downloads&amp;d_op=viewdownloaddetails&amp;cid=2&amp;lid=1388&amp;ttitle=Chicago#dldetails"> MM2 Chicago Track </a><br />
+              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=636984276"> SWGB:CC Widesreen fix </a><br />
+              <a href="https://thepiratebay.org/torrent/6276218/War_Chess_v1.1_[PC_GAME]_(2006)__INSTALL_"> War Chess 1.1 </a><br />
+              <a href="http://developer.download.nvidia.com/books/HTML/gpugems/gpugems_pref01.html"> NVIDIA GPU Gems </a><br />
+              <a href="http://pages.cs.wisc.edu/~remzi/OSTEP/"> Operating Systems: Three Easy Pieces </a><br />
+              <a href="http://philip.greenspun.com/seia/"> Software Engineering for Internet Applications </a><br />
+              <a href="http://www.coderholic.com/25-free-computer-science-books/"> 25 Free Computer Science Books </a><br />
+              <a href="http://www.ebook777.com"> Vast e-book Library </a><br />
+              <a href="https://megagames.com/fixes/grand-theft-auto-3-v10-gereng"> GTA 3 No-CD crack </a><br />
+              <a href="http://www.thegtaplace.com/downloads/f1186-gta-iii-27-trainer"> GTA 3 +27 Trainer </a><br />
+              <a href="http://www.thegtaplace.com/downloads/f80-vice-city-11-patch"> GTA VC 1.1 Patch </a><br />
+              <a href="https://megagames.com/fixes/grand-theft-auto-vice-city-5"> GTA VC No-CD crack </a><br />
+              <a href="http://www.gameesc.com/archives/grand-theft-auto-vice-city-trainer-11-by-xeonbyte/"> GTA VC Trainer </a><br />
+              <a href="http://www.e-booksdirectory.com/listing.php?category=264"> Game Programming [HTML] books </a><br />
+              <a href="http://www.goanwap.com/ebook-kee-list2-ndms.html">Nancy Drew [HTML] eBooks</a></div>
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="clearB"></div>
+  <div id="foot">
+    <div id="foot-Info-Left"> Welcome to the Hells Lab Team<span class="style3">™</span> website.<br />
+      You are visitor # <!-- Start of StatCounter Code for Default Guide --> 
+      <script type="text/javascript">
+var sc_project=11230248; 
+var sc_invisible=0; 
+var sc_security="91ab42c0"; 
+var sc_text=5; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+      <noscript>
+      <div class="statcounter"><a title="Web Analytics"
+href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="//c.statcounter.com/11230248/0/91ab42c0/0/" alt="Web
+Analytics"></a></div>
+      </noscript>
+      <!-- End of StatCounter Code for Default Guide --> 
+      to enter this site ! <br />
+      My new site following the termination of my old PS+Frontpage site on TFT
+      (The FreeWeb Town.) Using templates have helped streamline &amp; automate gfx
+      |processes.<br />
+      -&gt; f4t4l_3rr0r <img style="width: 43px; height: 15px;" alt="Netscape Compatible"
+ src="now8.gif" /> <img src="blueribbon.gif" width="43" height="15" alt="Free Speech Now!"/> <img src="mircnow.gif" width="43" height="15" alt="mIRC Now"/> <br />
+      Enjoy! Copyright © (2016-21) The Shadow Company®. All Rights Reserved. <img style="width: 43px; height: 15px;" alt="W3 Compatible" src="valid-css2.png" /></div>
+    <div id="foot-Info-Right" align="right"> 
+      <script src="foot_scroller_edit.js" type="text/javascript"></script> 
+    </div>
+    <div class="clearB"></div>
+  </div>
+</div>
+<script type="text/javascript">
+
+        /******************************************
+        * Snow Effect Script- By Altan d.o.o. (http://www.altan.hr/snow/index.html)
+        * Visit Dynamic Drive DHTML code library (http://www.dynamicdrive.com/) for full source code
+        * Last updated Nov 9th, 05' by DD. This notice must stay intact for use
+        ******************************************/
+        function openwindow() {
+            window.open("autumn_effect.htm", "", "width=350,height=500")
+        }
+
+        //Configure below to change URL path to the snow image
+        var snowsrc = "snow.gif"
+        // Configure below to change number of snow to render
+        var no = 10;
+        // Configure whether snow should disappear after x seconds (0=never):
+        var hidesnowtime = 0;
+        // Configure how much snow should drop down before fading ("windowheight" or "pageheight")
+        var snowdistance = "pageheight";
+
+        ///////////Stop Config//////////////////////////////////
+
+        var ie4up = (document.all) ? 1 : 0;
+        var ns6up = (document.getElementById && !document.all) ? 1 : 0;
+
+        function iecompattest() {
+            return (document.compatMode && document.compatMode != "BackCompat") ? document.documentElement : document.body
+        }
+
+        var dx, xp, yp;    // coordinate and position variables
+        var am, stx, sty;  // amplitude and step variables
+        var i, doc_width = 800, doc_height = 600;
+
+        if (ns6up) {
+            doc_width = self.innerWidth;
+            doc_height = self.innerHeight;
+        } else if (ie4up) {
+            doc_width = iecompattest().clientWidth;
+            doc_height = iecompattest().clientHeight;
+        }
+
+        dx = new Array();
+        xp = new Array();
+        yp = new Array();
+        am = new Array();
+        stx = new Array();
+        sty = new Array();
+        snowsrc = (snowsrc.indexOf("dynamicdrive.com") != -1) ? "snow.gif" : snowsrc
+        for (i = 0; i < no; ++i) {
+            dx[i] = 0;                        // set coordinate variables
+            xp[i] = Math.random() * (doc_width - 50);  // set position variables
+            yp[i] = Math.random() * doc_height;
+            am[i] = Math.random() * 20;         // set amplitude variables
+            stx[i] = 0.02 + Math.random() / 10; // set step variables
+            sty[i] = 0.7 + Math.random();     // set step variables
+            if (ie4up || ns6up) {
+                if (i == 0) {
+                    document.write("<div id=\"dot" + i + "\" style=\"POSITION: absolute; Z-INDEX: " + i + "; VISIBILITY: visible; TOP: 15px; LEFT: 15px;\"><img src='" + snowsrc + "' border=\"0\"><\/div>");
+                } else {
+                    document.write("<div id=\"dot" + i + "\" style=\"POSITION: absolute; Z-INDEX: " + i + "; VISIBILITY: visible; TOP: 15px; LEFT: 15px;\"><img src='" + snowsrc + "' border=\"0\"><\/div>");
+                }
+            }
+        }
+
+        function snowIE_NS6() {  // IE and NS6 main animation function
+            doc_width = ns6up ? window.innerWidth - 10 : iecompattest().clientWidth - 10;
+            doc_height = (window.innerHeight && snowdistance == "windowheight") ? window.innerHeight : (ie4up && snowdistance == "windowheight") ? iecompattest().clientHeight : (ie4up && !window.opera && snowdistance == "pageheight") ? iecompattest().scrollHeight : iecompattest().offsetHeight;
+            if (snowdistance == "windowheight") {
+                doc_height = window.innerHeight || iecompattest().clientHeight
+            }
+            else {
+                doc_height = iecompattest().scrollHeight
+            }
+            for (i = 0; i < no; ++i) {  // iterate for every dot
+                yp[i] += sty[i];
+                if (yp[i] > doc_height - 50) {
+                    xp[i] = Math.random() * (doc_width - am[i] - 30);
+                    yp[i] = 0;
+                    stx[i] = 0.02 + Math.random() / 10;
+                    sty[i] = 0.7 + Math.random();
+                }
+                dx[i] += stx[i];
+                document.getElementById("dot" + i).style.top = yp[i] + "px";
+                document.getElementById("dot" + i).style.left = xp[i] + am[i] * Math.sin(dx[i]) + "px";
+            }
+            snowtimer = setTimeout("snowIE_NS6()", 10);
+        }
+
+        function hidesnow() {
+            if (window.snowtimer) clearTimeout(snowtimer)
+            for (i = 0; i < no; i++) document.getElementById("dot" + i).style.visibility = "hidden"
+        }
+
+
+        if (ie4up || ns6up) {
+            snowIE_NS6();
+            if (hidesnowtime > 0)
+                setTimeout("hidesnow()", hidesnowtime * 1000)
+        }
+
+    </script> 
+<script language="JavaScript" type="text/JavaScript">
+
+<!-- cloak
+
+// Add all DIV's of hearts
+if (document.all||document.getElementById||document.layers){
+for (k=0;k<kisserCount;k=k+2) {
+  document.write('<div id="kisser' + k + '" class="kisser"><img src="' + theimage + '" alt="" border="0"></div>\n')
+  document.write('<div id="kisser' + (k+1) + '" class="kisser"><img src="' + theimage2 + '" alt="" border="0"></div>\n')
+}
+}
+
+
+		
+// decloak -->
+
+    </script>
+    <script type="text/javascript">
+var myVar;
+function myFunction() {
+  myVar = setTimeout(showPage, 500); /*3000|8000tweaked*/
+}
+
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("myDiv").style.display = "block";
+}
+	</script>
+</body>
+</html>

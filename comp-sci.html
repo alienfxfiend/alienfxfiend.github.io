@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">
+/* Center the loader */
+#loader {
+	position: fixed !important;
+	/* display: -webkit-flexbox !important;
+    display: -ms-flexbox !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+    -webkit-flex-align: center !important;
+    -ms-flex-align: center !important;
+    -webkit-align-items: center !important;
+    align-items: center !important;
+    justify-content: center !important; */
+    left: 50% !important;
+  top: 50% !important;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0px 0px -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+	/* -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%); */
+	    
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative !important;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#myDiv {
+  display: none;
+  text-align: left; /* center */
+}
+</style>
+
+
+<title>BlackSun RF™ Computer Science [Lunatic Labs II]</title>
+<!--<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  /* padding: 18px; */
+  width: 80%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 7px; /* 15px */
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: #30394a; /* #30394a white */
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: auto;
+  transition: max-height 0.2s ease-out;
+  background-color: #30394a; /* #30394a #f1f1f1 */
+}
+</style>-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-us" />
+
+<meta name="keywords" content="comp sci, philosophy, writing, newssource" />
+<meta name="description" content="The coolest fansite\ script source on the web... Find almost anything _interesting_ in here..." />
+<meta content="Shadow Company" name="author" />
+
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="stylesheet" type="text/css" href="nuke-ice.css" />
+<script type="text/javascript" src="basiccalendar.js"></script>
+
+<style type="text/css">
+
+.kisser {
+	position: absolute;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	visibility: hidden;
+}
+
+</style>
+<script language="JavaScript1.2" type="text/JavaScript">
+
+
+//Kissing trail- By dij8 (dij8@dij8.com)
+//Modified by Dynamic Drive for bug fixes
+//Visit http://www.dynamicdrive.com for this script
+
+
+kisserCount = 15 //maximum number of images on screen at one time
+curKisser = 0 //the last image DIV to be displayed (used for timer)
+kissDelay = 1000 //duration images stay on screen (in milliseconds)
+kissSpacer = 50 //distance to move mouse b4 next heart appears
+theimage = "lips_small.gif" //the 1st image to be displayed
+theimage2 = "small_heart.gif" //the 2nd image to be displayed
+
+
+//Browser checking and syntax variables
+var docLayers = (document.layers) ? true:false;
+var docId = (document.getElementById) ? true:false;
+var docAll = (document.all) ? true:false;
+var docbitK = (docLayers) ? "document.layers['":(docId) ? "document.getElementById('":(docAll) ? "document.all['":"document."
+var docbitendK = (docLayers) ? "']":(docId) ? "')":(docAll) ? "']":""
+var stylebitK = (docLayers) ? "":".style"
+var showbitK = (docLayers) ? "show":"visible"
+var hidebitK = (docLayers) ? "hide":"hidden"
+var ns6=document.getElementById&&!document.all
+
+//Variables used in script
+var posX, posY, lastX, lastY, kisserCount, curKisser, kissDelay, kissSpacer, theimage
+lastX = 0
+lastY = 0
+
+//Collection of functions to get mouse position and place the images
+function doKisser(e) {
+  posX = getMouseXPos(e)
+  posY = getMouseYPos(e)
+  if (posX>(lastX+kissSpacer)||posX<(lastX-kissSpacer)||posY>(lastY+kissSpacer)||posY<(lastY-kissSpacer)) {
+    showKisser(posX,posY)
+    lastX = posX
+    lastY = posY
+  }
+}
+
+// Get the horizontal position of the mouse
+function getMouseXPos(e) {
+  if (document.layers||ns6) {
+    return parseInt(e.pageX+10)
+  } else {
+    return (parseInt(event.clientX+10) + parseInt(document.body.scrollLeft))
+  }
+}
+
+// Get the vartical position of the mouse
+function getMouseYPos(e) {
+  if (document.layers||ns6) {
+    return parseInt(e.pageY)
+  } else {
+    return (parseInt(event.clientY) + parseInt(document.body.scrollTop))
+  }
+}
+
+//Place the image and start timer so that it disappears after a period of time
+function showKisser(x,y) {
+  var processedx=ns6? Math.min(x,window.innerWidth-75) : docAll? Math.min(x,document.body.clientWidth-55) : x
+  if (curKisser >= kisserCount) {curKisser = 0}
+  eval(docbitK + "kisser" + curKisser + docbitendK + stylebitK).left =  processedx + 'px'
+  eval(docbitK + "kisser" + curKisser + docbitendK + stylebitK).top = y + 'px'
+  eval(docbitK + "kisser" + curKisser + docbitendK + stylebitK + ".visibility = '" + showbitK + "'")
+  if (eval("typeof(kissDelay" + curKisser + ")")=="number") {
+    eval("clearTimeout(kissDelay" + curKisser + ")")
+  }
+  eval("kissDelay" + curKisser + " = setTimeout('hideKisser(" + curKisser + ")',kissDelay)")
+  curKisser += 1
+}
+
+//Make the image disappear
+function hideKisser(knum) {
+  eval(docbitK + "kisser" + knum + docbitendK + stylebitK + ".visibility = '" + hidebitK + "'")
+}
+
+
+function kissbegin(){
+//Let the browser know when the mouse moves
+if (docLayers) {
+  document.captureEvents(Event.MOUSEMOVE)
+  document.onMouseMove = doKisser
+} else {
+
+  document.onmousemove = doKisser
+}
+}
+
+window.onload=kissbegin
+
+    </script>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="scrolltopcontrol.js">
+
+        /***********************************************
+        * Scroll To Top Control script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+        * Please keep this notice intact
+        * Visit Project Page at http://www.dynamicdrive.com for full source code
+        ***********************************************/
+
+    </script>
+<script type="text/JavaScript">
+	
+function FP_swapImg() {//v1.0
+ var doc=document,args=arguments,elm,n; doc.$imgSwaps=new Array(); for(n=2; n<args.length;
+ n+=2) { elm=FP_getObjectByID(args[n]); if(elm) { doc.$imgSwaps[doc.$imgSwaps.length]=elm;
+ elm.$src=elm.src; elm.src=args[n+1]; } }
+}
+
+function FP_preloadImgs() {//v1.0
+ var d=document,a=arguments; if(!d.FP_imgs) d.FP_imgs=new Array();
+ for(var i=0; i<a.length; i++) { d.FP_imgs[i]=new Image; d.FP_imgs[i].src=a[i]; }
+}
+
+function FP_getObjectByID(id,o) {//v1.0
+ var c,el,els,f,m,n; if(!o)o=document; if(o.getElementById) el=o.getElementById(id);
+ else if(o.layers) c=o.layers; else if(o.all) el=o.all[id]; if(el) return el;
+ if(o.id==id || o.name==id) return o; if(o.childNodes) c=o.childNodes; if(c)
+ for(n=0; n<c.length; n++) { el=FP_getObjectByID(id,c[n]); if(el) return el; }
+ f=o.forms; if(f) for(n=0; n<f.length; n++) { els=f[n].elements;
+ for(m=0; m<els.length; m++){ el=FP_getObjectByID(id,els[n]); if(el) return el; } }
+ return null;
+}
+	</script>    
+<style type="text/css">
+.style2 {
+	margin: 0px auto;
+	padding: 0px;
+	width: 460px;
+	position: relative;
+	text-overflow: clip !important;
+	/*overflow: auto;*/
+	word-break: break-all !important;
+	font-family: Verdana;
+	font-size: 1.0em !important;
+	text-decoration: none;
+	color: #6a7c98;
+}
+a {
+	font-weight: normal;
+}
+a:link {
+	color: #6A7C98;
+}
+a:visited {
+	color: #6A7C98;
+}
+a:hover {
+	text-decoration: none;
+	color: white;
+	background-color: green;
+	border-width: 2px;
+	border-style: dotted;
+	border-color: purple;
+}
+a:active {
+	color: aqua;
+	background-color: navy;
+}
+.style3 {
+	font-size: 11px;
+	letter-spacing: normal;
+	background-color: #141A21;
+}
+.style4 {
+	font-size: 6px;
+    color: #FF0000 !important;
+}
+.style5 {
+	color: #FF0000;
+	font-size: 6px;
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+	<style>
+		script:first-of-type {
+			display: none;
+		}
+		.visually-hidden {
+			clip: rect(1px, 1px, 1px, 1px);
+			height: 1px;
+			overflow: hidden;
+			position: absolute;
+			white-space: nowrap;
+			width: 1px;
+		}
+		a:hover .visually-hidden,
+		a:focus .visually-hidden,
+		button:hover .visually-hidden,
+		button:focus .visually-hidden {
+			position: relative;
+			margin: 0;
+		}
+		[hidden] {
+			display: none;
+		}
+	</style>
+</head>
+<!-- /* old tamper <body onload="myFunction()" style="margin:0";> */ -->
+
+	
+
+<body style="direction: ltr;"><!--onload="FP_preloadImgs(/*url*/'buttonB3.gif',/*url*/'buttonB4.gif',/*url*/'buttonC4.gif',/*url*/'buttonC5.gif',/*url*/'buttonC7.gif',/*url*/'buttonC8.gif');>-->
+    <script language="JavaScript" type="text/JavaScript">
+function start() {
+  myFunction();
+  kissbegin();
+}
+window.onload = start;
+</script>
+<div id="loader"></div>
+<div style="display:none;" id="myDiv" class="animate-bottom">
+<div id="wrapper">
+  <div id="banner">
+    <div id="banner-edit"><img style="width: 100px; height: 75px"; alt="Green Skulls (Rotating" src="skullgre.gif" align="middle" vspace="30" /><img style="width: 600px; height: 48px"; alt="Logo text banner" src="coollogo_com-32082252.png" align="middle" /><img style="width: 100px; height: 75px"; alt="Green Skulls (Rotating" src="skullgre.gif" align="top" vspace="30" /></div>
+  </div>
+  <div id="container">
+         <div id="col-1">
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::SiteMap::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="nav-menu">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about-this-blog.html">About Us</a> <strong><sup><span class="style4">New!</span></sup></strong></li>
+              <li>Services</li>
+              <li>Products</li>
+              <li><a href="http://alien-fx-fiend.livejournal.com/">Blog</a></li>
+              <li><a href="comp-sci.html">Comp Engineering</a> <strong><sup><span class="style5">New!</span></sup></strong></li>
+              <li><a href="#">Science</a></li>
+              <li><a href="philosophy.html">Philosophy</a> <strong><sup><span class="style4">New!</span></sup></strong></li>
+              <li><a href="#">Creative Writing/Lingu</a></li>
+              <li><a href="pc-games.html">PC Games</a> <strong><sup><span class="style4">New!</span></sup></strong></li>
+              <li><a href="#">World Domination</a></li>
+              <li><a href="exp2.html#"> Studies-Related</a></li>
+              <li><a href="#">Miscellaneous</a></li>
+              <li><a href="exp2.html#">E-Zine</a></li>
+              <li><a href="mailto:alien.fx_fiend@yahoo.com?subject=Enquiry">Contact Us</a></li>
+              <li><a href="http://users2.smartgb.com/g/g.php?a=s&amp;i=g26-34462-59">Guestbook</a></li>
+              <li><a href="http://neoviper10.boards.net/">Message Board</a></li>
+              <li>Win Tweaks?!</li>
+              <li>Forum</li>
+              <li>Photo Gallery</li>
+            </ul>
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::Update Logz::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="NavInfo"> Testing The Small Content Box For Demo Purposes<br />
+            22/11 11:13 Added Tickertape+mousetrailx<br />
+            4/12 22:00 Expanded Computer Sections+Nav Links+Switched to MSEW<br />
+            6/12 1:50 Added favicon<br />
+            10/12 1:37 Improved Design<br />
+            23/1 16:00 Added CSS hover link effect<br />
+            5/7 00:52 MouseTrail + Fixed Phong + Encoding + link + Scrolltop + Snow<br />
+            8/7 10:45 Malicious virus script s.igmhb finally eradicated<br />
+            9/7 22:20 Few additional links, Uploading directly from MSEW now:rollouts<br />
+            24/7 00:00 Added comp-sci &amp; pc-games pages<br />
+            16/8 16:00 Added Nav Buttons &amp; Custom Search Engine, Switched to Dreamviewer (EW buggy+discn)<br />
+            24/8 3:32 Minor touches to the site —mostly ripping gifs &amp; imgsearching<br />
+            8/9 7:25 Minor additions &amp; few more links<br />
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::SiteGear Poll::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="NavInfo"> Testing The Small Content Box For Demo Purposes </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+    </div>
+    <div id="col-2">
+      <div class="CntBox">
+        <div class="CntHead">
+          <div class="CntHeadInfo"> <!--<span class="style6">&quot; </span>-->[Hierarchical] Table of Contents: <!--<span class="style6">&quot;</span>--> </div>
+        </div>
+        <div class="CntFill">
+         <div class="CntInfo">
+         <div class="style2"> <br /> <div style="text-align: left";>
+            [ <a href="index.html" class="btn-disable"> <img style="border: 0" id="img1" src="button86.gif" height="20" width="100" alt="Back"  onmouseover="FP_swapImg(1,0,/*id*/'img1',/*url*/'buttonB3.gif')" onmouseout="FP_swapImg(0,0,/*id*/'img1',/*url*/'button86.gif')" onmousedown="FP_swapImg(1,0,/*id*/'img1',/*url*/'buttonB4.gif')" onmouseup="FP_swapImg(0,0,/*id*/'img1',/*url*/'buttonB3.gif')" /><!-- MSComment="ibutton" fp-style="fp-btn: Soft Capsule 7; fp-transparent: 1" fp-title="Back" --></a> ] &nbsp;&nbsp; [ <a href="index.html" class="btn-disable"> <img style="border: 0" id="img2" src="button8C.gif" height="20" width="100" alt="Home" onmouseover="FP_swapImg(1,0,/*id*/'img2',/*url*/'buttonC7.gif')" onmouseout="FP_swapImg(0,0,/*id*/'img2',/*url*/'button8C.gif')" onmousedown="FP_swapImg(1,0,/*id*/'img2',/*url*/'buttonC8.gif')" onmouseup="FP_swapImg(0,0,/*id*/'img2',/*url*/'buttonC7.gif')" /><!-- MSComment="ibutton" fp-style="fp-btn: Soft Capsule 7; fp-transparent: 1" fp-title="Home" --></a> ] &nbsp;&nbsp; [ <img style="border: 0" id="img3" src="button92.gif" height="20" width="100" alt="Forward" onmouseover="FP_swapImg(1,0,/*id*/'img3',/*url*/'buttonC4.gif')" onmouseout="FP_swapImg(0,0,/*id*/'img3',/*url*/'button92.gif')" onmousedown="FP_swapImg(1,0,/*id*/'img3',/*url*/'buttonC5.gif')" onmouseup="FP_swapImg(0,0,/*id*/'img3',/*url*/'buttonC4.gif')" /><!-- MSComment="ibutton" fp-style="fp-btn: Soft Capsule 7; fp-transparent: 1" fp-title="Forward" --> ]</div><br />
+            <br />
+            <center>
+              <img src="captboat.gif" width="187" height="86" style alt="Capn Java"/>
+			  </center>
+            <br />
+            <br />
+            <center>
+              ––––––•»»(¯`•®(¯`•-Ethical Hacking-•´¯)®•´¯)««•––––––
+			  </center>
+              <br />
+            <div style="text-align: left;">
+            Windows NT Security<br />
+            &nbsp;&nbsp;&nbsp; NTFS<br />
+            &nbsp;&nbsp;&nbsp; LFS<br />
+            File Formats<br />
+            &nbsp;&nbsp;&nbsp; Windows PE\COFF<br />
+            &nbsp;&nbsp;&nbsp; Linux ELF<br />
+            POSIX<br />
+            UNIX Hacking<br />
+            x.0 Networking<br />
+            &nbsp; x.1 OSI Model<br />
+            &nbsp;&nbsp;&nbsp; Winsock\ WPF <br />
+            &nbsp;&nbsp;&nbsp; Modem Protocols<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            X.25, V32.biz, KERMIT [V.32 bis XERMIT-Modem (X2?)] ????<br />
+            &nbsp;&nbsp;&nbsp; Outdials<br />
+            &nbsp;&nbsp;&nbsp; Phreaking [Telecomms Hacking]<br />
+            &nbsp;&nbsp;&nbsp; CISCO Routers<br />
+            &nbsp;&nbsp;&nbsp; OpenSSH<br />
+            &nbsp;&nbsp;&nbsp; Token Ring, VPN, Tunnel Adapter, ATM<br />
+            &nbsp;&nbsp;&nbsp; Firewalls: Application Layer\ Packet-level
+            RCE (Reverse Code Engineering)\ Malware Analysis<br />
+            &nbsp;&nbsp;&nbsp; RPC\ IPC Exploits<br />
+            &nbsp;&nbsp;&nbsp; DCOM\ LKM, Linux Kernel Programming<br />
+            Software Engineering\ Architect (Comp Sci)<br />
+            &nbsp;&nbsp;&nbsp; Semaphores, Atomic Spinlocks, Critical
+            Section, Race Condition, Shellcode, Buffer Overflows, Paging,
+            Concurrency (Recursive Locking), Deadlocks, Mutex, Thread Pools<br />
+            &nbsp;&nbsp;&nbsp; SIMD Optimization Parralel Processing
+            Multi-Threaded Programming<br />
+            &nbsp;&nbsp;&nbsp; Fuzzy Logic Machine Learning<br />
+            &nbsp;&nbsp;&nbsp; Data Compression: UPX<br />
+            &nbsp;&nbsp;&nbsp; pThread()<br />
+            Game Programming<br />
+            &nbsp;&nbsp;&nbsp; 3D Game Character Modelling Direct X<br />
+            &nbsp;&nbsp;&nbsp; Open GL<br />
+            &nbsp;&nbsp;&nbsp; Glide<br />
+            &nbsp;&nbsp;&nbsp; Game Modding (Lua)<br />
+            Android DDK\ SDK COM+<br />
+            Programming Languages<br />
+            &nbsp;&nbsp;&nbsp; Visual Basic .NET<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            VBX, OCX, Active X<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            API Hooking Methods (DLL Injection, IAT Patching, WriteProcessMemory()
+            CreateRemoteThread(), Service...)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            RAD (Rapid Application Development (Visual Basic)) DDE(Dynamic Data
+            Exchange) Named Pipes Writing to port ADO, Multidimensional Arrays <br />
+            &nbsp;&nbsp;&nbsp; Visual C# .NET<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            MFC\ ATL\ STL<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Object-Oriented Programming, Methods<br />
+            &nbsp;&nbsp;&nbsp; PERL (Practical Extraction and Reporting
+            Language) CPAN = Comprehensive Perl Archive Network\ CGI (Common
+            Gateway Interface)<br />
+            &nbsp;&nbsp;&nbsp; Javascript<br />
+            &nbsp;&nbsp;&nbsp; Assembly Language (OOP ASM)<br />
+            &nbsp;&nbsp;&nbsp; Machine Language<br />
+            &nbsp;&nbsp;&nbsp; 16-bit Advanced MSDOS\ Console
+            Programming<br />
+            &nbsp;&nbsp;&nbsp; MS Small Basic /w Plugins [LitDev +
+            XExtension]<br />
+            &nbsp;&nbsp; Prolog<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Algorithms<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Search, Sort, Synchro<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Binary Trees, Linked Lists, Hash Tables<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            8 Queens Problem<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Data Structures<br />
+
+            Cryptography [Cryptology]<br />
+            &nbsp;&nbsp;&nbsp; Block\ Stream Ciphers<br />
+            &nbsp;&nbsp;&nbsp; MD5\ DES, Blowfish, RSA, Twofish, AES,
+            PGP (GPG)<br />
+            File\ Cyber Forensics<br />
+            Hardware<br />
+            Microprocessor Design |Architecture\ Platform<br />
+            &nbsp;&nbsp;&nbsp; Intel 8008 Arch, Manuals\ RISC (Reduced Instruction Set Computing)\ CISC,
+            PIC, Signal Processing<br />
+            &nbsp;&nbsp;&nbsp; GPU<br />
+            &nbsp;&nbsp;&nbsp; Matlab VHDL Verilog<br />
+            Electrical Engineering<br />
+            <br />
+            <center>
+              ––––––•»»(¯`•®(¯`•-BlackHat Hacking-•´¯)®•´¯)««•––––––
+            </center>
+            <br />
+            Virii Authoring [Virology]<br />
+            &nbsp;&nbsp;&nbsp; COM\ Boot Sector Virus<br />
+            &nbsp;&nbsp;&nbsp; Polymorphic<br />
+            &nbsp;&nbsp;&nbsp; TSR\ MBR<br />
+            &nbsp;&nbsp;&nbsp; Stealth Rootkit<br />
+            &nbsp;&nbsp;&nbsp; Bootkit<br />
+            BlackHat Hacking Stuffz<br />
+            &nbsp;&nbsp;&nbsp; MAC Address Spoofing<br />
+            &nbsp;&nbsp;&nbsp; Session Hijacking<br />
+            &nbsp;&nbsp;&nbsp; Man in the Middle<br />
+            &nbsp;&nbsp;&nbsp; ARP Cache Poisoning<br />
+            &nbsp;&nbsp;&nbsp; DNS Spoofing<br />
+            &nbsp;&nbsp;&nbsp; NetBIOS\ File Sharing<br />
+            &nbsp;&nbsp;&nbsp; Port Scanners<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Nmap<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Packet Sniffers<br />
+            &nbsp;&nbsp;&nbsp;Cross-Site Scripting (XSS)\ Client-state Manipulation\ Cross-Site Request Forgery (XSRF)\ Cross Site Script Inclusion (XSSI)\ Path Traversal\ Code Execution\ Configuration Vulnerabilities\ AJAX Vulnerabilites<br />
+            &nbsp;&nbsp;&nbsp; Denial of Service (DoS)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            P.O.D. (Ping of Death)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            DDOS, Botnets C&amp;C<br />
+            &nbsp;&nbsp;&nbsp; Bruteforcing\ Dictionary Attack
+            |Wardriving<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            l0phtcrack<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Rainbow Books<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            File binder Form grabbing Frame injection<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Social Engineering<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            [Spear] Phishing\ Spammers & Scammers<br />
+            &nbsp;&nbsp;&nbsp; Web Application Security<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            SOAP<br />
+            &nbsp;&nbsp;&nbsp; RAW Packet Programming<br />
+            BIOS Flashing<br />
+            Overclocking<br />
+            Source Code<br />
+            &nbsp;&nbsp;&nbsp; NIC Driver Source<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Yahoo Booter\ Client Source<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            YahMini<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            YMLite<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Voice Lagger (???)<br />
+            Old Skool Philes<br />
+            Web Design<br />
+            &nbsp;&nbsp;&nbsp; XHTML + CSS<br />
+            &nbsp;&nbsp;&nbsp; Flash<br />
+            &nbsp;&nbsp;&nbsp; jQuery<br />
+            &nbsp;&nbsp;&nbsp; AJAX (Asynchronous JavaScript and XML)<br />
+            &nbsp;&nbsp;&nbsp; Other: Bootstrap, Foundation, Google MDL
+            Cassandra SVG, Backbone.js, GO, WebKit<br />
+            Web Server Security<br />
+            &nbsp;&nbsp;&nbsp; MS IIS<br />
+            &nbsp;&nbsp;&nbsp; Apache<br />
+            &nbsp;&nbsp;&nbsp; Tomcat<br />
+            &nbsp;&nbsp;&nbsp; Xitami<br />
+            Bibliography<img src="book.gif" width="37" height="30" align="top" alt="Book Read" /><br /><br /><br />
+            <img src="hr-full3.gif" alt="HRule bluebar" height="33" width="100%" /><br /><br />
+            <center>-[ Computer Science Table of Contents ]-</center><br /><br />
+
+
+1. Computer Networks: Deals with communication architecture and mechanisms<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.1 Networking Architecture<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.2 Web Servers/ Security<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.3 Web Applications/ Security<br />
+2. Software Architecture/ Platforms:<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.1 System Development/ OS Kernel Internals: Spans Internals, BIOS, APIC, Device Drivers<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.2 Software OS Platforms:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.2.1 Windows NT/ Security<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.2.2 Unix/ Linux/ Solaris/ Security<br />
+    2.3 Application Programming Interfaces:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.3.1 POSIX<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.3.2 Win32<br />
+    2.4 File Formats: PE, ELF, OBJ, HEXADECIMAL<br />
+3. Programming: Mainly C++/ Assembly/ Advanced programming resources covered here, with special reference to internals<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.1 C Language<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2 Assembly Language<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.3 Integrated Development Environment Topics<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.4 Algorithms/ Data Structures<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.5 Graphics<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.6 Cryptography: Polymorphism, Permutation, Transposition, Encryption<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.7 Reverse Engineering: Disassembling, Debugging (breakpoints, ptrace, threadcontexts, single step events), Patching (section-padding), Packers/ ProcDump<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.8 Artificial Intelligence<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.9 Compiler Construction<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.0 Advanced Concepts<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.1 Source Code<br />
+5. Hardware:<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.1 Fundamentals<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.2 Hardware Architecture: Intel x86, AMD, SPARC, MIPS, VMS, VACS<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.3 Microprocessor/ Embedded Hardware<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.4 Advanced Electrical Engineering<br />
+6. Hacking/ Black Hat:<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.1 Software/ Vulnerability Exploitation: Injection Vectors// Shellcode<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.2 Malicious code: Rootkits, Virii, Worms, Malware<br />
+7. Archives: Collections of series spanning mixed/ random/ old topics<br />
+8. Miscellaneous: Other displaced topics<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.1 External Resources/ Links<br />
+			  </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <center>
+              <img src="evilinside-c200.gif" width="200" height="200" alt="evil inside" /><img src="5005f325bc3d1.png" width="256" height="256" alt="evil corei7 inside" />
+            </center>
+            <br />
+            <br />
+            <br />
+            <br />
+          </div>
+        </div></div>
+        <div class="CntFooter"></div>
+      </div>
+      <div id="col-2">      
+      <div class="CntBox">
+        <div class="CntHead">
+          <div class="CntHeadInfo">Main Content Nav Box:</div>
+        </div>
+        <div class="CntFill">
+          <div style="text-align: justify"; class="CntInfo"><div class="style2"> Machine Language for the Commodore 64<br />
+            <a href="https://ptgmedia.pearsoncmg.com/images/9780735697959/samplepages/9780735697959.pdf">Windows 10 Step by Step</a> (Sample) (Excellant intro to Sign-in options)<br />
+            <a href="http://www.customguide.com/cheat_sheets/windows-10-quick-reference.pdf">Windows 10 Quick Reference Card</a><br />
+            Zilog Z80 Assembly Language<br />
+            <a href="https://spider2039.files.wordpress.com/2010/06/addison-wesley-windows-system-programming-4ed-mtshart2010.pdf">Windows System Programming 4ed</a><br />
+            <a href="http://csit.udc.edu/~byu/UDC3529315/WindowsInternals-4e.pdf">Windows Internals 4e</a><br />
+            <a href="https://users.dimi.uniud.it/~antonio.dangelo/OpSys/materials/Modern_Operating_Systems.pdf">Modern Operating Systems</a><br />
+            <a href="http://canvas.projekti.info/ebooks/Game%20Coding%20Complete%20-%204th%20Edition.pdf">Game Coding Complete 4th Edition</a><br />
+            NT WarDoc<br />
+            <a href="http://www.wisegeek.org/what-are-the-different-types-of-encryption-methods.htm"> There are three basic encryption methods: hashing, symmetric cryptography, and
+            asymmetric cryptography. </a><br />
+            <a href="https://www.storagecraft.com/blog/5-common-encryption-algorithms/">5 Common Encryption Algorithms and the Unbreakables of the Future</a><br />
+            <a href="http://www.cprogramming.com/tutorial/computersciencetheory/hash-table.html">Stacks, Queues, Heaps, Hash Tables, Graphs, Two-three trees</a><br />
+            <a href="http://www.tutorialspoint.com/data_structures_algorithms/tree_data_structure.htm">Data Structures and Algorithms Tree - Tutorials Point</a><br />
+            <a href="http://vxheaven.org/vx.php?id=zv00">VDAT (HTML!)</a><br />
+            WebKit is a layout engine software component for rendering web pages in web browsers. It powers Apple's Safari web browser.<br />
+            <a href="http://www.libertybasic.com/download.html">Liberty BASIC v4.5.1 Setup IDE (file size 5MB)</a> S/N: Malicious Monkey |92A858<br />
+            <a href="http://meggamusic.co.uk/winamp/Winamp_Download.htm">Winamp 5.666 Download (Patched)</a> S/N: Name: winamp serial: 3BAWK-B4346-9W0V8-3AJA6 Name: winamp serial: 82PU6-VTP91-9EHWC-50TE2<br />
+            <a href="https://www.tracker-software.com/product/pdf-xchange-viewer">PDF-XChange Viewer</a>Name: Team EAT Organization: EATiSO Email: teameat@no_email.com Key: PXP40-8HFT3-QTWZ1-QK2DN-MEUOP-VXG2o PXP40-TE9LD-K297V-L08I6-DKUZU-HJ2RT<br />
+            XYplorer v17.40 S/N: AMPED |xy01-ST00-1fa6-2272-e07e-55da-fs16-0929<br />
+            <a href="http://www.bytecool.com/coolspch.htm">CoolSpeech v5.0</a> S/N: Name: ReanimatoR^LasH s/n: 54368<br />
+            <br />
+            <br />
+            <img src="anim-cat.gif" alt="Black Panther" width="85" height="41" style align="right" hspace="30" /><br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <img alt="BomberHR" src="hr-planeani.gif" width="458" height="55" /><br />
+          </div>
+        </div></div></div>
+        <div class="CntFooter"></div>
+      </div>
+      <div id="col-2">
+      <div class="CntBox">
+        <div class="CntHead">
+          <div class="CntHeadInfo">Leeched Links List: &#39;Listicle&#39;:</div>
+        </div>
+        <div class="CntFill">
+         <div class="CntInfo">
+          <div class="style2" align="left">
+            <a href="http://www.autoitscript.com/forum/index.php?showtopic=94497"> Yahoo Protocol Informaion </a><br />
+              <a href="http://c.learncodethehardway.org/book/">Learn C The Hard Way</a><br />
+              <a href="http://101.lv/learn/C++/">Teach Yourself C++ In 21 Days</a><br />
+              <a href="http://www.learnprolognow.org/">Learn Prolog Now</a><br />
+              <a href="https://github.com/bitemyapp/learnhaskell">Learn Haskell</a><br />
+              <a href="http://learnyouahaskell.com/chapters">Haskell eBook</a><br />
+              <a href="http://www.cprogramming.com/tutorial/c++-tutorial.html">Learn C++ - Tutorial</a><br />
+              <a href="http://gribblelab.org/cbootcamp/">C Programming Bootcamp</a> <a href="http://home.netcom.com/~tjensen/ptr/pointers.htm">A Tutorial on Pointers and Arrays in C</a><br />
+              <a href="http://www.ctyme.com/rbrown.htm">Ralph Brown's Interrupt List</a><br />
+              <a href="https://courses.engr.illinois.edu/ece390/books/artofasm/artofasm.html">The Art of Assembly Language Programming</a><br />
+              <a href="http://www.atariarchives.org/2bml/">The Second Book on Machine Language</a><br />
+              <a href="http://www.cl.cam.ac.uk/~rja14/book.html">Security Engineering - A Guide to Building Dependable Distributed Systems</a><br />
+              TCP\IP Guide<br />
+              PC Guide<br />
+              <a href="http://www.inf.usi.ch/faculty/soule/teaching/2015-spring/db/c++_mini_course.pdf">C++ Mini-Course</a><br />
+              <a href="http://programmedlessons.org/AssemblyTutorial/">Programmed Introduction to MIPS Assembly Language</a><br />
+              <a href="http://cnqzu.com/library/Anarchy%20Folder/Fiction/-_Fantasy_Novels/">Index of /library/Anarchy Folder/Fiction/-_Fantasy_Novels</a><br />
+              <a href="https://hpbn.co/">High Performance Browser Networking (O'Reilly)</a><br />
+              <a href="https://github.com/Blackgu/ebooks/blob/master/ebooks/2012-2-14books/Seven%20Languages%20in%20Seven%20Weeks.pdf">ebooks/Seven Languages in Seven Weeks.pdf at master · Blackgu/ebooks · GitHub</a><br />
+              <a href="http://www.faqs.org/faqs/">Internet FAQ Archives - Online Education - faqs.org</a><br />
+              <a href="http://souptonuts.sourceforge.net/tcpdump_tutorial.html">DoS Attacks (SYN Flooding, Socket Exhaustion): tcpdump, iptables, and Rawsocket Tutorial</a><br />
+              <a href="http://www.winsocketdotnetworkprogramming.com/">Winsock, socket and network programming tutorials using C#, C++/CLI and VB .NET with code examples and program samples</a><br />
+              <a href="http://rookscape.com/vbgaming/">Lucky's VB Gaming Site - Home</a><br />
+              <a href="http://cuinl.tripod.com/tutorials.htm">Visual Basic Tutorial</a><br />
+              <a href="http://mirror.sweon.net/madchat/vxdevl/papers/vxers/">Index of /madchat/vxdevl/papers/vxers</a><br />
+              <a href="http://win32assembly.online.fr/">Iczelion's Win32 Assembly Homepage</a><br />
+              <a href="http://homepage.mac.com/randyhyde/webster.cs.ucr.edu/index.html">Art of Assembly Language Programming and HLA by Randall Hyde</a><br />
+              <a href="http://virus.bartolich.at/virus-writing-HOWTO/_html/index.html">The ELF Virus Writing HOWTO</a><br />
+              <a href="http://www.happycodings.com/">Happy Codings - Programming Sample Code Source Code Search Engine, Example Codes</a><br />
+              <a href="http://www.pdf-search-engine.com/microprocessor-fundamentals-schaums-series-torrent-pdf.html">Microprocessor Fundamentals Schaums Series Torrent .pdf Ebook Download</a><br />
+              <a href="http://www.shareup.net/Utilities/Printer/Virtual-Printer-Driver-Source-Code-review-3058.html">Virtual Printer Driver Source Code</a><br />
+              <a href="http://www.shareup.net/Utilities/Printer/NED-Image-Printer-Driver-2000-Source-Code-review-3064.html">NED Image Printer Driver 2000 Source Code</a><br />
+              <a href="http://www.apl.jhu.edu/~hall/lisp.html">An Introduction and Tutorial for Common Lisp</a><br />
+              <a href="http://buildinggadgets.com/index_tutorials.htm">Electronics Tutorials</a><br />
+              <a href="http://www.rebelshavenforum.com/sis-bin/ultimatebb.cgi?ubb=get_topic;f=52;t=000011;p=1#000%20006">The New Rebels Haven Forum!!: Using Modbin6.exe</a><br />
+              <a href="http://www.xtremesystems.org/forums/archive/index.php/t-40842.html">My Guide to Award BIOS Hacking [Archive] - XtremeSystems Forums</a><br />
+              Undocumented Windows NT 2000 Secrets<br />
+              <a href="https://appnee.com/programming-windows-5th-6th-editions-hd-pdf-epub-chm/">Programming Windows 4 [5-6] by Charles Petzold</a><br />
+              BIOS Disassembly Ninjutsu Uncovered<br />
+              Linux Kernel Internals<br />
+              Rootkits: Subverting The Windows Kernel<br />
+              Programming The Windows Driver Model<br />
+              Mastering Visual Basic 6 by Evangelous Petroutsos<br />
+              Visual C++ 6 For Dummies<br />
+              Professional Video Game Programming by Diana Gruber<br />
+              Virtual Reality Construction Kit<br />
+              <a href="http://zrftech.blogspot.in/2013/03/hacking-art-of-exploitation-2nd-edition.html">Hacking: The Art of Exploitation 2nd Edition</a><br />
+              3D Game Character Modelling<br />
+              <a href="http://www.garybeene.com/vb/tutor.htm">Gary Beene VB tuts</a><br />
+              Project Oberon: Design &amp; Implementation of an Operating System &amp; Compiler<br />
+              <a href="http://ebooks.cawok.pro/">eBooks Archive</a> <br />
+              <a href="http://www.geos.ed.ac.uk/~bmg/software/Perl%20Books/learning_perl.pdf"> http://www.geos.ed.ac.uk/~bmg/software/Perl%20Books/learning_perl.pdf</a><br />
+              <a href="http://onz.es/OReilly/Learning%20Perl.pdf"> http://onz.es/OReilly/Learning%20Perl.pdf</a><br />
+              <a href="http://cs.petrsu.ru/~musen/php/2013/Books/Beginning%20PHP%205.3%20by%20Matt%20Doyle.pdf">http://cs.petrsu.ru/~musen/php/2013/Books/Beginning%20PHP%205.3%20by%20Matt%20Doyle.pdf</a><br />
+              <a href="https://github.com/EbookFoundation/free-programming-books/blob/master/free-programming-books.md#assembly-language">https://github.com/EbookFoundation/free-programming-books/blob/master/free-programming-books.md#assembly-language</a><br />
+              [<a href="http://justlearnwp.com/free-web-design-books-pdf-download/">http://justlearnwp.com/free-web-design-books-pdf-download/</a>] <a href="https://speckyboy.com/free-web-design-ebooks/">https://speckyboy.com/free-web-design-ebooks/</a><br />
+              <a href="https://tproger.ru/articles/free-programming-books/">https://tproger.ru/articles/free-programming-books/</a><br />
+              <a href="http://repo.mynooblife.org/.priv8/Ebook/Web%202.0%20Principles%20and%20Best%20Practices.pdf">http://repo.mynooblife.org/.priv8/Ebook/Web%202.0%20Principles%20and%20Best%20Practices.pdf</a><br />
+              Panther Attack Modem<br />
+              Bootkit links:<br />
+              Rootkits and Bootkits | No Starch Press<br />
+              <a href="https://usa.kaspersky.com/downloads/tdsskiller">TDSSKiller Rootkit Removal Utility - Kaspersky Lab</a><br />
+              <a href="https://www.sophos.com/en-us/products/free-tools/sophos-anti-rootkit.aspx">Anti-Rootkit Scanner - Free Rootkit Detection and Removal (Sophos)</a><br />
+              RootkitRemover | McAfee Free Tools<br />
+              <a href="https://www.mcafee.com/us/downloads/free-tools/rootkitremover.aspx">Malwarebytes | Anti-Rootkit BETA - Free Rootkit Scanner</a><br />
+              <a href="https://labs.bitdefender.com/2013/02/rootkit-remover/">Rootkit Remover - Bitdefender Labs</a><br />
+              <a href="http://www.inquisitr.com/31615/bootkit-the-next-generation-rootkit-terror/">Bootkit - The Next Generation Rootkit</a><br />
+              <a href="http://searchsecurity.techtarget.com/answer/KINS-malware-Rootkit-vs-bootkit"> http://searchsecurity.techtarget.com/answer/KINS-malware-Rootkit-vs-bootkit [x]</a><br />
+              <a href="https://en.wikipedia.org/wiki/Rootkit#bootkit">Bootkit [From Wikipedia]</a><br />
+              <a href="https://macpablodesigns.wordpress.com/2009/10/01/bootkits-what-is-bootkit-and-why-should-it-concern-you/">Bootkits, What is Bootkit and why should it concern you?</a><br />
+              <a href="http://www.techrepublic.com/blog/10-things/10-plus-things-you-should-know-about-rootkits/">10+ things you should know about rootkits</a><br />
+              <a href="http://www.angelfire.com/pro2/xsnakex/Index.htm">Rattlesnake's Lair fansite</a><br />
+              <a href="https://www.visualstudio.com/vs/visual-studio-express/">https://www.visualstudio.com/vs/visual-studio-express/</a><br />
+              <a href="http://www.microsoft.com/web/webmatrix/?wa=wsignin1.0">http://www.microsoft.com/web/webmatrix/?wa=wsignin1.0</a><br />
+              <a href="http://www.thepiratebay.org/torrent/17670266/Adobe+Dreamweaver+CC+2017+v17.1.0.9583+%28x64%29+Portable+%5BTechTools">Adobe Dreamweaver CC 2017 v17.1.0.9583 (x64) Portable [TechTools [Torrent]</a><br />
+              <a href="http://longfiles.com/qea4ozwmpp3e/Dreamweaver_CC_Digital_Classroom.pdf.html">http://longfiles.com/qea4ozwmpp3e/Dreamweaver_CC_Digital_Classroom.pdf.html</a><br />
+              <a href="http://web.archive.org/web/20021125042244/http://www.hackerscenter.com:80/knowledgearea/tutorials/index.htm">Hackers Center - Assorted Hacking Tfiles [Archived]</a><br />
+              <a href="http://web.archive.org/web/20020604110140/http://www.hackerscenter.com:80/">Hackers Center - Home [Archived]</a><br />
+              <a href="http://cdn.preterhuman.net/texts/underground/hacking/Maximum%20Security%20-%20A%20Hacker's%20Guide%20to%20Protecting%20your%20Internet%20Site%20and%20Network.pdf">Maximum Security - A Hacker's Guide to Protecting your Internet Site and Network [PDF ver]</a><br />
+              <a href="http://www2.gsu.edu/~matpxp/SwIG/talks/java_applets.pdf">http://www2.gsu.edu/~matpxp/SwIG/talks/java_applets.pdf</a><br />
+              <a href="http://uap.unnes.ac.id/ebook/programming%20references/">Lots of useful &amp; assorted ebooks (traverse dir)</a><br />
+              <a href="http://www.allitebooks.com/programming/visual-basic/">VB.NET Latest ebooks</a><br />
+              <a href="https://ebooks-it.org/category-visual-basic-2.htm">More VB.NET Latest ebooks</a><br />
+              <br />
+              <a href="https://hienlth.info/easycs/Ebooks/C_Sharp_Succinctly.pdf">https://hienlth.info/easycs/Ebooks/C_Sharp_Succinctly.pdf</a><br />
+              <a href="http://www.spumonte.com/files/PDFs/Microsoft%20XNA%20Unleashed%20Graphics%20and%20Game%20Programming%20for%20Xbox%20360%20and%20Windows.pdf">http://www.spumonte.com/files/PDFs/Microsoft%20XNA%20Unleashed%20Graphics%20and%20Game%20Programming%20for%20Xbox%20360%20and%20Windows.pdf</a><br />
+              <a href="http://184.168.171.185/BOOKS/DVD%201/C%23%203.0%20Unleashed%20With%20.NETFX%203.5%20-%20Joe%20Mayo.pdf">http://184.168.171.185/BOOKS/DVD%201/C%23%203.0%20Unleashed%20With%20.NETFX%203.5%20-%20Joe%20Mayo.pdf</a><br />
+              <a href="http://184.168.171.185/BOOKS/">http://184.168.171.185/BOOKS/</a><br />
+              <a href="http://ebook.pldworld.com/_eBook/FPGA／HDL/Microprocessor%20Design%20principles%20and%20practices%20with%20Vhdl.pdf">http://ebook.pldworld.com/_eBook/FPGA／HDL/Microprocessor%20Design%20principles%20and%20practices%20with%20Vhdl.pdf</a><br />
+              <a href="https://www.uop.edu.jo/download/research/members/Digital_Design_and_Computer_Architecture.pdf">https://www.uop.edu.jo/download/research/members/Digital_Design_and_Computer_Architecture.pdf</a><br />
+              <a href="http://www.kelm.ftn.uns.ac.rs/literatura/mms/pdf/The%208051%20Microcontroller%20Architecture,%20Programming%20And%20Applications.pdf">http://www.kelm.ftn.uns.ac.rs/literatura/mms/pdf/The%208051%20Microcontroller%20Architecture,%20Programming%20And%20Applications.pdf</a><br />
+              <a href="http://ic.sjtu.edu.cn/ic/dic/wp-content/uploads/sites/10/2013/04/CMOS-VLSI-design.pdf">http://ic.sjtu.edu.cn/ic/dic/wp-content/uploads/sites/10/2013/04/CMOS-VLSI-design.pdf</a><br />
+              <a href="http://electro.fisica.unlp.edu.ar/arq/downloads/Papers/ARM/Addison%20Wesley%20-%20ARM%20System-on-Chip%20Architecture,%202Ed.pdf">http://electro.fisica.unlp.edu.ar/arq/downloads/Papers/ARM/Addison%20Wesley%20-%20ARM%20System-on-Chip%20Architecture,%202Ed.pdf</a><br />
+              <a href="http://site.iugaza.edu.ps/engmoayed/files/2010/03/Designing.Embedded.Systems.with.PIC.Microcontrollers.eBook-S.pdf">http://site.iugaza.edu.ps/engmoayed/files/2010/03/Designing.Embedded.Systems.with.PIC.Microcontrollers.eBook-S.pdf</a><br />
+              <a href="https://www.u-cursos.cl/usuario/9553d43f5ccbf1cca06cc02562b4005e/mi_blog/r/CMOS_Circuit_Design__Layout__and_Simulation__3rd_Edition.pdf">https://www.u-cursos.cl/usuario/9553d43f5ccbf1cca06cc02562b4005e/mi_blog/r/CMOS_Circuit_Design__Layout__and_Simulation__3rd_Edition.pdf</a><br />
+              <a href="http://www.cuc.ucc.ie/CS1101/David%20Tarnoff.pdf">http://www.cuc.ucc.ie/CS1101/David%20Tarnoff.pdf</a><br />
+              <a href="http://117.3.71.125:8080/dspace/bitstream/DHKTDN/6634/1/6073.Analog%20Interfacing%20to%20Embedded%20Microprocessors%20Real%20World%20Design.pdf">http://117.3.71.125:8080/dspace/bitstream/DHKTDN/6634/1/6073.Analog%20Interfacing%20to%20Embedded%20Microprocessors%20Real%20World%20Design.pdf</a><br />
+              <a href="http://www.iuma.ulpgc.es/~nunez/clases-micros-para-com/clases-mpc-slides-links/Copy%20of%20(Ebook%20Pdf)%20Computer%20Architecture%20A%20Quantitative%20App.pdf">http://www.iuma.ulpgc.es/~nunez/clases-micros-para-com/clases-mpc-slides-links/Copy%20of%20(Ebook%20Pdf)%20Computer%20Architecture%20A%20Quantitative%20App.pdf</a><br />
+              <a href="http://d1.amobbs.com/bbs_upload782111/files_33/ourdev_585395BQ8J9A.pdf">http://d1.amobbs.com/bbs_upload782111/files_33/ourdev_585395BQ8J9A.pdf</a><br />
+              <a href="http://ac.aua.am/Arm/Public/2017-Spring-Computer-Organization/Textbooks/ComputerOrganizationAndDesign5thEdition2014.pdf">http://ac.aua.am/Arm/Public/2017-Spring-Computer-Organization/Textbooks/ComputerOrganizationAndDesign5thEdition2014.pdf</a><br />
+              <a href="https://www.altera.com/en_US/pdfs/literature/hb/nios2/edh_ed_handbook.pdf">https://www.altera.com/en_US/pdfs/literature/hb/nios2/edh_ed_handbook.pdf</a><br />
+              <a href="http://repository.mdp.ac.id/ebook/programming-books/C++%20Reference/Visual%20C++%204%20Unleashed/index-1.htm">http://repository.mdp.ac.id/ebook/programming-books/C++%20Reference/Visual%20C++%204%20Unleashed/index-1.htm</a><br />
+              <a href="https://ceit.aut.ac.ir/~shiry/lecture/programming/Sams%20-%20Teach%20Yourself%20the%20C%20sharpLanguage%20in%2021%20Days.pdf">https://ceit.aut.ac.ir/~shiry/lecture/programming/Sams%20-%20Teach%20Yourself%20the%20C%20sharpLanguage%20in%2021%20Days.pdf</a><br />
+              <a href="http://it.guldstadsgymnasiet.se/c%23/C%23%205.0%20in%20a%20Nutshell,%205th%20Edition.pdf">http://it.guldstadsgymnasiet.se/c%23/C%23%205.0%20in%20a%20Nutshell,%205th%20Edition.pdf</a><br />
+              <a href="http://www.albrightcs.com/Windows%2010%20For%20Dummies.pdf">Windows 10 For Dummies</a><br />
+              <a href="https://www.gitbook.com/book/samypesse/how-to-create-an-operating-system/details">How to Create an Operating System in C++</a><br />
+              <br />
+              <a href="http://www.alycesrestaurant.com/chat.htm">http://www.alycesrestaurant.com/chat.htm [Traverse dir]</a><br />
+              <a href="http://www.libertybasic.com/programming_tutorials.html">http://www.libertybasic.com/programming_tutorials.html</a><br />
+              <a href="http://www.libertybasicuniversity.com/lbnews/nl101/3.htm">http://www.libertybasicuniversity.com/lbnews/nl101/3.htm</a><br />
+              <a href="http://www.libertybasicuniversity.com/lbnews/nl102/8.htm Call-Level Interface (CLI)">http://www.libertybasicuniversity.com/lbnews/nl102/8.htm Call-Level Interface (CLI)</a><br />
+              <a href="http://www.libertybasicuniversity.com/lbnews/nl101/5.htm API">http://www.libertybasicuniversity.com/lbnews/nl101/5.htm API</a><br />
+              <a href="https://groups.yahoo.com/neo/groups/libertybasic/info">Liberty BASIC Yahoo Group [Resources]</a><br />
+              SAMS Teach Yourself Beginning Programming in 24 Hours - (Greg Perry<br />
+              <a href="http://libertybasic.conforums.com/">Liberty Basic Alternate Forum</a><br />
+              Visual Basic Programmer's Guide to the Win32 API, Published by Sams - ISBN: 0672315904<br />
+              Visual Basic 5.0 programmers guide to the WIN32 API by Danny Appleman<br />
+              <a href="http://vbnet.mvps.org/">VB API Misc</a><br />
+              <a href="http://www.freebyte.com/programming/basic/">BASIC Resources</a><br />
+              <a href="http://www.vbi.org/Folders/index.asp?id=573&t=-129">More VB Resources</a><br />
+              <a href="http://www.thevbprogrammer.com/ch05/05-07-api.htm">VB API article</a><br />
+              <a href="http://www.johnsmiley.com/cis18/smiley026.pdf">http://www.johnsmiley.com/cis18/smiley026.pdf</a><br />
+              <a href="https://thepiratebay.org/torrent/7200306/106.visual.basic.ebooks_MegaCollection">106 Visual Basic Ebooks [Torrent] cf. Demonoid.pw</a><br />
+              <br />
+              rinkworks.com/bookaminute/classics.shtml<br />
+              computer.howstuffworks.com/graphics-card.htm/printable<br />
+              www.authorama.com<br />
+              www.everything2.org<br />
+              youshouldhaveseenthis.com<br />
+              www.hopeman.de/hopeman-gifdump-207<br />
+              http://www.huhmagazine.co.uk/5461/the-worlds-most-beautiful-libraries<br />
+              www.cracked.com/article_21349_69-awesome-brain-hacks-that-give-you-mind-blowing-powers.html<br />
+              tutorial-how-to-build-the-ultimate-custom-usb-drive-with-multiple-bootable-installs-for-windows-and-linux-and-portableapps-for-windows<br />
+              freebookbrowser.com/languages/german.php<br />
+              freethoughtblogs.com/pharyngula/files/2014/01/donuts_socialmedia-500x651.jpg<br />
+              www.buzzbookstore.com/blog/2016/9/21/42-books-that-you-cant-put-down-after-picking-up<br />
+              codebutler.com/firesheep<br />
+              https://youtu.be/VGj5EffwnDg<br />
+              https://youtu.be/VGj5EffwnDg?t=84<br />
+              worldofstuart.excellentcontent.com/antipiracy.htm<br />
+              samy.pl/usbdriveby<br />
+              n0where.net/best-onion-links-deep-web<br />
+              hardwarehell.com<br />
+              orwell.ru/library/novels/1984/english/en_p_1<br />
+              qwily.com/2015/05/07/22-unethical-life-hacks-use-at-your-own-risk-2<br />
+              flavorwire.com/419194/the-50-scariest-books-of-all-time/view-all<br />
+              www.conceptlab.com/simulator/morning/clock800.html<br />
+              www.hackertest.net<br />
+              www.stopstartdo.com/blog/best-books-of-2015-nonfiction-that-will-make-you-a-genius<br />
+              custom.crn.com/cylance-security-learningcenter<br />
+              www.plinko.net/Roulette/faq.asp<br />
+              catb.org/~esr/jargon/html<br />
+              cybergali.com/7-best-websites-to-learn-hacking<br />
+              bookshelfporn.com/page/4<br />
+              defaultpassword.com<br />
+              bookriot.com/2012/11/02/10-kick-ass-secret-passage-bookshelves<br />
+              www.mit.edu/hacker/hacker.html<br />
+              faculty.ccri.edu/tonyrashid/etek.htm<br />
+              matadornetwork.com/notebook/45-best-books-read-road<br />
+              en.wikipedia.org/wiki/Godwins_law<br />
+              hackercs.com/streams/Introduction-to-Computer-Science<br />
+              www.writerightnow.co.uk/stand-out-post-apocalyptic-novels<br />
+              wikibon.org/blog/the-art-of-cable-organizationwikibon.org/blog/the-art-of-cable-organization<br />
+              vimeo.com/47890552<br />
+              xwww.spamhelp.org/harvesterkiller<br />
+              www.frozencpu.com<br />
+              https://online.seterra.com/en/p/learn-german<br />
+              computer.howstuffworks.com/liquid-cooled-pc.htm/printable<br />
+              www.cultdeadcow.com/cDc_files/cDc-351<br />
+              blog.brianmoses.net/2016/02/diy-nas-2016-edition.html<br />
+              https://youtu.be/gLDYtH1RH-U<br />
+              www.bromygod.com/2015/09/18/20-of-best-gifs-the-internet-brought-us-this-week<br />
+              https://www.duolingo.com/<br />
+              <a href="http://lbpe.wikispaces.com/advanced#ABCs of APIs Series">ABCs of APIs Series [LB4]</a><br />
+              <a href="http://jbfilesarchive.com/phpBB3/viewtopic.php?f=4&t=2124">Minesweeper [LB4] Source Code</a><br />
+              <br />
+              <a href="http://msdn.microsoft.com/library/">http://msdn.microsoft.com/library/</a><br />
+              <a href="http://www.csie.ntu.edu.tw/~r93020/eBook">http://www.csie.ntu.edu.tw/~r93020/eBook/</a><br />
+              <a href="http://canvas.projekti.info/ebooks">http://canvas.projekti.info/ebooks/</a><br />
+              <a href="http://www.cs.fsu.edu/~zwang/files/cop4610/Fall2016/windows.pdf">http://www.cs.fsu.edu/~zwang/files/cop4610/Fall2016/windows.pdf</a><br />
+              <a href="http://users.nik.uni-obuda.hu/vamossy/SZPE2011/Segedletek/Multi-Core_Programming_Digital_Edition_(06-29-06).pdf">Multi-Core Programming: Increasing Performance through Software Multi-threading</a><br />
+              <a href="https://repo.zenk-security.com/Reversing%20.%20cracking/Practical%20Reverse%20Engineering.pdf">Practical Reverse Engineering</a><br />
+              <a href="http://pdf.th7.cn/down/files/1312/ccli_in_action.pdf"></a>C++/CLI in Action<br />
+              <a href="https://news.asis.io/sites/default/files/The%20Art%20of%20Memory%20Forensics.pdf">The Art of MeMory Forensics</a><br />
+              <a href="https://www.uop.edu.jo/download/research/members/vb6_1__1_.0%20-%20visual%20basic%20-%20learn%20visual%20basic%206.0%20(nice%20manual).pdf">Course Notes for: Learn Visual Basic 6.0</a> <a href="https://cours.etsmtl.ca/gpa789/pdf/OfficialGUI.pdf">Official Guidelines for User Interface Developers and Designers</a><br />
+              <a href="https://www.watchguard.com/docs/whitepaper/wg_combating-advanced-malware_ebook.pdf">A PRACTICAL GUIDE TO COMBATING ADVANCED MALWARE</a><br />
+              <a href="http://www.uobabylon.edu.iq/download/M.S%202013-2014/Operating_System_Concepts,_8th_Edition[A4].pdf">Operating System Concepts- 8th Edition</a><br />
+              <a href="https://www.uop.edu.jo/download/research/members/Architecture_Design_Notebook.pdf">Architecture Design Notebook</a><br />
+              <a href="https://www.uop.edu.jo/download/research/members/Create_Your_First_Website_2.pdf">https://www.uop.edu.jo/download/research/members/Create_Your_First_Website_2.pdf</a><br />
+              <a href="https://www.uop.edu.jo/download/research/members/data-recovery-book.pdf">DATA RECOVERY E-BOOK V1.5</a><br />
+              <a href="https://www.uop.edu.jo/download/research/members/Digital_Design_-_A_Comprehensive_Guide_to_Digital_Electronics_and_Computer_System_Architecture_20.pdf">Digital Design- A Comprehensive Guide To Digital Electronics and Computer System Architecture</a><br />
+              <a href="https://www.uop.edu.jo/download/research/members/ebook%20-%20pdf%20-%20how%20to%20study%20the%20chess%20opening.pdf">How to Srudy Chess Opening</a><br />
+              <a href="https://www.uop.edu.jo/download/research/members/Architecture_Interior_Design.pdf">Architecture: Interior Design</a><br />
+              <a href="https://www.uop.edu.jo/download/research/members/EC-9421-VisualBasic_NET-Visual_Basic_NET_Core_Courses-Visual_Basic_NET_Essentials.pdf">Visual Basic Core Courses- .NET Essentials</a><br />
+              <a href="https://www.uop.edu.jo/download/research/members/English%20Book%20-%20Fun%20With%20Grammar.pdf">Fun with Grammar Suzanne W. Woodward</a><br />
+              <a href="https://www.uop.edu.jo/download/research/members/Oxford_Guide_to_English_Grammar.pdf">Oxford Guide to English Grammar</a><br />
+              <a href="https://www.uop.edu.jo/download/research/members/Rob%20Miles%20CSharp%20Yellow%20Book%202009.pdf">C# Development Yellow Book</a><br />
+              <a href="https://www.uop.edu.jo/download/research/members/Teaching%20English%20To%20Children.pdf">Teaching bEnglish To Children</a><br />
+              <a href="http://araku.ac.ir/~d_comp_engineering/88892/1323108/OpenGL%20Game%20Development.pdf">OpenGL Game Development</a><br />
+              <a href="http://www.basicknowledge101.com/pdf/km/Application%20programming%20interface.pdf">Application programming interface</a><br />
+              <a href="http://dl.finebook.ir/book/51/12369.pdf">Concurrent Programming on Windows</a><br />
+              <a href="http://users.minet.uni-jena.de/~nwk/Tricks.pdf">Tricks of the Hackers: API Hooking and DLL Injection</a> <a href="https://www.microbe.cz/docs/Beyond_BIOS_Second_Edition_Digital_Edition_(15-12-10)%20.pdf">Beyond BIOS: Developing with the Unified Extensible Firmware Interface</a><br />
+              <a href="http://iaci.unq.edu.ar/materias/laboratorio2/Dll%5CDLLs%20for%20Beginners.pdf">DLLs for Beginners</a><br />
+              <a href="http://aranna.altervista.org/data2/3d_game_programming_with_DirectX11.pdf">Introduction to 3D GAME PROGRAMMING WITH DIRECTX 11</a><br />
+              <a href="The Principles of Creating Modern TSR Programs Running under the Microsoft Windows Operating System">http://nova.pc.pl/modtsr.pdf</a><br />
+              <a href="http://venom630.free.fr/pdf/">http://venom630.free.fr/pdf/</a><br />
+              <br />
+              http://www.textfiles.com/politics/ita_bc.txt<br />
+              http://www.textfiles.com/etext/NONFICTION/epictetus-discourses-568.txt<br />
+              http://www.gutenberg.org/cache/epub/690/pg690-images.html<br />
+              <br />
+              http://www.relisoft.com/Win32/index.htm<br />
+              http://zetcode.com/gui/winapi/<br />
+              https://msdn.microsoft.com/en-us/library/bb384843.aspx<br />
+              https://www.codementor.io/malortie/c-cpp-tutorial-build-win32-api-app-part-1-du107u9je<br />
+              https://users.physics.ox.ac.uk/~Steane/cpp_help/winapi_intro.htm<br />
+              http://www.tenouk.com/cnwin32tutorials.html<br />
+              https://learnwinapi.wordpress.com/<br />
+              http://www.catch22.net/tuts<br />
+              <br />
+              <a href="http://freepdf-books.com/sams-teach-yourself-dreamweaver-cs5-in-24-hours/">http://freepdf-books.com/sams-teach-yourself-dreamweaver-cs5-in-24-hours/</a><br />
+              <a href="http://www.aonaware.com/OOP1.htm">http://www.aonaware.com/OOP1.htm</a><br />
+              <a href="https://www.codeproject.com/Articles/22769/Introduction-to-Object-Oriented-Programming-Concep">https://www.codeproject.com/Articles/22769/Introduction-to-Object-Oriented-Programming-Concep</a><br />
+              <a href="https://www.tutorialspoint.com/cplusplus/cpp_object_oriented.htm">https://www.tutorialspoint.com/cplusplus/cpp_object_oriented.htm</a><br />
+              <a href="http://www.c-sharpcorner.com/UploadFile/84c85b/object-oriented-programming-using-C-Sharp-net/">http://www.c-sharpcorner.com/UploadFile/84c85b/object-oriented-programming-using-C-Sharp-net/</a><br />
+              <a href="http://www.blackwasp.co.uk/CSharpObjectOriented.aspx">http://www.blackwasp.co.uk/CSharpObjectOriented.aspx</a><br />
+              <br />
+              <a href="http://www.bibliomania.com/">http://www.bibliomania.com/</a><br />
+              <a href="http://onlinebooks.library.upenn.edu/webbin/book/browse?type=subject&index=50&key=a2k%20movement&c=c">http://onlinebooks.library.upenn.edu/webbin/book/browse?type=subject&index=50&key=a2k%20movement&c=c</a><br />
+              <a href="http://www.ebooksread.com/">http://www.ebooksread.com/</a><br />
+              <a href="http://digilibraries.com/ebook/surfing-the-internet">http://digilibraries.com/ebook/surfing-the-internet</a><br />
+              <a href="http://www.lifehack.org/articles/technology/6-powerful-text-editors-for-windows.html">[LifeHacker] 5 Most Powerful Text Editors for Windows</a><br />
+              <a href="https://m.youtube.com/watch?v=OA0LpRFmo7w">How to install Ubuntu inside Windows 10, 8.1 with Wubi + ISO</a><br />
+              <a href="https://www.youtube.com/watch?v=FtnB_hDhcf8">Octoroit VBOS video</a><br />
+              <a href="http://docs.ludost.net/Programming%20and%20Software%20Development/C%20and%20C%2B%2B/">C++ &nbsp; Misc Programming FTP Listing [Traverse Dir]</a><br />
+              <a href="https://github.com/haseebr/competitive-programming/raw/master/Materials/Introduction%20to%20Algorithms%20-%203rd%20Edition.pdf">Algorithms eBooks</a><br />
+              <a href="https://repo.palkeo.com/repositories/mirror7.meh.or.id/Embedded/">Misc Computing FTP Listing [Traverse Dir]</a><br />
+              <br />
+<br />
+<img src="blueline.gif" alt="HRule bluebar" height="10" width="100%" />
+<br />
+<a href="http://www.pearltrees.com/alias1/reverse-engineering-security/id10000845#item97137384">http://www.pearltrees.com/alias1/reverse-engineering-security/id10000845#item97137384</a><br />
+<a href="http://www.pearltrees.com/t/computer/cracking/id2936528">http://www.pearltrees.com/t/computer/cracking/id2936528</a><br />
+<a href="http://www.pearltrees.com/ronsheely/disassembler/id7007988">http://www.pearltrees.com/ronsheely/disassembler/id7007988</a><br />
+<a href="http://www.pearltrees.com/synesthesia/warez-sites/id13277800">http://www.pearltrees.com/synesthesia/warez-sites/id13277800</a><br />
+<a href="http://www.pearltrees.com/joaorbraposo/security-software/id12463546">http://www.pearltrees.com/joaorbraposo/security-software/id12463546</a><br />
+<a href="http://www.pearltrees.com/knoweat.dp/c/id8783157">http://www.pearltrees.com/knoweat.dp/c/id8783157</a><br />
+<a href="http://www.pearltrees.com/jal/disassembler-tools/id4435575">http://www.pearltrees.com/jal/disassembler-tools/id4435575</a><br />
+<a href="http://www.pearltrees.com/assaf/vb-net/id3048791">http://www.pearltrees.com/assaf/vb-net/id3048791</a><br />
+<a href="http://www.pearltrees.com/cristinam.moralesmojica/programming-stuff/id12071103">http://www.pearltrees.com/cristinam.moralesmojica/programming-stuff/id12071103</a><br />
+chain of responsibility<br />
+<br />
+<a href="http://www.pearltrees.com/alias1/reverse-engineering-security/id10000845#item97137384">http://www.pearltrees.com/alias1/reverse-engineering-security/id10000845#item97137384</a><br />
+<a href="http://www.pearltrees.com/t/computer/cracking/id2936528">http://www.pearltrees.com/t/computer/cracking/id2936528</a><br />
+<br />
+<a href="http://resources.infosecinstitute.com/reverse-engineering-ollydbg/">http://resources.infosecinstitute.com/reverse-engineering-ollydbg/</a><br />
+<br />
+<a href="http://resources.infosecinstitute.com/unpacking-reversing-patching/">http://resources.infosecinstitute.com/unpacking-reversing-patching/</a><br />
+<a href="http://resources.infosecinstitute.com/three-ways-to-defeat-a-reverseme/">http://resources.infosecinstitute.com/three-ways-to-defeat-a-reverseme/</a><br />
+<a href="http://resources.infosecinstitute.com/reverse-engineering-tools/">http://resources.infosecinstitute.com/reverse-engineering-tools/</a><br />
+<a href="http://resources.infosecinstitute.com/reverse-engineering-ollydbg/">http://resources.infosecinstitute.com/reverse-engineering-ollydbg/</a><br />
+IDA Pro<br />
+<a href="http://resources.infosecinstitute.com/basics-of-ida-pro-2/">http://resources.infosecinstitute.com/basics-of-ida-pro-2/</a><br />
+<a href="http://resources.infosecinstitute.com/ida-idc-sdk-remote-debugging-overview/#article">http://resources.infosecinstitute.com/ida-idc-sdk-remote-debugging-overview/#article</a><br />
+<a href="http://resources.infosecinstitute.com/ida-configuration-options/#article">http://resources.infosecinstitute.com/ida-configuration-options/#article</a><br />
+<a href="http://resources.infosecinstitute.com/ida-program-patching/#article">http://resources.infosecinstitute.com/ida-program-patching/#article</a><br />
+—<br />
+CrackMe<br />
+<a href="http://resources.infosecinstitute.com/crackme-part-1/">http://resources.infosecinstitute.com/crackme-part-1/</a><br />
+<a href="http://resources.infosecinstitute.com/crackme-part-2/">http://resources.infosecinstitute.com/crackme-part-2/</a><br />
+<a href="http://resources.infosecinstitute.com/crackme-part-3/">http://resources.infosecinstitute.com/crackme-part-3/</a><br />
+<a href="http://resources.infosecinstitute.com/crack-me-part-4/">http://resources.infosecinstitute.com/crack-me-part-4/</a><br />
+—<br />
+<a href="http://resources.infosecinstitute.com/reverse-engineering-obfuscated-assemblies/">http://resources.infosecinstitute.com/reverse-engineering-obfuscated-assemblies/</a><br />
+<a href="http://resources.infosecinstitute.com/patching-net-binary-code-with-cff-explorer/">http://resources.infosecinstitute.com/patching-net-binary-code-with-cff-explorer/</a><br />
+<a href="http://resources.infosecinstitute.com/net-assembly-programming/">http://resources.infosecinstitute.com/net-assembly-programming/</a><br />
+<a href="http://resources.infosecinstitute.com/net-reverse-engineering-1cil-programming/">http://resources.infosecinstitute.com/net-reverse-engineering-1cil-programming/</a><br />
+<a href="http://resources.infosecinstitute.com/net-reverse-engineering-part-2/">http://resources.infosecinstitute.com/net-reverse-engineering-part-2/</a><br />
+<a href="http://resources.infosecinstitute.com/net-reverse-engineering-3/">http://resources.infosecinstitute.com/net-reverse-engineering-3/</a><br />
+<a href="http://resources.infosecinstitute.com/extreme-net-reverse-engineering-4/">http://resources.infosecinstitute.com/extreme-net-reverse-engineering-4/</a><br />
+<a href="http://resources.infosecinstitute.com/extreme-net-reverse-engineering-5/">http://resources.infosecinstitute.com/extreme-net-reverse-engineering-5/</a><br />
+<a href="http://resources.infosecinstitute.com/reverse-engineering-reflector/">http://resources.infosecinstitute.com/reverse-engineering-reflector/</a><br />
+<a href="http://resources.infosecinstitute.com/net-reversing-reflexil/">http://resources.infosecinstitute.com/net-reversing-reflexil/</a><br />
+Demystifying dotNET<br />
+<a href="http://resources.infosecinstitute.com/demystifying-dot-net-reverse-engineering-introducing-round-trip-engineering/">http://resources.infosecinstitute.com/demystifying-dot-net-reverse-engineering-introducing-round-trip-engineering/</a><br />
+<a href="http://resources.infosecinstitute.com/demystifying-dot-net-reverse-engineering-advanced-round-trip-engineering/">http://resources.infosecinstitute.com/demystifying-dot-net-reverse-engineering-advanced-round-trip-engineering/</a><br />
+<a href="http://resources.infosecinstitute.com/demystifying-dot-net-reverse-engineering-part-1-big-introduction/">http://resources.infosecinstitute.com/demystifying-dot-net-reverse-engineering-part-1-big-introduction/</a><br />
+<a href="http://resources.infosecinstitute.com/dot-net-reverse-engineering-part-2/">http://resources.infosecinstitute.com/dot-net-reverse-engineering-part-2/</a><br />
+<a href="http://resources.infosecinstitute.com/dot-net-reverse-engineering-part-3/">http://resources.infosecinstitute.com/dot-net-reverse-engineering-part-3/</a><br />
+-Cracking-<br />
+<a href="http://www.ollydbg.de/">http://www.ollydbg.de/</a><br />
+<a href="http://lazyfoo.net/SDL_tutorials/index.php">http://lazyfoo.net/SDL_tutorials/index.php</a><br />
+-Visual Basic-<br />
+<a href="https://www.dotnetperls.com/vb">https://www.dotnetperls.com/vb</a><br />
+<a href="http://www.vb-helper.com/index_vbnet.html">http://www.vb-helper.com/index_vbnet.html</a><br />
+<a href="http://www.a1vbcode.com/code.asp?type=games">http://www.a1vbcode.com/code.asp?type=games</a><br />
+<a href="http://www.homeandlearn.co.uk/NET/vbNet.html">http://www.homeandlearn.co.uk/NET/vbNet.html</a><br />
+<a href="http://www.homeandlearn.co.uk/csharp/csharp.html">http://www.homeandlearn.co.uk/csharp/csharp.html</a><br />
+<a href="http://vbcity.com/blogs/xtab/archive/2009/06/29/how-to-play-sounds-and-music-in-wpf.aspx">http://vbcity.com/blogs/xtab/archive/2009/06/29/how-to-play-sounds-and-music-in-wpf.aspx</a><br />
+Visual Basic Game Programming with DirectX by Jonathan S. Harbour - ISBN: 193184125X<br />
+<br />
+Windows Game Programming with Visual Basic and DirectX by Wayne S. Freeze - ISBN: 0789725924<br />
+<br />
+Microsoft Visual Basic 6.0: Games Programming by Catherine Dwyer, Jeanine Meyer - ISBN: 0619035617<br />
+Learn VB.NET Through Game Programming<br />
+<a href="http://programmersheaven.com/discussions">http://programmersheaven.com/discussions</a><br />
+<a href="http://www.wpftutorial.net/">http://www.wpftutorial.net/</a><br />
+<a href="https://www.developerfusion.com/t/.net/">https://www.developerfusion.com/t/.net/</a><br />
+--<br />
+<a href="https://kotaku.com/5979539/a-beginners-guide-to-making-your-first-video-game">https://kotaku.com/5979539/a-beginners-guide-to-making-your-first-video-game</a><br />
+<a href="https://en.wikipedia.org/wiki/The_C_Programming_Language">https://en.wikipedia.org/wiki/The_C_Programming_Language</a><br />
+<a href="https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns">https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns</a><br />
+<a href="http://www.techotopia.com/index.php/C_Sharp_Essentials">http://www.techotopia.com/index.php/C_Sharp_Essentials</a><br />
+<a href="https://www.theengineeringprojects.com/">https://www.theengineeringprojects.com/</a><br />
+<a href="http://www.java2s.com/Tutorial/CSharp/0460__GUI-Windows-Forms/Catalog0460__GUI-Windows-Forms.htm">http://www.java2s.com/Tutorial/CSharp/0460__GUI-Windows-Forms/Catalog0460__GUI-Windows-Forms.htm</a><br />
+<a href="http://qiao.github.io/PathFinding.js/visual/">http://qiao.github.io/PathFinding.js/visual/</a><br />
+Building Java Programs: A Back to Basics Approach, by Stuart Reges and Marty Stepp<br />
+<a href="https://www.reddit.com/r/learnprogramming/">https://www.reddit.com/r/learnprogramming/</a><br />
+<a href="https://courses.cs.washington.edu/courses/cse142/">https://courses.cs.washington.edu/courses/cse142/</a><br />
+<a href="https://www.udemy.com/cpp-short-and-sweet/">https://www.udemy.com/cpp-short-and-sweet/</a><br />
+<a href="http://www.textfiles.com/magazines/40HEX/">http://www.textfiles.com/magazines/40HEX/</a><br />
+<a href="https://www.programming9.com/programs/cpp-programs/162-cpp-program-to-implement-all-functions-of-dictionary-adt-using-hashing">https://www.programming9.com/programs/cpp-programs/162-cpp-program-to-implement-all-functions-of-dictionary-adt-using-hashing</a><br />
+<a href="https://codereview.stackexchange.com/questions/48759/program-simulating-dictionary-using-file-handling">https://codereview.stackexchange.com/questions/48759/program-simulating-dictionary-using-file-handling</a><br />
+<a href="http://www.lmpt.univ-tours.fr/~volkov/C++.pdf">http://www.lmpt.univ-tours.fr/~volkov/C++.pdf</a><br />
+<a href="https://www.moderncplusplus.com/map/">https://www.moderncplusplus.com/map/</a><br />Puffin Browser, nomacs, VirtualBox, Realworld Cursor Editor (freeware recommend) <a href="https://www.puffinbrowser.com/windows/">https://www.puffinbrowser.com/windows/</a> <a href="https://nomacs.org/download/">https://nomacs.org/download/</a><br />
+<a href="https://www.howtogeek.com/340688/whats-coming-in-windows-10s-redstone-4-update-available-march-2018/">https://www.howtogeek.com/340688/whats-coming-in-windows-10s-redstone-4-update-available-march-2018/</a> <a href="https://www.youtube.com/watch?v=t8CCEw-yTo8">https://www.youtube.com/watch?v=t8CCEw-yTo8</a><br />
+<a href="http:///resources.infosecinstitute.com/security-hacking-apps-android">http:///resources.infosecinstitute.com/security-hacking-apps-android</a><br />
+<a href="http://mango.pdf.zone/hacking-your-neighbours-wifi">http://mango.pdf.zone/hacking-your-neighbours-wifi</a><br />
+<a href="https://tfetimes.com/free-c-books/">https://tfetimes.com/free-c-books/</a><br />
+<a href="https://readwrite.com/2011/06/18/free-e-books-on-c-and-cpp/">https://readwrite.com/2011/06/18/free-e-books-on-c-and-cpp/</a><br />
+<a href="https://github.com/EbookFoundation/free-programming-books/blob/master/free-programming-books.md">https://github.com/EbookFoundation/free-programming-books/blob/master/free-programming-books.md</a><br />
+<a href="https://www.mimuw.edu.pl/~mrp/cpp/SecretCPP/O'Reilly%20-%20Practical%20C++%20Programming.pdf">https://www.mimuw.edu.pl/~mrp/cpp/SecretCPP/O'Reilly%20-%20Practical%20C++%20Programming.pdf (Traverse Directory)</a><br /><br />
+
+11:42 AM 7/18/2018:<br />
+<a href="https://gizmodo.com/5792478/small-but-powerful-30-useful-pc-apps-under-2mb">https://gizmodo.com/5792478/small-but-powerful-30-useful-pc-apps-under-2mb</a><br />
+<a href="https://archive.org/stream/frank-herbert-dune-1-dune/frank-herbert-dune-3-children-of-dune_djvu.txt">https://archive.org/stream/frank-herbert-dune-1-dune/frank-herbert-dune-3-children-of-dune_djvu.txt</a><br />
+<a href="http://hawkee.com/snippet/6198/">http://hawkee.com/snippet/6198/</a> Notepad script mIrc by Renegade rightclick<br />
+<a href="http://www.pygame.org/shredwheat/solarwolf/index.shtml">http://www.pygame.org/shredwheat/solarwolf/index.shtml</a><br />
+<a href="http://cs.lth.se/fileadmin/cs/EDAA40/Resources/Mathematics_for_Computer_Science.pdf">http://cs.lth.se/fileadmin/cs/EDAA40/Resources/Mathematics_for_Computer_Science.pdf</a><br />
+<a href="https://dev.adiirc.com/boards/5/topics/297">https://dev.adiirc.com/boards/5/topics/297</a> Simple Insult script /insult<br />
+<a href="https://dev.adiirc.com/boards/5/topics/273">https://dev.adiirc.com/boards/5/topics/273</a> Clock OSD v0.1 f3<br />
+<a href="https://textbox.io/">https://textbox.io/</a> HTML Editor<br />
+<a href="http://www.isitdownrightnow.com/">http://www.isitdownrightnow.com/</a> Website down or not?<br />
+<a href="https://rarbgto.org/">https://rarbgto.org/</a><br />
+<a href="https://katcr.co/">https://katcr.co/</a><br />
+<a href="https://yts.am/">https://yts.am/</a><br />
+<a href="http://www.goanwap.com/">http://www.goanwap.com/</a> ebooks<br />
+<a href="http://www.wrestlinginc.com/wi/news/2018/0514/639881/wwe-monday-night-raw-live-results/">http://www.wrestlinginc.com/wi/news/2018/0514/639881/wwe-monday-night-raw-live-results/</a><br />
+<a href="https://www.youtube.com/watch?v=AtPUUC4NVJY">https://www.youtube.com/watch?v=AtPUUC4NVJY</a> Azuro feat. Elly - Ti Amo<br />
+<a href="https://starcraft.com/en-us/articles/20674424">https://starcraft.com/en-us/articles/20674424</a> StarCraft: Remastered<br />
+<a href="https://watchfilms.me/">https://watchfilms.me/</a><br />
+<a href="https://123movieshub.sc/movie/wonder-woman-2017-23r2r234t3/watching/?ep=6">https://123movieshub.sc/movie/wonder-woman-2017-23r2r234t3/watching/?ep=6</a><br />
+<a href="http://hdonline.to">http://hdonline.to</a><br />
+<a href="http://www.yespets.com/cats/26393/20-cat-reactions-that-perfectly-describe-your-work-life/?llid=oRXd&utm_source=liso&utm_medium=9bnQ&utm_campaign=ypt-liso-d-us-95b58096">http://www.yespets.com/cats/26393/20-cat-reactions-that-perfectly-describe-your-work-life/?llid=oRXd&utm_source=liso&utm_medium=9bnQ&utm_campaign=ypt-liso-d-us-95b58096</a><br />
+<a href="http://www.theisozone.com/downloads/pc/dos-games/scrabble-usa/">http://www.theisozone.com/downloads/pc/dos-games/scrabble-usa/</a><br />
+<a href="https://street-fighter-2.en.softonic.com/">https://street-fighter-2.en.softonic.com/</a> <a href="https://www.windows10download.com/w10-arcade-games.html">https://www.windows10download.com/w10-arcade-games.html</a> <a href="http://freegamepick.net/en/arcade-games/pc/">http://freegamepick.net/en/arcade-games/pc/</a> <a href="https://qpdownload.com/mari0/">https://qpdownload.com/mari0/</a>/<br />
+<a href="http://www.tclscripts.net/release-notes/">http://www.tclscripts.net/release-notes/</a><br />
+<a href="http://cycovince.free.fr/ulco/Mike%20Ashley%20-%20The%20Mammoth%20Book%20of%20King%20Arthur.pdf">http://cycovince.free.fr/ulco/Mike%20Ashley%20-%20The%20Mammoth%20Book%20of%20King%20Arthur.pdf</a><br />
+<a href="https://www.cs.cmu.edu/~rgs/literature.html">https://www.cs.cmu.edu/~rgs/literature.html</a><br />
+<a href="http://oneweakness.com/elf-bowling-download.html">http://oneweakness.com/elf-bowling-download.html</a><br />
+<a href="http://www.mediafire.com/file/6fxdtz12nhfcrn7/Elf+Bowling.exe">http://www.mediafire.com/file/6fxdtz12nhfcrn7/Elf+Bowling.exe</a><br />
+<a href="http://theisozone.com/downloads/pc/windows-games/virtua-fighter-pc-with-cd-audio-tracks/">http://theisozone.com/downloads/pc/windows-games/virtua-fighter-pc-with-cd-audio-tracks/</a><br />
+<a href="https://www.youtube.com/watch?v=eCbRmd-Tsbs">https://www.youtube.com/watch?v=eCbRmd-Tsbs</a><br />
+<a href="http://freegamepick.net/en/pakman-2008/">http://freegamepick.net/en/pakman-2008/</a><br />
+<a href="https://www.gog.com/forum/earthworm_jim_series/earthworm_jim_windows_95_special_edition_fixes_for_modern_windows">https://www.gog.com/forum/earthworm_jim_series/earthworm_jim_windows_95_special_edition_fixes_for_modern_windows</a><br />
+<a href="https://www.youtube.com/watch?v=Zcvd3bgOH34">https://www.youtube.com/watch?v=Zcvd3bgOH34</a><br />
+<a href="https://mega.nz/#!Xx5gAZSB!dJHSYEAvqMayoO2t2YfTAYfV3IM9gD7huLyvEos4-CE">https://mega.nz/#!Xx5gAZSB!dJHSYEAvqMayoO2t2YfTAYfV3IM9gD7huLyvEos4-CE</a><br />
+<a href="https://appuals.com/how-to-read-hlp-files-in-windows-10/">https://appuals.com/how-to-read-hlp-files-in-windows-10/</a><br />
+<a href="https://helpdeskgeek.com/windows-7/windows-7-how-to-delete-files-protected-by-trustedinstaller/">https://helpdeskgeek.com/windows-7/windows-7-how-to-delete-files-protected-by-trustedinstaller/</a><br />
+<a href="https://www.powerpoetry.org/poems/world-around-me-0">https://www.powerpoetry.org/poems/world-around-me-0</a><br />
+<a href="https://www.powerpoetry.org/related-poems/7793">https://www.powerpoetry.org/related-poems/7793</a><br />
+<a href="http://theskepticspectator.com/nihilism-poem/">http://theskepticspectator.com/nihilism-poem/</a><br />
+<a href="http://www.uml.org.cn/c++/pdf/C++Complete%20Reference%20%283rd%20Ed.%29.pdf">http://www.uml.org.cn/c++/pdf/C++Complete%20Reference%20%283rd%20Ed.%29.pdf</a> <a href="http://www.ddegjust.ac.in/studymaterial/mca-3/ms-17.pdf">http://www.ddegjust.ac.in/studymaterial/mca-3/ms-17.pdf</a> <a href="https://www.e-reading.club/bookreader.php/135186/Aitken%2C_Jones_-_Sams_Teach_Yourself_C_in_21_Days%2C_6th_Edition.pdf">https://www.e-reading.club/bookreader.php/135186/Aitken%2C_Jones_-_Sams_Teach_Yourself_C_in_21_Days%2C_6th_Edition.pdf</a> <a href="ftp://ftp.sas.com/techsup/download/SASC/share5958-59/S5958v2.pdf">ftp://ftp.sas.com/techsup/download/SASC/share5958-59/S5958v2.pdf</a> <a href="http://bitsavers.informatik.uni-stuttgart.de/pdf/borland/turbo_c/Turbo_C_Users_Guide_1987.pdf">http://bitsavers.informatik.uni-stuttgart.de/pdf/borland/turbo_c/Turbo_C_Users_Guide_1987.pdf</a><br />
+<a href="https://pcgamingwiki.com/wiki/Midtown_Madness_2">https://pcgamingwiki.com/wiki/Midtown_Madness_2</a><br />{ EOD 05/25/2018 }<br /><br />
+
+
+<a href="http://uranic.tsckr.si/VISUAL%20C%23/Visual_C_2008_Step_by_Step.pdf">http://uranic.tsckr.si/VISUAL%20C%23/Visual_C_2008_Step_by_Step.pdf</a><br />
+<a href="https://thepiratebay.org/torrent/9346274/Chessmaster_11th_-_Grandmaster_Edition_(1.02)">https://thepiratebay.org/torrent/9346274/Chessmaster_11th_-_Grandmaster_Edition_(1.02)</a><br />
+<a href="https://www.neoee.net/update">https://www.neoee.net/update</a> <a href="http://ee.heavengames.com/downloads/lister.php?category=patches">http://ee.heavengames.com/downloads/lister.php?category=patches</a> <a href="https://pcgamingwiki.com/wiki/Empire_Earth#Patches">https://pcgamingwiki.com/wiki/Empire_Earth#Patches</a><br />
+
+<a href="https://github.com/CnCNet/ts-ddraw/releases">https://github.com/CnCNet/ts-ddraw/releases</a><br />
+<a href="http://gtk-win.sourceforge.net/home/index.php/Main/Downloads">http://gtk-win.sourceforge.net/home/index.php/Main/Downloads</a> <a href="https://developer.pidgin.im/wiki/ThemingPidgin">https://developer.pidgin.im/wiki/ThemingPidgin</a><br />
+<a href="https://developer.pidgin.im/wiki/FAQAllInOne">https://developer.pidgin.im/wiki/FAQAllInOne</a><br />
+<a href="http://islanddog.joeuser.com/article/450123/5_WindowBlinds_Skins_That_Belong_in_Your_Collection">http://islanddog.joeuser.com/article/450123/5_WindowBlinds_Skins_That_Belong_in_Your_Collection</a><br /><br /><br />
+<a href="https://www.youtube.com/watch?v=3D5FOPOkE5Y">https://www.youtube.com/watch?v=3D5FOPOkE5Y</a> rce<br />
+<a href="https://www.youtube.com/watch?v=81jbKLL-CZM">https://www.youtube.com/watch?v=81jbKLL-CZM</a><br />
+<a href="https://www.youtube.com/watch?v=ReVeUvwTGdU">https://www.youtube.com/watch?v=ReVeUvwTGdU</a> CS<br />
+<a href="http://www.mediafire.com/file/ij736v3e2ed47qi/Alienware+Evolution.rar#">http://www.mediafire.com/file/ij736v3e2ed47qi/Alienware+Evolution.rar#</a> Password:algeria<br />
+<a href="https://www.coursera.org/learn/philosophy/lecture/HJUBR/introduction-what-is-philosophy">https://www.coursera.org/learn/philosophy/lecture/HJUBR/introduction-what-is-philosophy</a> 5:06<br />
+<a href="https://alison.com/topic/learn/65431/introduction">https://alison.com/topic/learn/65431/introduction</a><br />
+Udacity and edX Codecademy, Free Code Camp, and HackerRank <a href="https://learntocodewith.me/posts/code-for-free/">https://learntocodewith.me/posts/code-for-free/</a><br /> <a href="https://code.tutsplus.com/series/c-succinctly--mobile-22076">https://code.tutsplus.com/series/c-succinctly--mobile-22076</a><br />
+<a href="http://www.htmldog.com/guides/css/">http://www.htmldog.com/guides/css/</a> <a href="https://marksheet.io/css-syntax.html">https://marksheet.io/css-syntax.html</a><br />
+{ <a href="https://www.wincustomize.com/explore/windowblinds/8849/">https://www.wincustomize.com/explore/windowblinds/8849/</a> (Digital Tech with Chronos)<br />
+<a href="https://oncebot.github.io/popbox.js/">https://oncebot.github.io/popbox.js/</a><br />
+<a href="https://codepen.io/MadeByMike/pen/eKPZZz">https://codepen.io/MadeByMike/pen/eKPZZz</a><br />
+<!-- anarchist -->
+<a href="https://www.glarysoft.com/">https://www.glarysoft.com/</a> (Don't download)<br />
+*sublimetext.com (portable) <a href="http://www.thepiratebay.org/torrent/21973480/Sublime+Text+3.1.1+Build+3176+Full+With+Medicine+%5BBabuPC%5D">http://www.thepiratebay.org/torrent/21973480/Sublime+Text+3.1.1+Build+3176+Full+With+Medicine+%5BBabuPC%5D</a><br />
+*brackets.io<br />
+x<a href="https://www.techsupportalert.com/content/netbeans-ide.htm">https://www.techsupportalert.com/content/netbeans-ide.htm</a><br />
+*<a href="https://www.download32.com/rexedit---powerful-and-fast-text-editor-i168062.html">https://www.download32.com/rexedit---powerful-and-fast-text-editor-i168062.html</a><br />
+ <a href="https://www.download32.com/powerful-text-software.html">https://www.download32.com/powerful-text-software.html</a><br />
+*<a href="http://www.openwebware.com/download">http://www.openwebware.com/download</a> <a href="https://www.webdesignerdepot.com/2008/12/20-excellent-free-rich-text-editors/">https://www.webdesignerdepot.com/2008/12/20-excellent-free-rich-text-editors/</a><br />
+x<a href="http://q10editor.net/">http://q10editor.net/</a><br />
+x<a href="https://www.editpad.org/">https://www.editpad.org/</a><br />
+*<a href="http://www.crimsoneditor.com/english/editors.html">http://www.crimsoneditor.com/english/editors.html</a><br />
+ x<a href="https://quilljs.com/">https://quilljs.com/</a><br />
+{{ <a href="https://qz.com/work/1209523/how-to-get-a-world-class-education-for-free-on-the-internet/?utm_source=pocket&utm_medium=email&utm_campaign=pockethits">https://qz.com/work/1209523/how-to-get-a-world-class-education-for-free-on-the-internet/?utm_source=pocket&utm_medium=email&utm_campaign=pockethits</a><br />
+{{ <a href="https://www.ck12.org/">https://www.ck12.org/</a><br />
+<a href="https://quod.lib.umich.edu/u/umhistmath/AAW5995.0001.001?rgn=main;view=fulltext">https://quod.lib.umich.edu/u/umhistmath/AAW5995.0001.001?rgn=main;view=fulltext</a><br />
+<a href="https://www.encyclopediaofmath.org/index.php/Special:AllPages">https://www.encyclopediaofmath.org/index.php/Special:AllPages</a><br />  <a href="http://www-cs-faculty.stanford.edu/~knuth/klr.html">http://www-cs-faculty.stanford.edu/~knuth/klr.html</a><br /> <a href="https://onlinebooks.library.upenn.edu/webbin/book/browse?type=lcsubc&key=Mathematics">https://onlinebooks.library.upenn.edu/webbin/book/browse?type=lcsubc&key=Mathematics</a><br /> <a href="http://openbookproject.net/courses/intro2ict/index.html">http://openbookproject.net/courses/intro2ict/index.html</a><br /> <a href="http://linear.ups.edu/html/fcla.html">http://linear.ups.edu/html/fcla.html</a><br /> <a href="http://www.stitz-zeager.com/szca07042013.pdf">http://www.stitz-zeager.com/szca07042013.pdf</a><br /> <a href="http://www.reality.org.uk/TheBook/">http://www.reality.org.uk/TheBook/</a><br /> <a href="http://www.collegeopentextbooks.org/mathematics-textbooks">http://www.collegeopentextbooks.org/mathematics-textbooks</a><br />/ <!-- Philo -->
+{{ <a href="http://web.pa.msu.edu/people/duxbury/courses/phy480/Cpp_refcard.pdf">http://web.pa.msu.edu/people/duxbury/courses/phy480/Cpp_refcard.pdf</a><br />
+<a href="https://github.com/gibsjose/cpp-cheat-sheet/blob/master/C%2B%2B%20Syntax.md#c-syntax-cheat-sheet">https://github.com/gibsjose/cpp-cheat-sheet/blob/master/C%2B%2B%20Syntax.md#c-syntax-cheat-sheet</a><br />
+<a href="https://github.com/gibsjose/cpp-cheat-sheet/blob/master/Data%20Structures%20and%20Algorithms.md">https://github.com/gibsjose/cpp-cheat-sheet/blob/master/Data%20Structures%20and%20Algorithms.md</a><br />
+<a href="https://www.disi.unige.it/person/MoggiE/PG1-13/Cpp_reference.pdf">https://www.disi.unige.it/person/MoggiE/PG1-13/Cpp_reference.pdf</a><br />
+<a href="https://www.hackerearth.com/practice/notes/standard-template-library/">https://www.hackerearth.com/practice/notes/standard-template-library/</a><br />
+<a href="https://www.cheatography.com/ashlyn-black/cheat-sheets/c-reference/">https://www.cheatography.com/ashlyn-black/cheat-sheets/c-reference/</a><br />
+<a href="https://manski.net/2011/04/cpp-cli-cheat-sheet/">https://manski.net/2011/04/cpp-cli-cheat-sheet/</a><br />
+<a href="https://cdn2.desu-usergeneratedcontent.xyz/g/image/1498/84/1498841872680.png">https://cdn2.desu-usergeneratedcontent.xyz/g/image/1498/84/1498841872680.png</a><br />
+<a href="http://www.bizicbojan.com/post/2011/08/04/Visual-Studio-2010-Keyboard-Shortcuts-(cheat-sheet).aspx">http://www.bizicbojan.com/post/2011/08/04/Visual-Studio-2010-Keyboard-Shortcuts-(cheat-sheet).aspx</a><br />
+<a href="https://www.harding.edu/dsteil/170/notes/bubble_sort.jpg">https://www.harding.edu/dsteil/170/notes/bubble_sort.jpg</a><br />
+[x]<a href="http://www.cheat-sheets.org/saved-copy/Win32-Assembly-CheatSheet.png">http://www.cheat-sheets.org/saved-copy/Win32-Assembly-CheatSheet.png</a><br />
+<a href="https://drive.google.com/file/d/0B3e4ErQeXruDYVJiY0FiaWNfOTg/view">https://drive.google.com/file/d/0B3e4ErQeXruDYVJiY0FiaWNfOTg/view</a><br />
+<a href="https://cdn.slidesharecdn.com/ss_thumbnails/cppquickrefhoomanbcom-090829120452-phpapp01-thumbnail-4.jpg?cb=1251547500">https://cdn.slidesharecdn.com/ss_thumbnails/cppquickrefhoomanbcom-090829120452-phpapp01-thumbnail-4.jpg?cb=1251547500</a><br />
+<a href="https://www.youtube.com/watch?v=Rub-JsjMhWY">https://www.youtube.com/watch?v=Rub-JsjMhWY</a> <a href="http://hawkee.com/snippet/6446/">http://hawkee.com/snippet/6446/</a> (Query Blocker)<br />
+<a href="http://pc-freak.net/tutorials/hacking_info/mhd.htm">Modern Hackers by Rhino9 Team</a><br />
+<a href="https://www.youtube.com/watch?v=gOUGXVFA2IQ">Ethical Hacking video (9 hours)</a><br />
+<a href="https://www.youtube.com/watch?v=75gBFiFtAb8">ASM Crash-Course video</a><br />
+How to get Firefox to not hover during Fullscreen: |toolkit.cosmeticAnimations.enabled to false in about:config |full-screen-api.warning.timeout to 0 in about:config. default:3000 |extensions.pocket.enabled to false in about:config.<br />
+<a href="https://support.mozilla.org/en-US/questions/1092572">https://support.mozilla.org/en-US/questions/1092572</a><br />
+<a href="https://www.userchrome.org/how-create-userchrome-css.html">https://www.userchrome.org/how-create-userchrome-css.html</a><br />
+<a href="https://www.userchrome.org/what-is-userchrome-css.html">https://www.userchrome.org/what-is-userchrome-css.html</a><br />
+<a href="https://www.zdnet.com/article/how-to-tweak-the-new-firefox-57-quantum-browser-to-suit-your-preferences/">https://www.zdnet.com/article/how-to-tweak-the-new-firefox-57-quantum-browser-to-suit-your-preferences/</a><br />
+<a href="https://www.howtogeek.com/334716/how-to-customize-firefoxs-user-interface-with-userchrome.css/">https://www.howtogeek.com/334716/how-to-customize-firefoxs-user-interface-with-userchrome.css/</a><br />
+<a href="https://www.askvg.com/how-to-disable-animation-while-going-full-screen-in-mozilla-firefox-4-0/">https://www.askvg.com/how-to-disable-animation-while-going-full-screen-in-mozilla-firefox-4-0/</a><br />
+* <a href="http://www.shotover.clara.net/killpopup.htm">http://www.shotover.clara.net/killpopup.htm</a><br />
+<a href="https://www.askvg.com/how-to-disable-toolbar-auto-hide-feature-in-full-screen-mode-of-mozilla-firefox/">https://www.askvg.com/how-to-disable-toolbar-auto-hide-feature-in-full-screen-mode-of-mozilla-firefox/</a><br />
+<a href="https://wiki.archlinux.org/index.php/Firefox/Tweaks">https://wiki.archlinux.org/index.php/Firefox/Tweaks</a><br />
+<a href="https://superuser.com/questions/1265807/how-can-i-disable-animations-in-firefox-when-going-full-screen">https://superuser.com/questions/1265807/how-can-i-disable-animations-in-firefox-when-going-full-screen</a><br />
+          <a href="http://cepegra-labs.be/webdesign/2017/fdef/documents/books/css/css_get-ready-for-css-grid-layout.pdf">http://cepegra-labs.be/webdesign/2017/fdef/documents/books/css/css_get-ready-for-css-grid-layout.pdf</a><br />
+http://the-eye.eu<br />
+           <a href="https://www.youtube.com/watch?v=Ggh_y-33Eso">https://www.youtube.com/watch?v=Ggh_y-33Eso</a> css15<br /> 
+           <a href="https://www.youtube.com/watch?v=yfoY53QXEnI">https://www.youtube.com/watch?v=yfoY53QXEnI</a> cssbeg<br />
+<a href="http://www.windows93.net/">http://www.windows93.net/</a><br />
+<a href="https://geekprank.com/">https://geekprank.com/</a><br />
+<a href="https://www.youtube.com/watch?v=75gBFiFtAb8">https://www.youtube.com/watch?v=75gBFiFtAb8</a> asm<br />
+<a href="http://seasonstherapy.com/wp-content/uploads/2013/12/What-Causes-Anger.pdf">http://seasonstherapy.com/wp-content/uploads/2013/12/What-Causes-Anger.pdf</a><br />
+           <a href="https://www.deviantart.com/lyle-the-hobo/art/Glowing-Aero-Cursor-Pack-116540063">https://www.deviantart.com/lyle-the-hobo/art/Glowing-Aero-Cursor-Pack-116540063</a><br />
+<a href="https://www.deviantart.com/anaidon-aserra/art/Anathema-Pink-Cursor-591464776
+">https://www.deviantart.com/anaidon-aserra/art/Anathema-Pink-Cursor-591464776</a><br />
+           <a href="https://www.deviantart.com/anaidon-aserra/art/Anathema-Blue-Cursor-589797767">https://www.deviantart.com/anaidon-aserra/art/Anathema-Blue-Cursor-589797767</a><br /><br /><br />
+http://themepack.me/theme/fighter-jets/deskthemepack<br />
+http://themepack.me/theme/spaceship/deskthemepack<br />
+http://themepack.me/theme/scalebound/<br />
+http://themepack.me/theme/halloween/deskthemepack<br />
+
+https://www.deviantart.com/eversins/art/GreyEveTheme-FINAL-Windows-10-High-Contrast-Theme-643504863<br />
+https://www.makeuseof.com/tag/5-dark-themes-windows-10/<br />
+https://www.deviantart.com/generation-blue/art/Dark-High-Contrast-Theme-For-Windows-10-649156084<br />
+https://www.deviantart.com/devillnside/art/X-D-N-A-RS2-version-1-3-676695439<br />
+
+https://www.wincustomize.com/explore/windowblinds/9002/<br />
+https://www.newequipment.com/sites/newequipment.com/files/hacker-red-shadow-broker.jpg<br />
+https://www.codeguru.com/cpp/cpp/cpp_mfc/stl/article.php/c4027/C-Tutorial-A-Beginners-Guide-to-stdvector-Part-1.htm<br />
+https://www.youtube.com/watch?v=_KLwcbSJVQ0 VB https://www.tutorialspoint.com/vb.net/ https://www.thecodingguys.net/tutorials/css/css-tutorial http://www.interplat.com/vbnet.pdf https://www.vbtutor.net/lesson23.html<br />
+http://www.catb.org/jargon/oldversions/jarg2910.txt<br />
+https://www.youtube.com/watch?v=ZIbNKBx88_E<br />
+https://www.hacksplaining.com/prevention/xss-dom<br />
+https://www.youtube.com/watch?v=zFUHrg-wdmo cppgamehaxing<br />
+https://www.youtube.com/watch?v=GhQdlIFylQ8 c#fullcourse<br />
+[_}https://www.vocabulary.com/lists/258109<br />
+[_]http://seasonstherapy.com/wp-content/uploads/2013/12/What-Causes-Anger.pdf<br />
+https://www.youtube.com/watch?v=3cAiJS3VNAU lockpick<br />
+https://www.pdfdrive.com/oxford-practice-grammar-with-answers-by-john-eastwood-e11007989.html<br />
+https://unshorten.it/<br />
+https://ilovebacons.com/showcase/unofficial-modding-ebook-2-0.333/<br />
+ftp://lab.dnict.vn/1.DNICT/2.Ebooks/CSHAP/ (traverse)<br />
+http://hackertyper.com/<br />
+https://skillcrush.com/2016/03/15/64-online-resources-to-learn-to-code-for-free/<br />
+https://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp3_OOP.html<br />
+https://medium.freecodecamp.org/the-programming-language-pipeline-91d3f449c919<br />
+https://www.dummies.com/store/product/C-For-Dummies-7th-Edition.productCd-111882377X,descCd-DOWNLOAD.html<br />
+https://sites.google.com/site/programminginterviewquestions/oop<br />
+https://www.sourcecodester.com/book/7670/object-oriented-programming-c.html<br />
+http://cs.baylor.edu/~maurer/aida/desauto/vbasic.pdf<br />
+http://dpue.energ.pub.ro/files/carte/IT/introduction-to-programming-in-visual-basic-6-0.pdf<br />
+https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/string-manipulation-summary<br />
+http://www.freevbcode.com/<br />
+http://www.freevbcode.com/string-manipulation/advanced<br />
+https://www.youtube.com/watch?v=eswHbALyNDY gumbosite2<br />
+https://www.youtube.com/watch?v=zlBn6eMwzu0 3<br />
+https://www.onlinegdb.com/online_c++_compiler<br />
+https://github.com/theDrake/chess-cpp<br />
+https://code.msdn.microsoft.com/vstudio/<br />
+https://github.com/dahopkin/Tetris C# Tetris<br />
+https://www.youtube.com/watch?v=vQPcUtBQFXY Olly<br />
+
+https://www.microsoft.com/en-us/p/circuit-overload/9mtkff4hpn6n?activetab=pivot:overviewtab<br />
+https://docs.microsoft.com/en-us/windows/desktop/WinSock/getting-started-with-winsock<br />
+https://docs.microsoft.com/en-us/windows/desktop/learnwin32/learn-to-program-for-windows<br />
+http://cs.indstate.edu/~jkinne/cs559-f2013/code/<br />
+*http://ebook.eqbal.ac.ir/Security/Other/Game%20Console%20Hacking.pdf<br />
+*ftp://lab.dnict.vn/1.DNICT/2.Ebooks/Hacking/Game%20Hacking.pdf<br />
+ftp://lab.dnict.vn/1.DNICT/2.Ebooks/CSHAP/<br />
+https://www.youtube.com/watch?v=mpQZVYPuDGU dns<br />
+https://www.youtube.com/watch?v=ZIbNKBx88_E gumbo websi<br />
+https://www.youtube.com/watch?v=qVTAB8Z2VmA REST API<br />
+https://www.youtube.com/watch?v=ReVeUvwTGdU csorig<br />
+https://www.youtube.com/watch?v=oQFQeZlOPwc WinMain<br />
+https://www.youtube.com/watch?v=weiz9wbIcGQ<br /><br />
+<!--</div>
+			</div>-->
+<!--<div style="display:none"; id="myDiv" class="animate-bottom">-->
+<!--<script type="text/javascript">
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+</script>-->
+
+	<!--<button class="collapsible";>Read More... [YouTube] Links++</button>
+<div class="content">-->
+    Read More... [YouTube] Links++
+
+		<div id="more-2" class="fulltext">
+
+   <center>+--------StickyNotes----------+<br /></center>
+https://www.youtube.com/watch?v=ZihywtixUYo mapphy<br />
+https://www.youtube.com/watch?v=P3RXtoYCW4M mapchem<br />
+https://www.youtube.com/watch?v=FaINy9iA5Kw gaeng<br />
+https://youtu.be/IHrGresKu2w?t=598 powershel*<br />
+https://www.youtube.com/watch?v=Rxvv9krECNw pointers*<br />
+https://www.youtube.com/watch?v=4FyeBUPrwKY opoverjavid<br />
+https://www.youtube.com/watch?v=kxKKHKSMGIg polymjavid*<br />
+https://www.exploit-db.com/<br />
+https://studiostyl.es/schemes/oblivion-1<br />
+https://www.youtube.com/watch?v=irhcfHBkfe0 mmoreeng<br />
+https://www.youtube.com/watch?v=B41GbyB7H5U winreeng<br />
+coursera.org/learn/algorithms-part1<br />
+https://www.youtube.com/watch?v=p45raL43p3Y engx5<br />
+https://youtu.be/lJnvq0A_7WQ?t=114 introprog<br />
+[philo] https://www.youtube.com/watch?v=e9Ow6l5vl9Q vocab*<br />
+https://www.youtube.com/watch?v=sqxzQkAdJm0 circuit<br />
+https://www.csee.umbc.edu/~olano/class/435-14-8/c++.pdf<br />
+https://en.opensuse.org/images/b/b9/C---for-C-programmers.pdf<br />
+https://dototot.com/how-to-write-a-twitter-bot-with-python-and-tweepy/<br />
+https://medium.com/fbdevclagos/how-to-build-a-todo-app-with-django-17afdc4a8f8c<br />
+https://www.coursera.org/learn/tcpip/lecture/Cneyw/3-1-3-3-internet-routing-functions*<br />
+<br />
+-https://www.youtube.com/watch?v=KKQ-tkJXfHE reengcourse1<br />
+https://www.youtube.com/watch?v=a2EkORFcSZo reengcourse2<br />
+https://www.youtube.com/watch?v=ViNnfoE56V8 assemblytut<br />
+https://www.youtube.com/watch?v=eC3MGJIn3Us asmtut3hrs<br />
+https://www.youtube.com/watch?v=zEuvNYe7WG0 asmtut3hrs2x<br />
+https://www.youtube.com/watch?v=dtPfSr_hqi8 ethichac<br />
+https://www.youtube.com/watch?v=2BP8NhxjrO0 classes<br />
+https://www.youtube.com/watch?v=3dHBFBw13E0 classes1!<br />
+<br />
+https://www.youtube.com/watch?v=Idr1G1KyPNg matgeng<br />
+https://www.youtube.com/watch?v=5cvpGSSUZI0 mal<br />
+https://www.youtube.com/watch?v=rtAlC5J1U40 cpud!<br />
+https://www.youtube.com/watch?v=QKfk7YFILws netw<br />
+https://www.youtube.com/watch?v=zH_omFPqMO4 gac++*<br />
+https://www.youtube.com/watch?v=fSoXIqBlg9M ant<br />
+https://www.youtube.com/watch?v=vl794HKeXug c5<br />
+-https://www.youtube.com/watch?v=a2EkORFcSZo reeng<br />
+https://youtu.be/nDdKIxnEyh0 c++conso<br />
+https://www.coursera.org/learn/data-structures<br />
+https://www.coursera.org/specializations/c-programming<br />
+https://www.coursera.org/learn/c-plus-plus-a/home/welcome<br />
+https://www.coursera.org/learn/c-plus-plus-b<br />
+<br />
+https://www.coursera.org/learn/grammar-punctuation/home/welcome<br />
+https://www.coursera.org/learn/ancient-greeks/<br />
+https://www.coursera.org/courses<br />
+http://records.viu.ca/~johnstoi/homer/iliad1.htm<br />
+https://www.coursera.org/learn/mythology<br />
+https://www.coursera.org/learn/understanding-arguments<br />
+https://www.coursera.org/learn/aristotle/supplement/YOsxL/the-letter-to-menoeceus<br />
+<br />
+-/-/-/-/-/-/-/-/-/-/-/-/-<br />
+https://www.youtube.com/watch?v=QXjU9qTsYCc compcode<br />
+
+https://youtu.be/a2EkORFcSZo reeng<br />
+https://www.youtube.com/watch?v=p3q5zWCw8J4 compmem <br />
+https://www.youtube.com/watch?v=SzJ46YA_RaA compscimap<br />
+https://www.youtube.com/watch?v=OmJ-4B-mS-Y mapmaths<br />
+https://www.youtube.com/watch?v=wteUW2sL7bc hddwork<br />
+https://www.youtube.com/watch?v=xyAuNHPsq-g matrices<br />
+https://www.youtube.com/watch?v=aKhhYguY0DQ matmul<br />
+https://www.youtube.com/watch?v=S5VlvrlTNmM reeng<br />
+--stopped youtube @1043,only webresources--<br />
+https://mva.microsoft.com/en-us/training-courses/programming-in-c-jump-start-14254?l=j0iuozSfB_6900115888<br />
+
+https://ashleymcnamara.github.io/learn_to_code/<br />
+https://github.com/jesyspa/linear-cpp<br />
+https://github.com/EbookFoundation/free-programming-books/blob/master/free-programming-books.md#c-1<br />
+http://greenteapress.com/thinkcpp/thinkCScpp.pdf<br />
+https://developers.google.com/edu/c++/<br />
+http://www.allitebooks.in/c-without-fear-3rd-edition/<br />
+<br />
+-http://basicprogramming.blogspot.com/2017/<br />
+https://blog.submain.com/c-dictionary-examples-practices-pitfalls/<br />
+https://www.youtube.com/watch?v=k2s77i9zTek<br />
+https://www.chegg.com/textbooks/c-for-c-programmers-third-edition-3rd-edition-9780201395198-0201395193<br />
+https://stackoverflow.com/questions/15167291/c-how-to-make-a-simple-dictionary<br />
+http://www.cplusplus.com/forum/beginner/179273/<br />
+https://arstechnica.com/civis/viewtopic.php?f=20&t=754571<br />
+https://www.youtube.com/watch?v=Dke0dlCgFSk Create a Dictionary Using Collections in C#<br />
+http://libertybasiccom.proboards.com/thread/299/framework-building-games<br />
+http://csharp.net-informations.com/collection/dictionary.htm<br />
+https://stackoverflow.com/questions/2620419/net-dictionary-and-lookup-add-update<br />
+https://www.tutorialsteacher.com/csharp/csharp-dictionary<br />
+https://hryniewski.net/2017/04/25/lookup-class-in-c-have-you-ever-tried-it/<br />
+https://www.c-sharpcorner.com/UploadFile/mahesh/how-to-find-a-value-in-a-dictionary-with-C-Sharp/<br />
+https://www.infoworld.com/article/3075954/working-with-hashtable-and-dictionary-in-c.html<br />
+https://codereview.stackexchange.com/questions/102084/infixdictionary-data-structure-for-infix-string-lookup<br />
+https://github.com/r-hryniewski/Me20<br />
+https://referencesource.microsoft.com/#System.Core/System/Linq/Enumerable.cs,2056<br />
+https://web1.eppingboy-h.schools.nsw.edu.au/content/sites/students/computing/Programming1/LBSamples.htm<br />
+https://www.coursera.org/specializations/c-programming?action=enroll&authMode=signup<br />
+https://userstyles.org/styles/31267/global-dark-style-changes-everything-to-dark<br />
+https://www.codeproject.com/Articles/761040/A-NET-like-Dictionary-in-Cplusplus **<br />
+https://www.codeproject.com/Articles/13730/English-Dictionary **<br />
+https://www.codeproject.com/KB/cpp/ ^^<br />
+https://opensourceforu.com/2019/02/designing-a-simple-3d-block-jumper-game/?fbclid=IwAR0RL2iQG1T_-YrgGjPOzHyE1PU-xf6CU--JMSUxAm9f2ernidAPyBF73ck<br />
+https://hastebin.com/ebulicuzoy.coffeescript<br />
+http://www.cppreference.com http://www.cplusplus.com<br />
+http://fileadmin.cs.lth.se/cs/Education/EDAF50/2018/cpplabs.pdf<br />
+http://www.fosse-bouw.be/nqq5mgs/eqchk3y.php?oabespmht=type-code-online<br />
+https://en.wikibooks.org/wiki/C_Programming/String_manipulation<br />
+https://www.toptal.com/nodejs/why-the-hell-would-i-use-node-jsare<br />
+http://www.dailyfreecode.com/code/simulate-dictionary-linked-list-2865.aspx **<br />
+https://www.programming9.com/programs/cpp-programs/162-cpp-program-to-implement-all-functions-of-dictionary-adt-using-hashing<br />
+http://www.cplusplus.com/forum/general/107756/<br />
+https://www.andrew.cmu.edu/course/15-123-kesden/applications/labs/lab6/<br />
+https://github.com/xmichelo/Beeftext<br />
+https://dototot.com/how-to-write-a-twitter-bot-with-python-and-tweepy/<br />
+-https://medium.com/fbdevclagos/how-to-build-a-todo-app-with-django-17afdc4a8f8c BU113T-PR00F<br /> https://www.youtube.com/watch?v=B41GbyB7H5U winreeng<br />
+https://www.youtube.com/watch?v=MpeaSNERwQA&list=PLhixgUqwRTjywPzsTYz28I-qezFOSaUYz ctfvids<br />
+<br />
+https://tuts4you.com/download/191/ *<br />
+https://tuts4you.com/download/197/ *<br />
+https://tuts4you.com/download/194/ *<br />
+https://tuts4you.com/download/3554/<br />
+
+https://tuts4you.com/download/category/20// *<br />
+https://tuts4you.com/download/category/21// *<br />
+https://tuts4you.com/download/category/25//<br />
+<br />
+https://github.com/OneLoneCoder/videos<br />
+https://pwnable.kr/<br />
+https://processing.org/tutorials/<br />
+https://projecteuler.net/ https://www.youtube.com/watch?v=irhcfHBkfe0 mmoeng https://www.youtube.com/watch?v=B41GbyB7H5U&t=610s mineeng<br /> https://www.youtube.com/watch?v=bFSnXNIsK4A<br /> https://www.youtube.com/watch?v=0JUN9aDxVmI harvardalgo<br />
+https://goalkicker.com/  *<br />
+https://www.instructables.com/id/A-Learning-Chatterbot-in-C/  *<br />
+https://viewsourcecode.org/snaptoken/kilo/index.html<br />
+https://www.hackerrank.com/dashboard<br />
+https://www.gridsagegames.com/rexpaint/ https://scratch.mit.edu/projects/editor/?tutorial=getStarted<br />
+http://www.cs.toronto.edu/~hsc/270/examples/Cppbooks.txt<br />
+https://www.ics.uci.edu/~pattis/ICS-46/lectures/notes/arrayimplementation.txt<br />
+http://teaching.idallen.com/cst8214/08w/notes/bit_operations.txt<br />
+http://web.mst.edu/~davem/CSc74/Lectures/Lecture2.txt (compiler)<br />
+https://www.cs.dartmouth.edu/~sergey/cs59/oo/oo-notes.txt<br />
+xhttp://h30266.www3.hpe.com/MasterIndex/release_notes/release_notes_008ac1e0.txt<br />
+
+https://courses.cs.washington.edu/courses/cse333/15wi/lec/l07-mmap.txt<br />
+http://fabiensanglard.net/duke3d/ http://vision.gel.ulaval.ca/~klein/duke3d/<br />
+https://www.moddb.com/games/duke-nukem-3d/downloads/duke-nukem-3d-source-code<br />
+https://github.com/ProgrammingFonts/ProgrammingFonts (Input Mono, Source Code Pro)<br />
+https://www.cs.utexas.edu/users/djimenez/utsa/cs1713-3/c/life.txt http://ceng2.ktu.edu.tr/~cakir/files/sistemlab/others/txt%20Files/gcBook.txt<br /> http://codegiraffe.com/portfolio/mvaganov_resume.txt<br /> http://www.kiv.zcu.cz/~rohlik/vyuka/isw/GameAI_2003<br />/BOOK%20-%20AI%20Game%20Programming%20Wisdom%20(with%20CD-ROM).txt<br /> https://archive.org/details/GameProgramming/page/n2<br /> http://www.dola.hu/jatek/btnmad/hearts.txt<br /> https://www.datafilehost.com/d/a1bdb05e<br /> https://winworldpc.com/product/quickbasic/45<br /> https://www.top4download.com/turbo-c-/download-aklqwuba.html<br />
+https://github.com/PowerShellMafia/PowerSploit/tree/master/Privesc<br />
+https://www.youtube.com/watch?v=DuDz6B4cqVc datastrcourse<br /> https://youtu.be/rL8X2mlNHPM algo <br />
+<br />
+<br />
+https://www.codeguru.com/cpp/cpp/cpp_mfc/stl/article.php/c4027/C-Tutorial-A-Beginners-Guide-to-stdvector-Part-1.htm<br />
+https://www.youtube.com/watch?v=_KLwcbSJVQ0 VB https://www.tutorialspoint.com/vb.net/<br /> https://www.thecodingguys.net/tutorials/css/css-tutorial http://www.interplat.com/vbnet.pdf<br /> https://www.vbtutor.net/lesson23.html<br />
+http://www.catb.org/jargon/oldversions/jarg2910.txt<br />
+[philo] https://www.vocabulary.com/lists/258109<br />
+https://www.deviantart.com/eversins/art/GreyEveTheme-FINAL-Windows-10-High-Contrast-Theme-643504863<br />
+https://www.makeuseof.com/tag/5-dark-themes-windows-10/<br />
+https://www.deviantart.com/generation-blue/art/Dark-High-Contrast-Theme-For-Windows-10-649156084<br />
+https://www.deviantart.com/devillnside/art/X-D-N-A-RS2-version-1-3-676695439<br />
+https://github.com/opsxcq/mirror-blacksun.box.sk/tree/master/blacksun.box.sk<br />
+[philo] https://www.allaboutphilosophy.org/nihilism.htm<br />
+http://pc_survival.tripod.com/ lena sp<br />
+http://wwidew.net/jlind_resume_tech.pdf http://vxvault.net/ViriList.php https://www.youtube.com/watch?v=rMDEvoeqaHA<br /> http://www.ouah.org/hfag.txt<br />
+http://www.ffd2.com/fridge/chacking/c=hacking9.txt<br />
+http://www.ais.org/~hauben/Michael_Hauben/Collected_Works/Amateur_Computerist/Computer_Hacking.txt<br />
+http://fisheye.my-ho.st/fisheye/browse/OpenZWave/cpp/hidapi/HACKING.txt?fromRev=5443c4a093e7487b20a8a3af74917217c8c08588&toRev=3f1d6091ea43deb9c5eb3df536477afd2743e0dc&focusedRev=3f1d609#r3f1d609<br />
+http://www.kulichki.com/moshkow/SECURITY/hackfaq.txt<br />
+https://www.ocf.berkeley.edu/~mbarrien/jokes/hackanth.txt<br />
+https://www.awesomefilm.com/script/Hackers.txt<br />
+http://www.gutenberg.org/cache/epub/4686/pg4686.txt<br />
+http://www.uky.edu/~dsianita/695ec/hackers.txt<br />
+http://abcn.cneu.eu/docs/novice_hacking.txt<br />
+http://www.gutenberg.org/ebooks/4686?msg=welcome_stranger<br />
+http://besser.tsoa.nyu.edu/impact/f96/Projects/smistry/hackertest.txt<br />
+https://developerinsider.co/download-turbo-c-for-windows-7-8-8-1-and-windows-10-32-64-bit-full-screen/<br />
+https://developerinsider.co/c-and-cpp-insider/<br />
+https://www.youtube.com/watch?v=g3GUnBZEPwQ<br />
+https://developerinsider.co/download-turbo-c-for-windows-7-8-8-1-and-windows-10-32-64-bit-full-screen/<br />
+https://www.youtube.com/watch?v=SjihW5q1x-U<br />
+https://www.youtube.com/watch?v=N8I44xiF8dU<br />
+https://www.electronicshub.org/download-turbo-c-windows/<br />
+https://developerinsider.co/c-and-cpp-insider/<br />
+https://www.google.com/search?client=firefox-b-d&q=How+do+you+get+D-Fend+Reloaded+to+not+show+console+messages+and+only+display+command+prompt%3F<br />
+https://www.youtube.com/watch?v=MHS-htjGgSY gametheo<br />
+https://www.youtube.com/watch?v=mycVSMyShk8 kernelwatis<br />
+https://www.youtube.com/watch?v=YWnBbNj_G-U data&algo6hr<br />
+https://youtu.be/rtAlC5J1U40 cpudesign<br />
+http://www.ironspider.ca/webdesign102/tables4layout2.htm<br /> http://www.textfixer.com/html/html-table-generator.php<br /> http://www.w3.org/TR/CSS21/tables.html<br /> https://www.codeproject.com/articles/47934/div-table<br /> http://html.com/tables/<br /> http://www.barelyfitz.com/screencast/html-training/css/positioning/<br /> http://www.cssbasics.com/<br /> http://html.net/tutorials/css/ http://howtocodeinhtml.com/index.html#toc<br /> https://ilovecoding.org/courses/learn-html-css-in-14-days<br /> http://learn.shayhowe.com/html-css/<br /> http://www.htmldog.com/guides/css/<br /> https://www.codementor.io/learn-css<br /> http://www.microsoftvirtualacademy.com/training-courses/html5-css3-fundamentals-development-for-absolute-beginners<br /> http://www3.northern.edu/help/tutorials/Office2007/Microsoft%20Expression%20Web.pdf<br /> http://sourceforge.net/projects/tdm-gcc/files/TDM-GCC%20Installer/tdm-gcc-4.9.2.exe/download<br />
+https://www.addictivetips.com shortcuts<br />
+<br />
+{{https://www.youtube.com/watch?v=PaDVGUnOihw GumboCodin onwards mismatches\duplicates ms-settings:themes sysdm.cpl mmsys.cpl winword powerpnt main.cpl control /name Microsoft.Personalization /page pageWallpaper control /name Microsoft.Personalization /page pageDesktop control mouse %COMSPEC% notepad %WINDIR%/System32\Drivers\etc\hosts}}<br />
+memrise.com<br /> publicationcoach.com<br /> writeordie.com<br />  brainfacts.org<br /> https://www.ck12.org/<br /> http://www.paultaylor.eu/~pt/prafm/summary.html<br /> https://quod.lib.umich.edu/u/umhistmath/AAW5995.0001.001?rgn=main;view=fulltext<br /> https://www.encyclopediaofmath.org/index.php/Special:AllPages<br /> http://www-cs-faculty.stanford.edu/~knuth/klr.html<br /> https://onlinebooks.library.upenn.edu/webbin/book/browse?type=lcsubc&key=Mathematics<br /> http://openbookproject.net/courses/intro2ict/index.html<br /> http://linear.ups.edu/html/fcla.html<br /> http://www.stitz-zeager.com/szca07042013.pdf<br /> http://www.reality.org.uk/TheBook/<br /></div>
+    <button aria-expanded="false" aria-controls="more-2" class="toggle-content" hidden><span class="text">Show More</span> <span class="visually-hidden">about My second article</span></button>
+    <br /><hr /><br />
+          <hr />
+<br /><strong><span style="color: #ffff00; background-color: #800080;">Other Overflow\ Displaced Download Links Textfile {Hasn't Been Proofread} - <a href="links-list.rtf">Click Here</a> -11:09:53 PM 03/20/2019<br /></span></strong>
+
+            
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+          </div>
+			</div>
+       </div></div>
+		  <div class="CntFooter"></div>
+        <!-- Insert contentBox here --> 
+      </div>
+      </div>
+    <div id="col-3">
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::Calendar::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="NavCal"> 
+            <script type="text/javascript">
+                                var todaydate = new Date()
+                                var curmonth = todaydate.getMonth() + 1 //get current month (1-12)
+                                var curyear = todaydate.getFullYear() //get current year
+                                document.write(buildCal(curmonth, curyear, "main", "month", "daysofweek", "days", 0));
+                            </script> 
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+      <div id="col-3">
+        <div class="NavBox">
+          <div class="NavHead">
+            <div class="NavHeadInfo">..::Top 10 Games::..</div>
+          </div>
+          <div class="NavFill">
+            <div class="NavInfo"> 1. Command and Conquer Alpha<br />
+              2. Empire Earth III<br />
+              3. 18 Wheels<br />
+              4. Sims Makin Magic<br />
+              5. Gangsters: Organized Crime<br />
+              6. Mortal Kombat X + Gold<br />
+              7. Rayden 2 Demo<br />
+              8. Incoming<br />
+              9. Carmageddon 2: Carpolypse Now<br />
+              10. Delta Force IV: Task Force Dagger<br />
+              11. Infestation<br />
+              12. Midtown Madness 2<br />
+              13. Watchdogs<br />
+              14. The Crew 2<br />
+              15. GTA V<br />
+              16. Crysis 4<br />
+              17. Titanfall 2<br />
+              18. Psi-Ops: The Mindgate Conspiracy<br />
+              19. Mafia<br />
+              20 Saints Row<br />
+              21. War Chess<br />
+              22. Star Wars: GB Saga<br />
+              23. Age of Mythology: TotD<br />
+              24. Red Alert 2: Yuri's Revenge<br />
+              25. Metal Fatigue </div>
+            <div class="NavFooter"></div>
+          </div>
+        </div>
+      </div>
+      <div id="col-3">
+        <div class="NavBox">
+          <div class="NavHead">
+            <div class="NavHeadInfo">..::Links (Ext.)::..</div>
+          </div>
+          <div class="NavFill">
+            <div class="NavInfo"> <a href="http://www.tuts4you.com/">Tuts4You</a><br />
+              <a href="http://ocw.mit.edu/">MIT OCW</a><br />
+              <a href="http://vx.netlux.org/">VX Heavens</a><br />
+              <a href="http://www.textfiles.com/">Textfiles.com (Ezine)</a><br />
+              <a href="http://chronos.ws/">Chronos Time Travel</a><br />
+              <a href="http://deoxy.org/">Deoxy</a><br />
+              <a href="http://www2.lv.psu.edu/jkl1/runawaylives/readstories.html"> Runaway
+              Lives </a><br />
+              <a href="http://w3.cultdeadcow.com/cms/texXxt.html">cDc Paramedia</a><br />
+              <a href="http://www.mymiserablelife.com/">Miserable Life Comp</a><br />
+              <a href="http://www.thescriptsource.net/Scripts/FightClub.pdf"> Movie Scripts
+              FightClub </a><br />
+              <a href="https://www.magrent.com/torrent-magnet/download/4d516685754b42154b4d7210d924a58c94d439c7"> PC Strategy Guides </a><br />
+              <a href="http://users.cs.cf.ac.uk/Dave.Marshall/C/CE.html"> C Programming </a><br />
+              <a href="https://www.youtube.com/watch?v=XU_xLcYohtk"> MM2 lag fix </a><br />
+              <a href="http://www.mm2x.com/page.php?name=Downloads&amp;d_op=viewdownloaddetails&amp;cid=2&amp;lid=1388&amp;ttitle=Chicago#dldetails"> MM2 Chicago Track </a><br />
+              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=636984276"> SWGB:CC Widesreen fix </a><br />
+              <a href="https://thepiratebay.org/torrent/6276218/War_Chess_v1.1_[PC_GAME]_(2006)__INSTALL_"> War Chess 1.1 </a><br />
+              <a href="http://developer.download.nvidia.com/books/HTML/gpugems/gpugems_pref01.html"> NVIDIA GPU Gems </a><br />
+              <a href="http://pages.cs.wisc.edu/~remzi/OSTEP/"> Operating Systems: Three Easy Pieces </a><br />
+              <a href="http://philip.greenspun.com/seia/"> Software Engineering for Internet Applications </a><br />
+              <a href="http://www.coderholic.com/25-free-computer-science-books/"> 25 Free Computer Science Books </a><br />
+              <a href="http://www.ebook777.com"> Vast e-book Library </a><br />
+              <a href="https://megagames.com/fixes/grand-theft-auto-3-v10-gereng"> GTA 3 No-CD crack </a><br />
+              <a href="http://www.thegtaplace.com/downloads/f1186-gta-iii-27-trainer"> GTA 3 +27 Trainer </a><br />
+              <a href="http://www.thegtaplace.com/downloads/f80-vice-city-11-patch"> GTA VC 1.1 Patch </a><br />
+              <a href="https://megagames.com/fixes/grand-theft-auto-vice-city-5"> GTA VC No-CD crack </a><br />
+              <a href="http://www.gameesc.com/archives/grand-theft-auto-vice-city-trainer-11-by-xeonbyte/"> GTA VC Trainer </a><br />
+              <a href="http://www.e-booksdirectory.com/listing.php?category=264"> Game Programming [HTML] books </a><br />
+              <a href="http://www.goanwap.com/ebook-kee-list2-ndms.html">Nancy Drew [HTML] eBooks</a></div>
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+    </div></div>
+  <br />
+  <div class="clearB"></div>
+  <div id="foot">
+    <div id="foot-Info-Left"> Welcome to the Hells Lab Team<span class="style3">™</span> website.<br />
+      You are visitor # <!-- Start of StatCounter Code for Default Guide --> 
+      <script type="text/javascript">
+var sc_project=11230248; 
+var sc_invisible=0; 
+var sc_security="91ab42c0"; 
+var sc_text=5; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+      <noscript>
+      <div class="statcounter"><a title="Web Analytics"
+href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="//c.statcounter.com/11230248/0/91ab42c0/0/" alt="Web
+Analytics"></a></div>
+      </noscript>
+      <!-- End of StatCounter Code for Default Guide --> 
+      to enter this site ! <br />
+      My new site following the termination of my old PS+Frontpage site on TFT
+      (The FreeWeb Town.) Using templates have helped streamline &amp; automate gfx
+      |processes.<br />
+      -&gt; f4t4l_3rr0r <img style="width: 43px; height: 15px"; alt="Netscape Compatible"
+ src="now8.gif" /> <img src="blueribbon.gif" width="43" height="15" alt="Free Speech Now!"/> <img src="mircnow.gif" width="43" height="15" alt="mIRC Now"/><br />
+      Enjoy! Copyright © (2016-21) The Shadow Company®. All Rights Reserved. <img style="width: 43px; height: 15px"; alt="W3 Compatible" src="valid-css2.png" /> </div>
+    <div id="foot-Info-Right" align="right"> 
+      <script src="foot_scroller_edit.js" type="text/javascript"></script></div>
+    <div class="clearB"></div>
+  </div>
+  </div>
+
+<script type="text/javascript">
+
+        /******************************************
+        * Snow Effect Script- By Altan d.o.o. (http://www.altan.hr/snow/index.html)
+        * Visit Dynamic Drive DHTML code library (http://www.dynamicdrive.com/) for full source code
+        * Last updated Nov 9th, 05' by DD. This notice must stay intact for use
+        ******************************************/
+        function openwindow() {
+            window.open("autumn_effect.htm", "", "width=350,height=500")
+        }
+
+        //Configure below to change URL path to the snow image
+        var snowsrc = "snow.gif"
+        // Configure below to change number of snow to render
+        var no = 10;
+        // Configure whether snow should disappear after x seconds (0=never):
+        var hidesnowtime = 0;
+        // Configure how much snow should drop down before fading ("windowheight" or "pageheight")
+        var snowdistance = "pageheight";
+
+        ///////////Stop Config//////////////////////////////////
+
+        var ie4up = (document.all) ? 1 : 0;
+        var ns6up = (document.getElementById && !document.all) ? 1 : 0;
+
+        function iecompattest() {
+            return (document.compatMode && document.compatMode != "BackCompat") ? document.documentElement : document.body
+        }
+
+        var dx, xp, yp;    // coordinate and position variables
+        var am, stx, sty;  // amplitude and step variables
+        var i, doc_width = 800, doc_height = 600;
+
+        if (ns6up) {
+            doc_width = self.innerWidth;
+            doc_height = self.innerHeight;
+        } else if (ie4up) {
+            doc_width = iecompattest().clientWidth;
+            doc_height = iecompattest().clientHeight;
+        }
+
+        dx = new Array();
+        xp = new Array();
+        yp = new Array();
+        am = new Array();
+        stx = new Array();
+        sty = new Array();
+        snowsrc = (snowsrc.indexOf("dynamicdrive.com") != -1) ? "snow.gif" : snowsrc
+        for (i = 0; i < no; ++i) {
+            dx[i] = 0;                        // set coordinate variables
+            xp[i] = Math.random() * (doc_width - 50);  // set position variables
+            yp[i] = Math.random() * doc_height;
+            am[i] = Math.random() * 20;         // set amplitude variables
+            stx[i] = 0.02 + Math.random() / 10; // set step variables
+            sty[i] = 0.7 + Math.random();     // set step variables
+            if (ie4up || ns6up) {
+                if (i == 0) {
+                    document.write("<div id=\"dot" + i + "\" style=\"POSITION: absolute; Z-INDEX: " + i + "; VISIBILITY: visible; TOP: 15px; LEFT: 15px;\"><img src='" + snowsrc + "' border=\"0\"><\/div>");
+                } else {
+                    document.write("<div id=\"dot" + i + "\" style=\"POSITION: absolute; Z-INDEX: " + i + "; VISIBILITY: visible; TOP: 15px; LEFT: 15px;\"><img src='" + snowsrc + "' border=\"0\"><\/div>");
+                }
+            }
+        }
+
+        function snowIE_NS6() {  // IE and NS6 main animation function
+            doc_width = ns6up ? window.innerWidth - 10 : iecompattest().clientWidth - 10;
+            doc_height = (window.innerHeight && snowdistance == "windowheight") ? window.innerHeight : (ie4up && snowdistance == "windowheight") ? iecompattest().clientHeight : (ie4up && !window.opera && snowdistance == "pageheight") ? iecompattest().scrollHeight : iecompattest().offsetHeight;
+            if (snowdistance == "windowheight") {
+                doc_height = window.innerHeight || iecompattest().clientHeight
+            }
+            else {
+                doc_height = iecompattest().scrollHeight
+            }
+            for (i = 0; i < no; ++i) {  // iterate for every dot
+                yp[i] += sty[i];
+                if (yp[i] > doc_height - 50) {
+                    xp[i] = Math.random() * (doc_width - am[i] - 30);
+                    yp[i] = 0;
+                    stx[i] = 0.02 + Math.random() / 10;
+                    sty[i] = 0.7 + Math.random();
+                }
+                dx[i] += stx[i];
+                document.getElementById("dot" + i).style.top = yp[i] + "px";
+                document.getElementById("dot" + i).style.left = xp[i] + am[i] * Math.sin(dx[i]) + "px";
+            }
+            snowtimer = setTimeout("snowIE_NS6()", 10);
+        }
+
+        function hidesnow() {
+            if (window.snowtimer) clearTimeout(snowtimer)
+            for (i = 0; i < no; i++) document.getElementById("dot" + i).style.visibility = "hidden"
+        }
+
+
+        if (ie4up || ns6up) {
+            snowIE_NS6();
+            if (hidesnowtime > 0)
+                setTimeout("hidesnow()", hidesnowtime * 1000)
+        }
+
+    </script> 
+<script language="JavaScript" type="text/JavaScript">
+
+// Add all DIV's of hearts
+if (document.all||document.getElementById||document.layers){
+for (k=0;k<kisserCount;k=k+2) {
+  document.write('<div id="kisser' + k + '" class="kisser"><img src="' + theimage + '" alt="" border="0"></div>\n')
+  document.write('<div id="kisser' + (k+1) + '" class="kisser"><img src="' + theimage2 + '" alt="" border="0"></div>\n')
+}
+}
+
+    </script>
+  <!--</div>--><!--</div>-->  
+          <script type="text/javascript">
+var myVar;
+function myFunction() {
+  myVar = setTimeout(showPage, 500); /*3000|8000tweaked*/
+}
+
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("myDiv").style.display = "block";
+}
+    </script>
+      	<script>
+		// cut the mustard
+		if ('querySelector' in document && 
+			'addEventListener' in window) {
+			var toggleButtons = document.querySelectorAll('.toggle-content');
+			var fullTextWrappers = document.querySelectorAll('.fulltext');
+			var fullText;
+			var toggleButtonText;
+			
+			[].forEach.call(fullTextWrappers, function(fullTextWrapper) {
+				// hide all full text on load
+				fullTextWrapper.setAttribute('hidden', true);
+			});
+			[].forEach.call(toggleButtons, function(toggleButton) {
+				// show toggle more buttons
+				toggleButton.removeAttribute('hidden');
+				// add listener for each button
+				toggleButton.addEventListener('click', function () {
+					fullTextWrapper = this.parentElement.querySelector('.fulltext');
+					toggleButtonText = this.querySelector('.text');
+					// change attributes and text if full text is shown/hidden
+					console.log(fullTextWrapper.hasAttribute('hidden'));
+					if (!fullTextWrapper.hasAttribute('hidden')) {
+						toggleButtonText.innerText = 'Show More';
+						fullTextWrapper.setAttribute('hidden', true);
+						toggleButton.setAttribute('aria-expanded', false);
+					} else {
+						toggleButtonText.innerText = 'Show Less';
+						fullTextWrapper.removeAttribute('hidden');
+						toggleButton.setAttribute('aria-expanded', true);
+					}
+				});
+			});
+		}
+	</script>
+    </body>
+</html>

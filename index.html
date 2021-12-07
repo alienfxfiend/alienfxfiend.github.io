@@ -1,0 +1,773 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">
+/* Center the loader */
+#loader {
+	position: fixed !important;
+	/*display: -webkit-flexbox !important;
+    display: -ms-flexbox !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+    -webkit-flex-align: center !important;
+    -ms-flex-align: center !important;
+    -webkit-align-items: center !important;
+    align-items: center !important;
+    justify-content: center !important;*/
+    left: 50% !important;
+  top: 50% !important;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0px 0px -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+	/*-moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);*/
+	    
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative !important;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#myDiv {
+  display: none;
+  text-align: left; /* center*/
+}
+</style>
+
+<title>Knightmare Colony™ III</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-us" />
+<meta name="keywords" content="comp sci, philosophy, writing, newssource" />
+<meta name="description" content="The coolest fansite\ script source on the web... Find almost anything _interesting_ in here..." />
+<meta content="Shadow Company" name="author" />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="stylesheet" type="text/css" href="nuke-ice.css" />
+<script type="text/javascript" src="basiccalendar.js"></script>
+<style type="text/css">
+
+.kisser {
+	position: absolute;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	visibility: hidden;
+}
+
+</style>
+<script language="JavaScript1.2" type="text/JavaScript">
+
+
+//Kissing trail- By dij8 (dij8@dij8.com)
+//Modified by Dynamic Drive for bug fixes
+//Visit http://www.dynamicdrive.com for this script
+
+
+kisserCount = 15 //maximum number of images on screen at one time
+curKisser = 0 //the last image DIV to be displayed (used for timer)
+kissDelay = 1000 //duration images stay on screen (in milliseconds)
+kissSpacer = 50 //distance to move mouse b4 next heart appears
+theimage = "lips_small.gif" //the 1st image to be displayed
+theimage2 = "small_heart.gif" //the 2nd image to be displayed
+
+
+//Browser checking and syntax variables
+var docLayers = (document.layers) ? true:false;
+var docId = (document.getElementById) ? true:false;
+var docAll = (document.all) ? true:false;
+var docbitK = (docLayers) ? "document.layers['":(docId) ? "document.getElementById('":(docAll) ? "document.all['":"document."
+var docbitendK = (docLayers) ? "']":(docId) ? "')":(docAll) ? "']":""
+var stylebitK = (docLayers) ? "":".style"
+var showbitK = (docLayers) ? "show":"visible"
+var hidebitK = (docLayers) ? "hide":"hidden"
+var ns6=document.getElementById&&!document.all
+
+//Variables used in script
+var posX, posY, lastX, lastY, kisserCount, curKisser, kissDelay, kissSpacer, theimage
+lastX = 0
+lastY = 0
+
+//Collection of functions to get mouse position and place the images
+function doKisser(e) {
+  posX = getMouseXPos(e)
+  posY = getMouseYPos(e)
+  if (posX>(lastX+kissSpacer)||posX<(lastX-kissSpacer)||posY>(lastY+kissSpacer)||posY<(lastY-kissSpacer)) {
+    showKisser(posX,posY)
+    lastX = posX
+    lastY = posY
+  }
+}
+
+// Get the horizontal position of the mouse
+function getMouseXPos(e) {
+  if (document.layers||ns6) {
+    return parseInt(e.pageX+10)
+  } else {
+    return (parseInt(event.clientX+10) + parseInt(document.body.scrollLeft))
+  }
+}
+
+// Get the vartical position of the mouse
+function getMouseYPos(e) {
+  if (document.layers||ns6) {
+    return parseInt(e.pageY)
+  } else {
+    return (parseInt(event.clientY) + parseInt(document.body.scrollTop))
+  }
+}
+
+//Place the image and start timer so that it disappears after a period of time
+function showKisser(x,y) {
+  var processedx=ns6? Math.min(x,window.innerWidth-75) : docAll? Math.min(x,document.body.clientWidth-55) : x
+  if (curKisser >= kisserCount) {curKisser = 0}
+  eval(docbitK + "kisser" + curKisser + docbitendK + stylebitK).left =  processedx + 'px'
+  eval(docbitK + "kisser" + curKisser + docbitendK + stylebitK).top = y + 'px'
+  eval(docbitK + "kisser" + curKisser + docbitendK + stylebitK + ".visibility = '" + showbitK + "'")
+  if (eval("typeof(kissDelay" + curKisser + ")")=="number") {
+    eval("clearTimeout(kissDelay" + curKisser + ")")
+  }
+  eval("kissDelay" + curKisser + " = setTimeout('hideKisser(" + curKisser + ")',kissDelay)")
+  curKisser += 1
+}
+
+//Make the image disappear
+function hideKisser(knum) {
+  eval(docbitK + "kisser" + knum + docbitendK + stylebitK + ".visibility = '" + hidebitK + "'")
+}
+
+
+function kissbegin(){
+//Let the browser know when the mouse moves
+if (docLayers) {
+  document.captureEvents(Event.MOUSEMOVE)
+  document.onMouseMove = doKisser
+} else {
+
+  document.onmousemove = doKisser
+}
+}
+
+window.onload=kissbegin
+
+    </script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="scrolltopcontrol.js">
+
+        /***********************************************
+        * Scroll To Top Control script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+        * Please keep this notice intact
+        * Visit Project Page at http://www.dynamicdrive.com for full source code
+        ***********************************************/
+
+    </script>
+<style type="text/css">
+.style1 {
+	text-align: left;
+}
+.style2 {
+	margin: 0px auto;
+	padding: 0px;
+	width: 460px;
+	position: relative;
+    text-overflow: clip !important;
+	/*overflow: auto;*/
+    word-break: break-all !important;
+	font-family: Verdana;
+	font-size: 0.7em !important;
+	text-decoration: none;
+	color: #6a7c98;
+}
+a {
+	font-weight: normal;
+}
+a:link {
+	color: #6A7C98;
+}
+a:visited {
+	color: #6A7C98;
+}
+a:hover {
+	text-decoration: none;
+	color: white;
+	background-color: green;
+	border-width: 2px;
+	border-style: dotted;
+	border-color: purple;
+}
+a:active {
+	color: aqua;
+	background-color: navy;
+}
+.style3 {
+	font-size: 11px;
+	letter-spacing: normal;
+	background-color: #141A21;
+}
+.style4 {
+	color: #FF0000;
+	font-size: 6px;
+}
+.style5 {
+	color: #FF0000;
+	font-size: 6px;
+}
+</style>
+</head>
+
+<body style="direction: ltr;"><!--onload="FP_preloadImgs(/*url*/'buttonB3.gif',/*url*/'buttonB4.gif',/*url*/'buttonC4.gif',/*url*/'buttonC5.gif',/*url*/'buttonC7.gif',/*url*/'buttonC8.gif');>-->
+    <script language="JavaScript" type="text/JavaScript">
+function start() {
+  myFunction();
+  kissbegin();
+}
+window.onload = start;
+</script>
+<div id="loader"></div>
+<div style="display:none;" id="myDiv" class="animate-bottom">
+<div id="wrapper">
+  <div id="banner">
+    <div id="banner-edit"><img style="width: 100px; height: 75px;" alt="Green Skulls (Rotating" src="skullgre.gif" align="middle" vspace="30" /><img style="width: 600px; height: 48px;" alt="Logo text banner" src="coollogo_com-32082252.png" align="middle" /><img style="width: 100px; height: 75px;" alt="Green Skulls (Rotating" src="skullgre.gif" align="top" vspace="30" /></div>
+  </div>
+  <div id="container">
+    <div id="col-1">
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::SiteMap::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="nav-menu">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about-this-blog.html">About Us</a> <strong><sup><span class="style4">New!</span></sup></strong></li>
+              <li>Services</li>
+              <li>Products</li>
+              <li><a href="http://alien-fx-fiend.livejournal.com/">Blog</a></li>
+              <li><a href="comp-sci.html">Comp Engineering</a> <strong><sup><span class="style4">New!</span></sup></strong></li>
+              <li><a href="#">Science</a></li>
+              <li><a href="philosophy.html">Philosophy</a> <strong><sup><span class="style4">New!</span></sup></strong></li>
+              <li><a href="#">Creative Writing/Lingu</a></li>
+              <li><a href="pc-games.html">PC Games</a> <strong><sup><span class="style5">New!</span></sup></strong></li>
+              <li><a href="#">World Domination</a></li>
+              <li><a href="exp2.html#"> Studies-Related</a></li>
+              <li><a href="#">Miscellaneous</a></li>
+              <li><a href="exp2.html#">E-Zine</a></li>
+              <li><a href="mailto:alien.fx_fiend@yahoo.com?subject=Enquiry">Contact Us</a></li>
+              <li><a href="http://users2.smartgb.com/g/g.php?a=s&amp;i=g26-34462-59">Guestbook</a></li>
+              <li><a href="http://neoviper10.boards.net/">Message Board</a></li>
+              <li>Win Tweaks?!</li>
+              <li>Forum</li>
+              <li>Photo Gallery</li>
+            </ul>
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::Update Logz::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="NavInfo"> Testing The Small Content Box For Demo Purposes<br />
+            22/11 11:13 Added Tickertape+mousetrailx<br />
+            4/12 22:00 Expanded Computer Sections+Nav Links+Switched to MSEW<br />
+            6/12 1:50 Added favicon<br />
+            10/12 1:37 Improved Design<br />
+            23/1 16:00 Added CSS hover link effect<br />
+            5/7 00:52 MouseTrail + Fixed Phong + Encoding + link + Scrolltop + Snow<br />
+            8/7 10:45 Malicious virus script s.igmhb finally eradicated<br />
+            9/7 22:20 Few additional links, Uploading directly from MSEW now:rollouts<br />
+            24/7 00:00 Added comp-sci &amp; pc-games pages<br />
+            16/8 16:00 Added Nav Buttons &amp; Custom Search Engine, Switched to Dreamviewer (EW buggy+discn)<br />
+            24/8 3:32 Minor touches to the site &mdash;mostly ripping gifs &amp; imgsearching<br />
+            8/9 7:25 Minor additions &amp; few more links<br />
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::SiteGear Poll::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="NavInfo"> Testing The Small Content Box For Demo Purposes </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+    </div>
+    <div id="col-2">
+      <div class="CntBox">
+        <div class="CntHead">
+          <div class="CntHeadInfo">PHP Nuke Ice Website Template</div>
+        </div>
+        <div class="CntFill">
+          <div class="CntInfo"> <img style="width: 458px; height: 173px;" alt="Blackstone gfx (WarHammer)" src="Blackstone6.jpg" align="middle" /><br />
+            <div>
+              <div class="style1"><img style="width: 36px; height: 101px; float: left;" hspace="5" alt="Coffee Cup"
+ src="coffee.gif" /> Testing the center content blocks to see what the text looks like inside
+                them. A vast pool of resources covering many engrossing topics! Plethora
+                arcane &amp; esoteric aspects of Computer Science et. al. Click here to
+                visit. The cool place to be for all&nbsp; your game cheat codes, strategy
+                guides, reviews &amp; short stories plus Whitepapers, eBooks &amp; Tutorials.
+                Join the most coveted team on the net w/ links to most never-before-seen
+                content. Welcome to my all-new TFT (now terminated) sequel site w/
+                updated layout &amp; info (some data was lost ! ) :{&nbsp;The content here
+                is&nbsp;like nothing you&#39;ve seen &amp; out-of-the-ordinary! From the unexplored
+                areas of the mind come --the experience of new ideas &amp; obtuse
+                perspective [..] This Site Is Under Perpetual Construction ! [<a href="changelog.txt">1:43 AM
+                Fri 7/10/2016</a>]<br />
+                <br />
+                )...<br />
+                SECURITY ERROR 0x4b454c4d<br />
+                BREACH DETECTED<br />
+                _<br />
+                <br />
+                Welcome 
+      to my new site Knightmare's personal homepage. Its a personal site 
+      dedicated to radical teens and high-octane lifestyles and speculative 
+      philosophy. You wont find comprehensive technical articles, since this 
+      site is mainly personal just to express my opinions and thoughts on a 
+      variety of topics and also a repository for a vast amount of esoterica 
+      research I'm conducting. I myself am a
+      <img src="ANIskullBluFire3l.gif" style="position: relative; float: left" height="131" width="71" border="0">philosopher, 
+      therefore if you love philosophy then feel free to send your comments and 
+      opinions on this site and also you will get quite a bit of info on some of 
+      my personal favorite subjects including philosophy, hacking and life in 
+      general, and other universal stuff. If you want an insight on my life, then 
+      you could read my 'Diary', which is all my sentiments on living. From the 
+      unexplored areas of the human brain comes.. the experience of new ideas 
+      and obtuse perspective. This is 
+      just the beginning of my site and I have a lot of future ambitions for it, 
+      so don't be surprised with the little content! Click the links to navigate 
+      the site.<br />
+      <br />
+      THIS SITE IS CURRENTLY UNDER PERPETUAL CONSTRUCTION!<br />
+      Expect it to be fully launched by the end of February. Till then please 
+      bookmark this site and return to witness the fascinating content 
+      available!<br />
+      <br />
+      Last Updated: Friday, October 23rd 2009, 9:50 PM<br />
+      Version 1.4 beta<br />
+      <br />
+      Quote of the Moment: "Life is a comedy to those who think, and a 
+      tragedy to those who feel"</font><br />
+<br /><center><img src="light2.gif" height="179" width="166" border="0"></center><br />
+                <br />
+                <br />
+                <br />
+                <div style="text-align: center;"> <img alt="UnderConstHR" src="tsbuc4.gif" align="middle" width="443" height="40" /><br />
+                </div>
+              </div>
+              <div style="text-align: center;"> <img style="width: 40px; height: 41px;" alt="Under Construction gif" src="tumblr_n4xy3s8Jvk1sy4w0ao1_75sq.gif" align="middle" /> </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+          </div>
+        </div>
+        <div class="CntFooter"></div>
+      </div>
+      <div class="CntBox">
+        <div class="CntHead">
+          <div class="CntHeadInfo">Welcome to Knightmare Homepage!</div>
+        </div>
+        <div class="CntFill">
+          <div style="text-align: justify;" class="CntInfo"> CWindows Linux POSIX LFS NTFS
+            Computer Architecture: <br />
+            RISC, CISC Virii and Malware Authoring TSR Terminate and stay Resident COM
+            Boot Sector MBR Polymorphic Permuted Cryptography Phishing Scam Social
+            Engineering System Programming LKM LKD K-Dev IDS, Firewall and Honeypots
+            MS-DOS DoS POD Fragmented Attack DoS Attacks (SYN Flooding, Socket
+            Exhaustion): tcpdump, iptables, and Rawsocket Tutorial DNS spoofing
+            Cross-site scripting Phreaking Session Hijacking Man-in-the Middle Hacker
+            Manifesto ARP Cache Poisoning DLL Injection IAT Patching WriteProcessMemory()
+            CreateRemoteThread() Service (API Hooking methods) Packet Sniffing Wireless
+            Cracking 802.11g Hardware [Stealth] Rootkits Internet Daemons Exploits
+            Buffer Overflows Race Conditions Critical Sections Atomic Spinlocks 8 Queens
+            Problem How Computers Work Data Compression Data Structures and Algorithms
+            (Search, Sort, Synchro Recursion Iteration Branching, Decision Making(?)
+            Linked Lists, Binary Trees Signal Processing [A]PIC Microprocessors
+            Commodore 64 ARM Arduino 8086 Assembly Machine Language Java Visual Basic
+            .NET MS Small Basic [LitDev] PERL CGI CSS NIC Driver source code Game Dev
+            Winsock WPF Novell Netware MIPS YFunnel Pro Yahoo Ace NIC source, Minix, &amp;
+            Yah Mini VDAT 1.6 Bioinformatics Neural Networks Quantum Computing SIMD
+            Parralel Processing Multi-Threaded Programming Java Bots Aggragators Matlab
+            VHDL Verilog Overclocking E-Zines Shellcode BIOS internals Monitor RAM
+            Spidering bot hacks (filetype:PDF,[..] Samba Outdial OOP (to hide private
+            members) UML Module Visual C++ (MFC, ATL, STL) DDK (Driver Programming) SDK
+            .htaccess hacking Code obfuscation Network Auditing\ Vulnerability Scanner
+            Tools NETBIOS\nbtstat\netsh firewall\ hacking Windows 8.1 Tricks\ Man pages
+            PROLOG Artificial Intelligence TCP/IP Wrappers (in Ruby) IPv4\ IPv6 Active
+            X\ COM RFC Botnet Eggdrop bots William Gibson Cyberpunk Open GL Direct X
+            Glide Shader programs Pointer Arithmetic RIP PE\ COFF ELF DHCP IP Forcer
+            Bibliography: Mastering Visual Basic 6 by Evangelos Petroutsos Sams TYVB (24
+            hours) V.32 bis XERMIT-Modem (X2?) Fuzzy Logic Machine Learning AJAX UPX
+            p-trade e-trade bruteforce dictionary attack Format String Bug GDI Acer
+            (Worlds thinnest laptop) running on Intel m7 Processor Hrm .. Links:
+            Milw0rm, Anti-Online, Packetstorm, Slashdot, Techcrunch, Metasploit SCADA
+            Systems VM notebook Kali Linux MDK3 RAD (Rapid Application Development
+            (Visual Basic)) DDE(Dynamic Data Exchange) Named Pipes Writing to port ADO,
+            Multidimensional Arrays OpenSSH jQuery Offensive Security <a href="/Hacking%20TOC.docx">[...] Read More</a><br />
+            <br />
+            <img alt="BomberHR" src="hr-planeani.gif" width="458" height="55" /><br />
+          </div>
+        </div>
+        <div class="CntFooter"></div>
+      </div>
+      <div class="CntBox">
+        <div class="CntHead">
+          <div class="CntHeadInfo">-[ Computer Programming ]- Sneak Preview</div>
+        </div>
+        <div class="CntFill">
+          <div class="style2">
+            <div style="text-align: justify;"> Testing the center content blocks to see what
+              the text looks like inside them. Age of Empires HD Scripting Tutorial,
+              CnC:TA Tips |Fan Site (More comn soon !), RA2 War Stories\ Battle Guide\
+              Game Mods, Chess\ NewAge 3 Strat guide, Sims custom user-created, Grayhat
+              Stuffz~!, String\ M Theory, Time Travel Concepts, Proposed Roads To Freedom,
+              Open RA, MK Chaotic (MUGEN),<br />
+            </div>
+            <br />
+            <br />
+            <div style="text-align: center;"> <img alt="HRule" src="tsjlyrgr.gif" align="middle" width="448" height="25" /><br />
+            </div>
+            <br />
+            <br />
+            <center>
+              ..::Phong II::..
+            </center>
+            <iframe src="phong.htm" style="width: 450px; height: 355px"></iframe>
+            <br />
+            <br />
+            <a href="http://www.worldofsolitaire.com/">World of Solitaire</a> |<a href="http://www.itp.uzh.ch/~suzanne/ebooks/sophos-a-to-z-computer-and-data-security-threats.pdf"> Threatsaurus:
+            Sophos A-Z Computer &amp; Data Security Threats </a> |<a href="http://www.phraseexpress.com/download.php">PhraseExpress v12.0</a> |<a href="http://www.philosophybasics.com/">The Basics of Philosophy: A huge subject broken down into manageable chunks</a> |<a href="https://www.wishlistr.com/alien_fx_fiendx">My Wishlistr</a> |<a href="http://www.pearltrees.com/alien_fx_fiend"> My
+            Pearltrees </a> |<a href="http://hellslabteam.blogspot.com">HLT Blogspot</a> |<a href="https://bookofbadarguments.com/?view=allpages">Book of Bad Arguments (logic) </a><a href="mailto:alien.fx_fiend@yahoo.com?subject=Enquiry"><img src="emailp.gif" width="44" height="51" align="top" alt="Mailbox"/>PLEASE SEND ME E-MAIL WITH COMMENTS OR SUGGESTIONS</a><br />
+            <center>
+              <img src="blueline.gif" width="448" height="10" alt="HRule bluebar"/>
+            </center>
+            <br />
+            <!-- start of freefind search box html -->
+            <table cellpadding=0 cellspacing=0 border=0 >
+              <tr>
+                <td  colspan=2 style="font-family: Arial, Helvetica, sans-serif; font-size: 7.5pt;"><form style="margin:0px; margin-top:4px;" action="http://search.freefind.com/find.html" method="get" accept-charset="utf-8" target="_self">
+                    <input type="hidden" name="si" value="21531013" />
+                    <input type="hidden" name="pid" value="r" />
+                    <input type="hidden" name="n" value="0" />
+                    <input type="hidden" name="_charset_" value="" />
+                    <input type="hidden" name="bcd" value="&#247;" />
+                    <input type="text" name="query" size="15" />
+                    <input type="submit" value="search" />
+                  </form></td>
+              </tr>
+              <tr>
+                <td style="text-align:left; font-family: Arial, Helvetica, sans-serif;	font-size: 7.5pt; padding-top:4px;"><a style="text-decoration:none; color:gray;" href="http://www.freefind.com" >search engine</a><a style="text-decoration:none; color:gray;" href="http://www.freefind.com" > by <span style="color: #606060;">freefind</span></a></td>
+                <td style="text-align:right; font-family: Arial, Helvetica, sans-serif;	font-size: 7.5pt; padding-top:4px;"><a href="http://search.freefind.com/find.html?si=21531013&amp;pid=a">advanced</a></td>
+              </tr>
+            </table>
+            <!-- end of freefind search box html --> 
+            
+            <br />
+            <br />
+          </div>
+        </div>
+        <div class="CntFooter"></div>
+      </div>
+    </div>
+    <div id="col-3">
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::Calendar::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="NavCal"> 
+            <script type="text/javascript">
+                                var todaydate = new Date()
+                                var curmonth = todaydate.getMonth() + 1 //get current month (1-12)
+                                var curyear = todaydate.getFullYear() //get current year
+                                document.write(buildCal(curmonth, curyear, "main", "month", "daysofweek", "days", 0));
+                            </script> 
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+      <div id="col-3">
+        <div class="NavBox">
+          <div class="NavHead">
+            <div class="NavHeadInfo">..::Top 10 Games::..</div>
+          </div>
+          <div class="NavFill">
+            <div class="NavInfo"> 1. Command and Conquer Alpha<br />
+              2. Empire Earth III<br />
+              3. 18 Wheels<br />
+              4. Sims Makin Magic<br />
+              5. Gangsters: Organized Crime<br />
+              6. Mortal Kombat X + Gold<br />
+              7. Rayden 2 Demo<br />
+              8. Incoming<br />
+              9. Carmageddon 2: Carpolypse Now<br />
+              10. Delta Force IV: Task Force Dagger<br />
+              11. Infestation<br />
+              12. Midtown Madness 2<br />
+              13. Watchdogs<br />
+              14. The Crew 2<br />
+              15. GTA V<br />
+              16. Crysis 4<br />
+              17. Titanfall 2<br />
+              18. Psi-Ops: The Mindgate Conspiracy<br />
+              19. Mafia<br />
+              20 Saints Row<br />
+              21. War Chess<br />
+              22. Star Wars: GB Saga<br />
+              23. Age of Mythology: TotD<br />
+              24. Red Alert 2: Yuri's Revenge<br />
+              25. Metal Fatigue </div>
+            <div class="NavFooter"></div>
+          </div>
+        </div>
+      </div>
+      <div id="col-3">
+        <div class="NavBox">
+          <div class="NavHead">
+            <div class="NavHeadInfo">..::Links (Ext.)::..</div>
+          </div>
+          <div class="NavFill">
+            <div class="NavInfo"> <a href="http://www.tuts4you.com/">Tuts4You</a><br />
+              <a href="http://ocw.mit.edu/">MIT OCW</a><br />
+              <a href="http://vx.netlux.org/">VX Heavens</a><br />
+              <a href="http://www.textfiles.com/">Textfiles.com (Ezine)</a><br />
+              <a href="http://chronos.ws/">Chronos Time Travel</a><br />
+              <a href="http://deoxy.org/">Deoxy</a><br />
+              <a href="http://www2.lv.psu.edu/jkl1/runawaylives/readstories.html"> Runaway
+              Lives </a><br />
+              <a href="http://w3.cultdeadcow.com/cms/texXxt.html">cDc Paramedia</a><br />
+              <a href="http://www.mymiserablelife.com/">Miserable Life Comp</a><br />
+              <a href="http://www.thescriptsource.net/Scripts/FightClub.pdf"> Movie Scripts
+              FightClub </a><br />
+              <a href="https://www.magrent.com/torrent-magnet/download/4d516685754b42154b4d7210d924a58c94d439c7"> PC Strategy Guides </a><br />
+              <a href="http://users.cs.cf.ac.uk/Dave.Marshall/C/CE.html"> C Programming </a><br />
+              <a href="https://www.youtube.com/watch?v=XU_xLcYohtk"> MM2 lag fix </a><br />
+              <a href="http://www.mm2x.com/page.php?name=Downloads&amp;d_op=viewdownloaddetails&amp;cid=2&amp;lid=1388&amp;ttitle=Chicago#dldetails"> MM2 Chicago Track </a><br />
+              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=636984276"> SWGB:CC Widesreen fix </a><br />
+              <a href="https://thepiratebay.org/torrent/6276218/War_Chess_v1.1_[PC_GAME]_(2006)__INSTALL_"> War Chess 1.1 </a><br />
+              <a href="http://developer.download.nvidia.com/books/HTML/gpugems/gpugems_pref01.html"> NVIDIA GPU Gems </a><br />
+              <a href="http://pages.cs.wisc.edu/~remzi/OSTEP/"> Operating Systems: Three Easy Pieces </a><br />
+              <a href="http://philip.greenspun.com/seia/"> Software Engineering for Internet Applications </a><br />
+              <a href="http://www.coderholic.com/25-free-computer-science-books/"> 25 Free Computer Science Books </a><br />
+              <a href="http://www.ebook777.com"> Vast e-book Library </a><br />
+              <a href="https://megagames.com/fixes/grand-theft-auto-3-v10-gereng"> GTA 3 No-CD crack </a><br />
+              <a href="http://www.thegtaplace.com/downloads/f1186-gta-iii-27-trainer"> GTA 3 +27 Trainer </a><br />
+              <a href="http://www.thegtaplace.com/downloads/f80-vice-city-11-patch"> GTA VC 1.1 Patch </a><br />
+              <a href="https://megagames.com/fixes/grand-theft-auto-vice-city-5"> GTA VC No-CD crack </a><br />
+              <a href="http://www.gameesc.com/archives/grand-theft-auto-vice-city-trainer-11-by-xeonbyte/"> GTA VC Trainer </a><br />
+              <a href="http://www.e-booksdirectory.com/listing.php?category=264"> Game Programming [HTML] books </a><br />
+              <a href="http://www.goanwap.com/ebook-kee-list2-ndms.html">Nancy Drew [HTML] eBooks</a></div>
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="clearB"></div>
+  <div id="foot">
+    <div id="foot-Info-Left"> Welcome to the Hells Lab Team<span class="style3">™</span> website.<br />
+      You are visitor # <!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=11230248; 
+var sc_invisible=0; 
+var sc_security="91ab42c0"; 
+var sc_text=5; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="Web Analytics"
+href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="//c.statcounter.com/11230248/0/91ab42c0/0/" alt="Web
+Analytics"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+      to enter this site ! <br />
+      My new site following the termination of my old PS+Frontpage site on TFT
+      (The FreeWeb Town.) Using templates have helped streamline &amp; automate gfx
+      |processes.<br />
+      -&gt; f4t4l_3rr0r <img style="width: 43px; height: 15px;" alt="Netscape Compatible"
+ src="now8.gif" /> <img src="blueribbon.gif" width="43" height="15" alt="Free Speech Now!"/> <img src="mircnow.gif" width="43" height="15" alt="mIRC Now"/><br />
+      Enjoy! Copyright © (2016-21) The Shadow Company®. All Rights Reserved. <img style="width: 43px; height: 15px;" alt="W3 Compatible" src="valid-css2.png" /> </div>
+    <div id="foot-Info-Right" align="right"> 
+      <script src="foot_scroller_edit.js" type="text/javascript"></script> 
+    </div>
+    <div class="clearB"></div>
+  </div>
+</div>
+          
+<script type="text/javascript">
+
+        /******************************************
+        * Snow Effect Script- By Altan d.o.o. (http://www.altan.hr/snow/index.html)
+        * Visit Dynamic Drive DHTML code library (http://www.dynamicdrive.com/) for full source code
+        * Last updated Nov 9th, 05' by DD. This notice must stay intact for use
+        ******************************************/
+        function openwindow() {
+            window.open("autumn_effect.htm", "", "width=350,height=500")
+        }
+
+        //Configure below to change URL path to the snow image
+        var snowsrc = "snow.gif"
+        // Configure below to change number of snow to render
+        var no = 10;
+        // Configure whether snow should disappear after x seconds (0=never):
+        var hidesnowtime = 0;
+        // Configure how much snow should drop down before fading ("windowheight" or "pageheight")
+        var snowdistance = "pageheight";
+
+        ///////////Stop Config//////////////////////////////////
+
+        var ie4up = (document.all) ? 1 : 0;
+        var ns6up = (document.getElementById && !document.all) ? 1 : 0;
+
+        function iecompattest() {
+            return (document.compatMode && document.compatMode != "BackCompat") ? document.documentElement : document.body
+        }
+
+        var dx, xp, yp;    // coordinate and position variables
+        var am, stx, sty;  // amplitude and step variables
+        var i, doc_width = 800, doc_height = 600;
+
+        if (ns6up) {
+            doc_width = self.innerWidth;
+            doc_height = self.innerHeight;
+        } else if (ie4up) {
+            doc_width = iecompattest().clientWidth;
+            doc_height = iecompattest().clientHeight;
+        }
+
+        dx = new Array();
+        xp = new Array();
+        yp = new Array();
+        am = new Array();
+        stx = new Array();
+        sty = new Array();
+        snowsrc = (snowsrc.indexOf("dynamicdrive.com") != -1) ? "snow.gif" : snowsrc
+        for (i = 0; i < no; ++i) {
+            dx[i] = 0;                        // set coordinate variables
+            xp[i] = Math.random() * (doc_width - 50);  // set position variables
+            yp[i] = Math.random() * doc_height;
+            am[i] = Math.random() * 20;         // set amplitude variables
+            stx[i] = 0.02 + Math.random() / 10; // set step variables
+            sty[i] = 0.7 + Math.random();     // set step variables
+            if (ie4up || ns6up) {
+                if (i == 0) {
+                    document.write("<div id=\"dot" + i + "\" style=\"POSITION: absolute; Z-INDEX: " + i + "; VISIBILITY: visible; TOP: 15px; LEFT: 15px;\"><img src='" + snowsrc + "' border=\"0\"><\/div>");
+                } else {
+                    document.write("<div id=\"dot" + i + "\" style=\"POSITION: absolute; Z-INDEX: " + i + "; VISIBILITY: visible; TOP: 15px; LEFT: 15px;\"><img src='" + snowsrc + "' border=\"0\"><\/div>");
+                }
+            }
+        }
+
+        function snowIE_NS6() {  // IE and NS6 main animation function
+            doc_width = ns6up ? window.innerWidth - 10 : iecompattest().clientWidth - 10;
+            doc_height = (window.innerHeight && snowdistance == "windowheight") ? window.innerHeight : (ie4up && snowdistance == "windowheight") ? iecompattest().clientHeight : (ie4up && !window.opera && snowdistance == "pageheight") ? iecompattest().scrollHeight : iecompattest().offsetHeight;
+            if (snowdistance == "windowheight") {
+                doc_height = window.innerHeight || iecompattest().clientHeight
+            }
+            else {
+                doc_height = iecompattest().scrollHeight
+            }
+            for (i = 0; i < no; ++i) {  // iterate for every dot
+                yp[i] += sty[i];
+                if (yp[i] > doc_height - 50) {
+                    xp[i] = Math.random() * (doc_width - am[i] - 30);
+                    yp[i] = 0;
+                    stx[i] = 0.02 + Math.random() / 10;
+                    sty[i] = 0.7 + Math.random();
+                }
+                dx[i] += stx[i];
+                document.getElementById("dot" + i).style.top = yp[i] + "px";
+                document.getElementById("dot" + i).style.left = xp[i] + am[i] * Math.sin(dx[i]) + "px";
+            }
+            snowtimer = setTimeout("snowIE_NS6()", 10);
+        }
+
+        function hidesnow() {
+            if (window.snowtimer) clearTimeout(snowtimer)
+            for (i = 0; i < no; i++) document.getElementById("dot" + i).style.visibility = "hidden"
+        }
+
+
+        if (ie4up || ns6up) {
+            snowIE_NS6();
+            if (hidesnowtime > 0)
+                setTimeout("hidesnow()", hidesnowtime * 1000)
+        }
+
+    </script> 
+<script language="JavaScript" type="text/JavaScript">
+
+<!-- cloak
+
+// Add all DIV's of hearts
+if (document.all||document.getElementById||document.layers){
+for (k=0;k<kisserCount;k=k+2) {
+  document.write('<div id="kisser' + k + '" class="kisser"><img src="' + theimage + '" alt="" border="0"></div>\n')
+  document.write('<div id="kisser' + (k+1) + '" class="kisser"><img src="' + theimage2 + '" alt="" border="0"></div>\n')
+}
+}
+
+
+
+// decloak -->
+
+    </script>
+    
+<script type="text/javascript">
+var myVar;
+function myFunction() {
+  myVar = setTimeout(showPage, 500); /*3000|8000tweaked*/
+}
+
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("myDiv").style.display = "block";
+}
+</script>
+</body>
+</html>
