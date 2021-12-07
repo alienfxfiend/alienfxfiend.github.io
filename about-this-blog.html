@@ -1,0 +1,783 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">
+/* Center the loader */
+#loader {
+	position: fixed !important;
+	/*display: -webkit-flexbox !important;
+    display: -ms-flexbox !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+    -webkit-flex-align: center !important;
+    -ms-flex-align: center !important;
+    -webkit-align-items: center !important;
+    align-items: center !important;
+    justify-content: center !important;*/
+    left: 50% !important;
+  top: 50% !important;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0px 0px -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+	/*-moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);*/
+	    
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative !important;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#myDiv {
+  display: none;
+  text-align: left; /* center*/
+}
+</style>
+<title>Ice Dragonz\Genocide Reaper's Lair™ [Dark Moon Rising\Thermal Zombie]</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-us" />
+<meta name="keywords" content="comp sci, philosophy, writing, newssource" />
+<meta name="description" content="The coolest fansite\ script source on the web... Find almost anything _interesting_ in here..." />
+<meta content="Shadow Company" name="author" />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="stylesheet" type="text/css" href="nuke-ice.css" />
+<script type="text/javascript" src="basiccalendar.js"></script>
+<style type="text/css">
+<!--
+.kisser {
+	position: absolute;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	visibility: hidden;
+}
+-->
+</style>
+<script language="JavaScript1.2" type="text/JavaScript">
+
+<!-- cloak
+
+
+//Kissing trail- By dij8 (dij8@dij8.com)
+//Modified by Dynamic Drive for bug fixes
+//Visit http://www.dynamicdrive.com for this script
+
+
+kisserCount = 15 //maximum number of images on screen at one time
+curKisser = 0 //the last image DIV to be displayed (used for timer)
+kissDelay = 1000 //duration images stay on screen (in milliseconds)
+kissSpacer = 50 //distance to move mouse b4 next heart appears
+theimage = "lips_small.gif" //the 1st image to be displayed
+theimage2 = "small_heart.gif" //the 2nd image to be displayed
+
+
+//Browser checking and syntax variables
+var docLayers = (document.layers) ? true:false;
+var docId = (document.getElementById) ? true:false;
+var docAll = (document.all) ? true:false;
+var docbitK = (docLayers) ? "document.layers['":(docId) ? "document.getElementById('":(docAll) ? "document.all['":"document."
+var docbitendK = (docLayers) ? "']":(docId) ? "')":(docAll) ? "']":""
+var stylebitK = (docLayers) ? "":".style"
+var showbitK = (docLayers) ? "show":"visible"
+var hidebitK = (docLayers) ? "hide":"hidden"
+var ns6=document.getElementById&&!document.all
+
+//Variables used in script
+var posX, posY, lastX, lastY, kisserCount, curKisser, kissDelay, kissSpacer, theimage
+lastX = 0
+lastY = 0
+
+//Collection of functions to get mouse position and place the images
+function doKisser(e) {
+
+  posX = getMouseXPos(e)
+  posY = getMouseYPos(e)
+  if (posX>(lastX+kissSpacer)||posX<(lastX-kissSpacer)||posY>(lastY+kissSpacer)||posY<(lastY-kissSpacer)) {
+    showKisser(posX,posY)
+    lastX = posX
+    lastY = posY
+  }
+}
+
+// Get the horizontal position of the mouse
+function getMouseXPos(e) {
+  if (document.layers||ns6) {
+    return parseInt(e.pageX+10)
+  } else {
+    return (parseInt(event.clientX+10) + parseInt(document.body.scrollLeft))
+  }
+}
+
+// Get the vartical position of the mouse
+function getMouseYPos(e) {
+  if (document.layers||ns6) {
+    return parseInt(e.pageY)
+  } else {
+    return (parseInt(event.clientY) + parseInt(document.body.scrollTop))
+  }
+}
+
+//Place the image and start timer so that it disappears after a period of time
+function showKisser(x,y) {
+  var processedx=ns6? Math.min(x,window.innerWidth-75) : docAll? Math.min(x,document.body.clientWidth-55) : x
+  if (curKisser >= kisserCount) {curKisser = 0}
+  eval(docbitK + "kisser" + curKisser + docbitendK + stylebitK).left =  processedx + 'px'
+  eval(docbitK + "kisser" + curKisser + docbitendK + stylebitK).top = y + 'px'
+  eval(docbitK + "kisser" + curKisser + docbitendK + stylebitK + ".visibility = '" + showbitK + "'")
+  if (eval("typeof(kissDelay" + curKisser + ")")=="number") {
+    eval("clearTimeout(kissDelay" + curKisser + ")")
+  }
+  eval("kissDelay" + curKisser + " = setTimeout('hideKisser(" + curKisser + ")',kissDelay)")
+  curKisser += 1
+}
+
+//Make the image disappear
+function hideKisser(knum) {
+  eval(docbitK + "kisser" + knum + docbitendK + stylebitK + ".visibility = '" + hidebitK + "'")
+}
+
+function kissbegin(){
+
+//Let the browser know when the mouse moves
+if (docLayers) {
+  document.captureEvents(Event.MOUSEMOVE)
+  document.onMouseMove = doKisser
+} else {
+  document.onmousemove = doKisser
+}
+}
+
+window.onload=kissbegin()
+// decloak -->
+    </script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="scrolltopcontrol.js">
+
+        /***********************************************
+        * Scroll To Top Control script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+        * Please keep this notice intact
+        * Visit Project Page at http://www.dynamicdrive.com for full source code
+        ***********************************************/
+
+    </script>
+<script type="text/JavaScript">
+		
+function FP_swapImg() {//v1.0
+ var doc=document,args=arguments,elm,n; doc.$imgSwaps=new Array(); for(n=2; n<args.length;
+ n+=2) { elm=FP_getObjectByID(args[n]); if(elm) { doc.$imgSwaps[doc.$imgSwaps.length]=elm;
+ elm.$src=elm.src; elm.src=args[n+1]; } }
+}
+
+function FP_preloadImgs() {//v1.0
+ var d=document,a=arguments; if(!d.FP_imgs) d.FP_imgs=new Array();
+ for(var i=0; i<a.length; i++) { d.FP_imgs[i]=new Image; d.FP_imgs[i].src=a[i]; }
+}
+
+function FP_getObjectByID(id,o) {//v1.0
+ var c,el,els,f,m,n; if(!o)o=document; if(o.getElementById) el=o.getElementById(id);
+ else if(o.layers) c=o.layers; else if(o.all) el=o.all[id]; if(el) return el;
+ if(o.id==id || o.name==id) return o; if(o.childNodes) c=o.childNodes; if(c)
+ for(n=0; n<c.length; n++) { el=FP_getObjectByID(id,c[n]); if(el) return el; }
+ f=o.forms; if(f) for(n=0; n<f.length; n++) { els=f[n].elements;
+ for(m=0; m<els.length; m++){ el=FP_getObjectByID(id,els[n]); if(el) return el; } }
+ return null;
+}
+</script>
+<style type="text/css">
+.style2 {
+	margin: 0px auto;
+	padding: 0px;
+	width: 460px;
+	position: relative;
+	overflow: auto;
+	font-family: Verdana;
+	font-size: 0.7em;
+	text-decoration: none;
+	color: #6a7c98;
+}
+	.btn-disable:not(.nohover):hover {  
+    border-width: 0px;
+	border-style: none;	
+}
+
+a {
+	font-weight: normal;
+}
+a:link {
+	color: #6A7C98;
+}
+a:visited {
+	color: #6A7C98;
+}
+a:hover {
+	text-decoration: none;
+	color: white;
+	background-color: green;
+	border-width: 2px;
+	border-style: dotted;
+	border-color: purple;
+}
+a:active {
+	color: aqua;
+	background-color: navy;
+}
+.style3 {
+	font-size: 11px;
+	letter-spacing: normal;
+	background-color: #141A21;
+}
+.style4 {
+	font-size: 6px;
+	color: #FF0000;
+}
+.style5 {
+	font-size: 6px;
+	color: #FF0000;
+}
+.style6 {
+	font-family: Webdings;
+}
+</style>
+</head>
+
+<body style="direction: ltr;"><!--onload="FP_preloadImgs(/*url*/'buttonB3.gif',/*url*/'buttonB4.gif',/*url*/'buttonC4.gif',/*url*/'buttonC5.gif',/*url*/'buttonC7.gif',/*url*/'buttonC8.gif');>-->
+    <script language="JavaScript" type="text/JavaScript">
+function start() {
+  myFunction();
+  kissbegin();
+}
+window.onload = start;
+</script>
+<div id="loader"></div>
+<div style="display:none;" id="myDiv" class="animate-bottom">
+<div id="wrapper">
+  <div id="banner">
+    <div id="banner-edit"><img style="width: 100px; height: 75px;" alt="Green Skulls (Rotating" src="skullgre.gif" align="middle" vspace="30" /><img style="width: 600px; height: 48px;" alt="Logo text banner" src="coollogo_com-32082252.png" align="middle" /><img style="width: 100px; height: 75px;" alt="Green Skulls (Rotating" src="skullgre.gif" align="top" vspace="30" /></div>
+  </div>
+  <div id="container">
+    <div id="col-1">
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::SiteMap::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="nav-menu">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about-this-blog.html">About Us</a> <strong><sup><span class="style4">New!</span></sup></strong></li>
+              <li>Services</li>
+              <li>Products</li>
+              <li><a href="http://alien-fx-fiend.livejournal.com/">Blog</a></li>
+              <li><a href="comp-sci.html">Comp Engineering</a> <strong><sup><span class="style5">New!</span></sup></strong></li>
+              <li><a href="#">Science</a></li>
+              <li><a href="philosophy.html">Philosophy</a> <strong><sup><span class="style4">New!</span></sup></strong></li>
+              <li><a href="#">Creative Writing/Lingu</a></li>
+              <li><a href="pc-games.html">PC Games</a> <strong><sup><span class="style4">New!</span></sup></strong></li>
+              <li><a href="#">World Domination</a></li>
+              <li><a href="exp2.html#"> Studies-Related</a></li>
+              <li><a href="#">Miscellaneous</a></li>
+              <li><a href="exp2.html#">E-Zine</a></li>
+              <li><a href="mailto:alien.fx_fiend@yahoo.com?subject=Enquiry">Contact Us</a></li>
+              <li><a href="http://users2.smartgb.com/g/g.php?a=s&amp;i=g26-34462-59">Guestbook</a></li>
+              <li><a href="http://neoviper10.boards.net/">Message Board</a></li>
+              <li>Win Tweaks?!</li>
+              <li>Forum</li>
+              <li>Photo Gallery</li>
+            </ul>
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::Update Logz::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="NavInfo"> Testing The Small Content Box For Demo Purposes<br />
+            22/11 11:13 Added Tickertape+mousetrailx<br />
+            4/12 22:00 Expanded Computer Sections+Nav Links+Switched to MSEW<br />
+            6/12 1:50 Added favicon<br />
+            10/12 1:37 Improved Design<br />
+            23/1 16:00 Added CSS hover link effect<br />
+            5/7 00:52 MouseTrail + Fixed Phong + Encoding + link + Scrolltop + Snow<br />
+            8/7 10:45 Malicious virus script s.igmhb finally eradicated<br />
+            9/7 22:20 Few additional links, Uploading directly from MSEW now:rollouts<br />
+            24/7 00:00 Added comp-sci &amp; pc-games pages<br />
+            16/8 16:00 Added Nav Buttons &amp; Custom Search Engine, Switched to Dreamviewer (EW buggy+discn)<br />
+            24/8 3:32 Minor touches to the site —mostly ripping gifs &amp; imgsearching<br />
+            8/9 7:25 Minor additions &amp; few more links<br />
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::SiteGear Poll::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="NavInfo"> Testing The Small Content Box For Demo Purposes </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+    </div>
+    <div id="col-2">
+      <div class="CntBox">
+        <div class="CntHead">
+          <div class="CntHeadInfo"></span>About This Blog</div>
+        </div>
+        <div class="CntFill">
+          <div class="style2"> <br />
+            [ <a href="index.html" class="btn-disable"> <img style="border: 0" id="img1" src="button86.gif" height="20" width="100" alt="Back" onmouseover="FP_swapImg(1,0,/*id*/'img1',/*url*/'buttonB3.gif')" onmouseout="FP_swapImg(0,0,/*id*/'img1',/*url*/'button86.gif')" onmousedown="FP_swapImg(1,0,/*id*/'img1',/*url*/'buttonB4.gif')" onmouseup="FP_swapImg(0,0,/*id*/'img1',/*url*/'buttonB3.gif')" /><!-- MSComment="ibutton" fp-style="fp-btn: Soft Capsule 7; fp-transparent: 1" fp-title="Back" --></a> ] &nbsp;&nbsp; [ <a href="index.html" class="btn-disable"> <img style="border: 0" id="img2" src="button8C.gif" height="20" width="100" alt="Home" onmouseover="FP_swapImg(1,0,/*id*/'img2',/*url*/'buttonC7.gif')" onmouseout="FP_swapImg(0,0,/*id*/'img2',/*url*/'button8C.gif')" onmousedown="FP_swapImg(1,0,/*id*/'img2',/*url*/'buttonC8.gif')" onmouseup="FP_swapImg(0,0,/*id*/'img2',/*url*/'buttonC7.gif')" /><!-- MSComment="ibutton" fp-style="fp-btn: Soft Capsule 7; fp-transparent: 1" fp-title="Home" --></a> ] &nbsp;&nbsp; [ <img style="border: 0" id="img3" src="button92.gif" height="20" width="100" alt="Forward" onmouseover="FP_swapImg(1,0,/*id*/'img3',/*url*/'buttonC4.gif')" onmouseout="FP_swapImg(0,0,/*id*/'img3',/*url*/'button92.gif')" onmousedown="FP_swapImg(1,0,/*id*/'img3',/*url*/'buttonC5.gif')" onmouseup="FP_swapImg(0,0,/*id*/'img3',/*url*/'buttonC4.gif')" /><!-- MSComment="ibutton" fp-style="fp-btn: Soft Capsule 7; fp-transparent: 1" fp-title="Forward" --> ]<br />
+            <br />
+            <br />
+            [Ported from Blogspot] This blogs evolution from my now-cancelled vox.com &amp; FreeWebTown sites, just as I realised how powerful having your own site can be, not just the blogging bit. This site is all- my megalomaniacal fantasies about Ruling the world, pro computer tips/haX0r, life in general..It helps to know that this is another <i>fan</i>&nbsp;site, /w plenty of reviews (technology, unless mentioned otherwise) &amp; thinking eventually of transforming this into a PC game reviewing site, &amp; also strat guides, tho I know longer own a computer,- maybe write for AOE or something iono it was possible, I was doing this on a phone, before I had a tablet, much less a computer. So the site will host my collective views, spanning from History, Philosophy, to my inane banter..tee-hee ;) This irks me- I want to write a Sci-fi short story called The Revenge of The Technobots, it's about 4 kids who embark on a high-tech adventure, which is much like Cyberpunk which is high-tech low-life. But just as I'm starting out it will be simple! Also, second of all if you don't like what you see, then please leave now. This sites under Anarchist tendency &amp; I've been influenced by Jolly Roger X et. al. So not merely a place to let off steam!<br /><br /><br /><img src="blueline.gif" alt="HRule bluebar" height="10" width="100%" />
+                  <br /><br /><center>-[ Brief Biography ]-</center><br />
+<br />
+Name: Alien FX Fiend<br />
+Alias: Alien FX Fiend<br />
+Gender: Male<br />
+Age: 18<br />
+Height: 5'9<br />
+Brief History: Dropped out of school, mental hostpital, jail...!<br />
+Doctrine: Nihlist<br />
+Hair colour: Brunette<br />
+Eye colour: Hazel<br />
+Marital Status: Single, Not looking<br />
+Hobbies/ Interests: Hacking, World Domination, Computer Games, Philosophy, Music<br />
+Occupation: E-commerce, Student<br />
+Personal philosophy: Life is an endless struggle full of frustrations and 
+challenges, and in the end only to meet the inescapable fate of death<br />
+Location: California<br />
+Motto: "Don't wish for it, work for it"<br />
+<a href="http://www.photobucket.com/total_annihilation666">Picture Archives here</a><br />
+<br />
+<br />
+<center>-[ Contact Details ]-</center><br />
+<br />
+E-mail Address: alien.fx_fiend@yahoo.com<br />
+Yahoo Pager ID: alien.fx_fiend / xn--vb8-xy9ds3vda / 0011111101011111100<br />
+IRC Client ID/Room: DeepComa / #mIRC Life<br />
+MSN Pager ID: deep_coma00<br />
+ICQ Number: 336994783<br />
+Myspace ID: total_annihilationx666 (<a href="http://www.myspace.com/total_annihilation666">http://www.myspace.com/total_annihilationx666</a>)<br />
+<br />
+&nbsp;&nbsp;&nbsp; I usually play online pool on Yahoo Games and I'm usually in 
+the Dust in The Wind or For Your Life room. Also I play the RPG multiplayer game on wtf.com, my 
+id's rootofallevil, and my handle for the RPG is Knightmare. Also I play the RPG 
+on planetbattleground.com and my handle is total_annihilation666. When I'm not 
+busy researching I usually chat on books &amp; literature:1 but thats when I'm not 
+finding out the latest goings on on hackers' lounge:1 but I don't frequent the 
+place like I once did. I spend a fair amount of time reading up on cyberpunk and 
+its cultural roots.<br />
+<br />
+<a href="mailto:deep_coma_00@yahoo.com?subject=Roth13[]%20Designz">Web Design 
+Services:</a> Roth13 Special requests for web design projects can be mailed to 
+me, along with all specifics, ranging from eye candy glitzy to industrial themes<br />
+<br />
+<a href="http://www.freewebtown.com/knightmare602/curriculum_vitae.txt">Resume Cover:</a> view my resume for professional 
+rendered services in all aspects of computer science, gfx design, and tech 
+advisory.<br />
+<br />
+<br />
+<center>-[ Life Recap ]-</center><br />
+<br />
+&nbsp;&nbsp;&nbsp; If you're looking for a sunshine, optimistic, philantropist, 
+you are definitely at the wrong place. My life has been an endless struggle full 
+of pain and suffering. Its hard to distinguish where everything went wrong or 
+where I deviated from reality, but my life is worse than a hollywood horror. To 
+start at the beginning, everything is a mess, my country is a hell-hole, my 
+family despises me, I dropped out of school because I couldnt cope with the 
+stress, I went to jail and mental hospital because of them. Thats the scratching 
+the surface of my chaotic life, I know its not something you'd like to read, but 
+its not something I'd like to live either. So anyway I just keep being 
+philosophical and try to comprehend this seemingly complex universe, trying to 
+understand if theres any meaning attached to these supposedly worthless lives, is 
+it all just meaningless gloom? or is there an unknown obscure purpose to our 
+cosmic accidental universal existence? I dont believe anymore because it is 
+impobable and I know its possibly because of the traumatic events I've undergone 
+that I've become so cynically outlooked on life but I wasn't alway like this, 
+all I asked for was a normal life, nothing more, and is that such a great 
+demand? I don't know what you might think of me but in reality I'm very 
+kind-hearted although I try to act cold-blooded'- take a while and get to know 
+me and you'll see somethings noone else realised in me. I try to be apathetic 
+and callous, why? so that I cannot be emotionally scarred by traumatic events 
+anymore, but nevertheless pain and suffering is always present in my life, its 
+either a question of perseverence for some unknown reason or end it all this 
+instant...? I have tried suicide 4 times but only when I had undergone some 
+climactic events in my life, otherwise I'm more tolerant than most people. 
+Theres more reasons why my life is impossible but I'll spare you the details. I 
+could go on, but who would read...All that's left to do is is die...<br />
+<br />
+<br />
+<center>-[ My Sentiments ]-</center><br />
+<br />
+&nbsp;&nbsp;&nbsp; I see many different types of peeple- some are career and 
+profession oriented and see life as a fixed predetermined view and want to just 
+be an ordinary person that fits in. They are afraid to step forward and take a 
+risky plunge or a to venture where others wouldnt go. They like to have a 
+standard and boring life if necessary and anything too difficult is considerted 
+impossible or 'insane' an is never a task they would ever attempt even thinking 
+about.<br />
+<br />
+&nbsp;&nbsp;&nbsp; Im on the other hand a philiosopher, scientist, and 
+visionary- i know those words should never be used together but i couldnt help 
+it- i look at life at a very different angle than others- i question reality, 
+life and everything others take for granted. I define and defy inevitable 
+impossible or risky. To me rules are obstacles and something that is challenging 
+your boldness and whether you'd rather avoid them or take them on- and i never 
+refuse a challenge! Risk is my business and I live life on the very edge and 
+live for the moment and always focus more long-term and on future goals- I do 
+not want to die before I feel I accomplish everything I came here to do 
+something- life is a measure of how much successful and how much historical 
+accomplishments you can acheive. I never use the word impossible in my voabulary 
+and I believe in my extraordinary potential and never anything as being 
+'far-fetched' or 'improbable'- it cannot be impossible until you've tried it! 
+Also I live life for the adrenaline rush and the taste of excitement, challenge 
+and breaking the boundries of 'impossiblity' and Im never preapred to back-down 
+on a risk or challenge and completely measure my life in accomplishements and 
+goals acheivement and not as just wasting the Air supply anmd resources!<br />
+<br />
+<br /><center>-[ The Future ]-</center><br />
+<br />
+The four elements of life: Goals, Plans, Priorities, Challenges:<br />
+<br />
+Goals...<br />
+Get rich quick and buy a new mansion<br />
+Study/ research science<br />
+World domination?<br />
+Invent time travel, <br />
+<br />
+Plans...<br />
+Finish studies<br />
+Move-out from family since I lost my mansion and nothing left in here<br />
+Get an online degree if possible as its more convenient<br />
+Research advanced science such as Quantum Physics, try to invent time travel, 
+teleportation, immortatily/ invincibility<br />
+<br />
+Priorities...<br />
+Currently studies, studies, studies,<br />
+Avoid my family as much as possible and the outside world<br />
+Try to update my site if possible<br />
+Research philosophy, Origins of universe and life etc<br />
+<br />
+Distant Future...<br />
+ My ultimate goals will be to design a new generation of ultra-futuristic 
+cars which has ambience shine, and can be converted into an amphibious air 
+transport. Also build a private artificial island full of beautiful nature, 
+waterfalls, plaza stone pavement, reddish trees, hill-like grasslands, and a 
+beautiful ocean shore. Also have a huge mansion made with futursitic materials.<br />
+&nbsp;&nbsp;&nbsp; Also, buy/ and later even design my own luxury cruise liner 
+and yaught. use yacht for small rides fast, and the luxury cruise liner for more 
+time, have a swimming pool on it and also a garden. Also design a new ultra 
+modern and luxury NOVA JET, with all modern luxuries. This was just a childhood 
+fantasy by the way haha.<br /><br /><a href="changelog.txt">View Web Logs</a>
+<br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+          </div>
+          </div>
+          </div>
+
+        <div class="CntFooter"></div>
+      </div>
+        <!-- Insert contentBox here --> 
+    <div id="col-3">
+      <div class="NavBox">
+        <div class="NavHead">
+          <div class="NavHeadInfo">..::Calendar::..</div>
+        </div>
+        <div class="NavFill">
+          <div class="NavCal"> 
+            <script type="text/javascript">
+                                var todaydate = new Date()
+                                var curmonth = todaydate.getMonth() + 1 //get current month (1-12)
+                                var curyear = todaydate.getFullYear() //get current year
+                                document.write(buildCal(curmonth, curyear, "main", "month", "daysofweek", "days", 0));
+                            </script> 
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+      <div id="col-3">
+        <div class="NavBox">
+          <div class="NavHead">
+            <div class="NavHeadInfo">..::Top 10 Games::..</div>
+          </div>
+          <div class="NavFill">
+            <div class="NavInfo"> 1. Command and Conquer Alpha<br />
+              2. Empire Earth III<br />
+              3. 18 Wheels<br />
+              4. Sims Makin Magic<br />
+              5. Gangsters: Organized Crime<br />
+              6. Mortal Kombat X + Gold<br />
+              7. Rayden 2 Demo<br />
+              8. Incoming<br />
+              9. Carmageddon 2: Carpolypse Now<br />
+              10. Delta Force IV: Task Force Dagger<br />
+              11. Infestation<br />
+              12. Midtown Madness 2<br />
+              13. Watchdogs<br />
+              14. The Crew 2<br />
+              15. GTA V<br />
+              16. Crysis 4<br />
+              17. Titanfall 2<br />
+              18. Psi-Ops: The Mindgate Conspiracy<br />
+              19. Mafia<br />
+              20 Saints Row<br />
+              21. War Chess<br />
+              22. Star Wars: GB Saga<br />
+              23. Age of Mythology: TotD<br />
+              24. Red Alert 2: Yuri's Revenge<br />
+              25. Metal Fatigue </div>
+            <div class="NavFooter"></div>
+          </div>
+        </div>
+      </div>
+      <div id="col-3">
+        <div class="NavBox">
+          <div class="NavHead">
+            <div class="NavHeadInfo">..::Links (Ext.)::..</div>
+          </div>
+          <div class="NavFill">
+            <div class="NavInfo"> <a href="http://www.tuts4you.com/">Tuts4You</a><br />
+              <a href="http://ocw.mit.edu/">MIT OCW</a><br />
+              <a href="http://vx.netlux.org/">VX Heavens</a><br />
+              <a href="http://www.textfiles.com/">Textfiles.com (Ezine)</a><br />
+              <a href="http://chronos.ws/">Chronos Time Travel</a><br />
+              <a href="http://deoxy.org/">Deoxy</a><br />
+              <a href="http://www2.lv.psu.edu/jkl1/runawaylives/readstories.html"> Runaway
+              Lives </a><br />
+              <a href="http://w3.cultdeadcow.com/cms/texXxt.html">cDc Paramedia</a><br />
+              <a href="http://www.mymiserablelife.com/">Miserable Life Comp</a><br />
+              <a href="http://www.thescriptsource.net/Scripts/FightClub.pdf"> Movie Scripts
+              FightClub </a><br />
+              <a href="https://www.magrent.com/torrent-magnet/download/4d516685754b42154b4d7210d924a58c94d439c7"> PC Strategy Guides </a><br />
+              <a href="http://users.cs.cf.ac.uk/Dave.Marshall/C/CE.html"> C Programming </a><br />
+              <a href="https://www.youtube.com/watch?v=XU_xLcYohtk"> MM2 lag fix </a><br />
+              <a href="http://www.mm2x.com/page.php?name=Downloads&amp;d_op=viewdownloaddetails&amp;cid=2&amp;lid=1388&amp;ttitle=Chicago#dldetails"> MM2 Chicago Track </a><br />
+              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=636984276"> SWGB:CC Widesreen fix </a><br />
+              <a href="https://thepiratebay.org/torrent/6276218/War_Chess_v1.1_[PC_GAME]_(2006)__INSTALL_"> War Chess 1.1 </a><br />
+              <a href="http://developer.download.nvidia.com/books/HTML/gpugems/gpugems_pref01.html"> NVIDIA GPU Gems </a><br />
+              <a href="http://pages.cs.wisc.edu/~remzi/OSTEP/"> Operating Systems: Three Easy Pieces </a><br />
+              <a href="http://philip.greenspun.com/seia/"> Software Engineering for Internet Applications </a><br />
+              <a href="http://www.coderholic.com/25-free-computer-science-books/"> 25 Free Computer Science Books </a><br />
+              <a href="http://www.ebook777.com"> Vast e-book Library </a><br />
+              <a href="https://megagames.com/fixes/grand-theft-auto-3-v10-gereng"> GTA 3 No-CD crack </a><br />
+              <a href="http://www.thegtaplace.com/downloads/f1186-gta-iii-27-trainer"> GTA 3 +27 Trainer </a><br />
+              <a href="http://www.thegtaplace.com/downloads/f80-vice-city-11-patch"> GTA VC 1.1 Patch </a><br />
+              <a href="https://megagames.com/fixes/grand-theft-auto-vice-city-5"> GTA VC No-CD crack </a><br />
+              <a href="http://www.gameesc.com/archives/grand-theft-auto-vice-city-trainer-11-by-xeonbyte/"> GTA VC Trainer </a><br />
+              <a href="http://www.e-booksdirectory.com/listing.php?category=264"> Game Programming [HTML] books </a><br />
+              <a href="http://www.goanwap.com/ebook-kee-list2-ndms.html">Nancy Drew [HTML] eBooks</a></div>
+          </div>
+        </div>
+        <div class="NavFooter"></div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="clearB"></div>
+  <div id="foot">
+    <div id="foot-Info-Left"> Welcome to the Hells Lab Team<span class="style3">™</span> website.<br />
+      You are visitor # <!-- Start of StatCounter Code for Default Guide --> 
+      <script type="text/javascript">
+var sc_project=11230248; 
+var sc_invisible=0; 
+var sc_security="91ab42c0"; 
+var sc_text=5; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+      <noscript>
+      <div class="statcounter"><a title="Web Analytics"
+href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="//c.statcounter.com/11230248/0/91ab42c0/0/" alt="Web
+Analytics"></a></div>
+      </noscript>
+      <!-- End of StatCounter Code for Default Guide --> 
+      to enter this site ! <br />
+      My new site following the termination of my old PS+Frontpage site on TFT
+      (The FreeWeb Town.) Using templates have helped streamline &amp; automate gfx
+      |processes.<br />
+      -&gt; f4t4l_3rr0r <img style="width: 43px; height: 15px;" alt="Netscape Compatible"
+ src="now8.gif" /> <img src="blueribbon.gif" width="43" height="15" alt="Free Speech Now!"/> <img src="mircnow.gif" width="43" height="15" alt="mIRC Now"/><br />
+      Enjoy! Copyright © (2016-21) The Shadow Company®. All Rights Reserved. <img style="width: 43px; height: 15px;" alt="W3 Compatible" src="valid-css2.png" /> </div>
+    <div id="foot-Info-Right" align="right"> 
+      <script src="foot_scroller_edit.js" type="text/javascript"></script> 
+    </div>
+    <div class="clearB"></div>
+  </div>
+</div>
+<script type="text/javascript">
+
+        /******************************************
+        * Snow Effect Script- By Altan d.o.o. (http://www.altan.hr/snow/index.html)
+        * Visit Dynamic Drive DHTML code library (http://www.dynamicdrive.com/) for full source code
+        * Last updated Nov 9th, 05' by DD. This notice must stay intact for use
+        ******************************************/
+        function openwindow() {
+            window.open("autumn_effect.htm", "", "width=350,height=500")
+        }
+
+        //Configure below to change URL path to the snow image
+        var snowsrc = "snow.gif"
+        // Configure below to change number of snow to render
+        var no = 10;
+        // Configure whether snow should disappear after x seconds (0=never):
+        var hidesnowtime = 0;
+        // Configure how much snow should drop down before fading ("windowheight" or "pageheight")
+        var snowdistance = "pageheight";
+
+        ///////////Stop Config//////////////////////////////////
+
+        var ie4up = (document.all) ? 1 : 0;
+        var ns6up = (document.getElementById && !document.all) ? 1 : 0;
+
+        function iecompattest() {
+            return (document.compatMode && document.compatMode != "BackCompat") ? document.documentElement : document.body
+        }
+
+        var dx, xp, yp;    // coordinate and position variables
+        var am, stx, sty;  // amplitude and step variables
+        var i, doc_width = 800, doc_height = 600;
+
+        if (ns6up) {
+            doc_width = self.innerWidth;
+            doc_height = self.innerHeight;
+        } else if (ie4up) {
+            doc_width = iecompattest().clientWidth;
+            doc_height = iecompattest().clientHeight;
+        }
+
+        dx = new Array();
+        xp = new Array();
+        yp = new Array();
+        am = new Array();
+        stx = new Array();
+        sty = new Array();
+        snowsrc = (snowsrc.indexOf("dynamicdrive.com") != -1) ? "snow.gif" : snowsrc
+        for (i = 0; i < no; ++i) {
+            dx[i] = 0;                        // set coordinate variables
+            xp[i] = Math.random() * (doc_width - 50);  // set position variables
+            yp[i] = Math.random() * doc_height;
+            am[i] = Math.random() * 20;         // set amplitude variables
+            stx[i] = 0.02 + Math.random() / 10; // set step variables
+            sty[i] = 0.7 + Math.random();     // set step variables
+            if (ie4up || ns6up) {
+                if (i == 0) {
+                    document.write("<div id=\"dot" + i + "\" style=\"POSITION: absolute; Z-INDEX: " + i + "; VISIBILITY: visible; TOP: 15px; LEFT: 15px;\"><img src='" + snowsrc + "' border=\"0\"><\/div>");
+                } else {
+                    document.write("<div id=\"dot" + i + "\" style=\"POSITION: absolute; Z-INDEX: " + i + "; VISIBILITY: visible; TOP: 15px; LEFT: 15px;\"><img src='" + snowsrc + "' border=\"0\"><\/div>");
+                }
+            }
+        }
+
+        function snowIE_NS6() {  // IE and NS6 main animation function
+            doc_width = ns6up ? window.innerWidth - 10 : iecompattest().clientWidth - 10;
+            doc_height = (window.innerHeight && snowdistance == "windowheight") ? window.innerHeight : (ie4up && snowdistance == "windowheight") ? iecompattest().clientHeight : (ie4up && !window.opera && snowdistance == "pageheight") ? iecompattest().scrollHeight : iecompattest().offsetHeight;
+            if (snowdistance == "windowheight") {
+                doc_height = window.innerHeight || iecompattest().clientHeight
+            }
+            else {
+                doc_height = iecompattest().scrollHeight
+            }
+            for (i = 0; i < no; ++i) {  // iterate for every dot
+                yp[i] += sty[i];
+                if (yp[i] > doc_height - 50) {
+                    xp[i] = Math.random() * (doc_width - am[i] - 30);
+                    yp[i] = 0;
+                    stx[i] = 0.02 + Math.random() / 10;
+                    sty[i] = 0.7 + Math.random();
+                }
+                dx[i] += stx[i];
+                document.getElementById("dot" + i).style.top = yp[i] + "px";
+                document.getElementById("dot" + i).style.left = xp[i] + am[i] * Math.sin(dx[i]) + "px";
+            }
+            snowtimer = setTimeout("snowIE_NS6()", 10);
+        }
+
+        function hidesnow() {
+            if (window.snowtimer) clearTimeout(snowtimer)
+            for (i = 0; i < no; i++) document.getElementById("dot" + i).style.visibility = "hidden"
+        }
+
+
+        if (ie4up || ns6up) {
+            snowIE_NS6();
+            if (hidesnowtime > 0)
+                setTimeout("hidesnow()", hidesnowtime * 1000)
+        }
+
+    </script> 
+<script language="JavaScript" type="text/JavaScript">
+
+<!-- cloak
+
+// Add all DIV's of hearts
+if (document.all||document.getElementById||document.layers){
+for (k=0;k<kisserCount;k=k+2) {
+  document.write('<div id="kisser' + k + '" class="kisser"><img src="' + theimage + '" alt="" border="0"></div>\n')
+  document.write('<div id="kisser' + (k+1) + '" class="kisser"><img src="' + theimage2 + '" alt="" border="0"></div>\n')
+}
+}
+
+		
+
+// decloak -->
+
+    </script>
+          <script type="text/javascript">
+var myVar;
+function myFunction() {
+  myVar = setTimeout(showPage, 500); /*3000|8000tweaked*/
+}
+
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("myDiv").style.display = "block";
+}
+	</script>    
+</body>
+</html>
