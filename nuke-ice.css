@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "RussellSquare";
+  src: url('RussellSquare.ttf');
+  
 a.LINKurl:link {
   color: #6a7c98;
   text-decoration: none;
