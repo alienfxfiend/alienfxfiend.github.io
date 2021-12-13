@@ -9,9 +9,11 @@ var fcontent=new Array();
 begintag='<div style="padding: 5px;">'; //set opening tag, such as font declarations
 
 
-fcontent[0]="<b>Kewl Script!</b><br>Add your own news feature for the footer within here. Remember to keep your news short.";
-fcontent[1]="Add more news here. It's very easy to do. Just open the foot_scroller_edit.js and edit lines 12,13, and 14";
-fcontent[2]="Ok, enough with these pointless messages. You get the idea behind this script.</a>";
+fcontent[0]="<b>Kewl Script!</b><br>Welcome to Knightmare&#8482; Site - The Internets Elite Online Club";
+fcontent[1]="The place for intriguing content and reference material";
+fcontent[2]="A vast pool of resources gathered over intensive research efforts";
+fcontent[3]="Experience the best articles and topics covering many engrossing topics!";
+fcontent[4]="I hope you enjoy your visit!</a>";
 
 
 closetag='</div>';
