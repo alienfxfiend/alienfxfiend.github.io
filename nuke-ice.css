@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "Russell Square";
-  src: url('/RussellSquare.ttf');
+  font-family: "Russell Square" !important;
+  src: url('/RussellSquare.ttf') !important;
   
 a.LINKurl:link {
   color: #6a7c98;
