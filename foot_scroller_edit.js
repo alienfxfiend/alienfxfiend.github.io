@@ -9,11 +9,11 @@ var fcontent=new Array();
 begintag='<div style="padding: 5px;">'; //set opening tag, such as font declarations
 
 
-fcontent[0]="<b>Kewl Script!</b><br>Welcome to Knightmare&#8482; Site - The Internets Elite Online Club";
-fcontent[1]="The place for intriguing content and reference material";
-fcontent[2]="A vast pool of resources gathered over intensive research efforts";
-fcontent[3]="Experience the best articles and topics covering many engrossing topics !";
-fcontent[4]="I hope you enjoy your visit !";
+fcontent[0]="<center><b>Kewl Script !<br>Welcome to Knightmare&#8482; Site - The Internets Elite Online Club</b></center>";
+fcontent[1]="<center><b>The place for intriguing content and reference material</b></center>";
+fcontent[2]="<center><b>A vast pool of resources gathered over intensive research efforts</b></center>";
+fcontent[3]="<center><b>Experience the best articles and topics covering many engrossing topics !</b></center>";
+fcontent[4]="<center><b>I hope you enjoy your visit !</b></center>";
 
 
 closetag='</div>';
