@@ -1249,7 +1249,7 @@ for (i = 0; i < coll.length; i++) {
 <div class="content">-->
     Read More... [YouTube] Links++
 
-		<div id="more-2" class="fulltext">
+		<div id="more-1" class="fulltext">
 
    <center>+--------StickyNotes----------+<br /></center>
 https://www.youtube.com/watch?v=ZihywtixUYo mapphy<br />
@@ -1441,7 +1441,7 @@ https://www.addictivetips.com shortcuts<br />
 <br />
 {{https://www.youtube.com/watch?v=PaDVGUnOihw GumboCodin onwards mismatches\duplicates ms-settings:themes sysdm.cpl mmsys.cpl winword powerpnt main.cpl control /name Microsoft.Personalization /page pageWallpaper control /name Microsoft.Personalization /page pageDesktop control mouse %COMSPEC% notepad %WINDIR%/System32\Drivers\etc\hosts}}<br />
 memrise.com<br /> publicationcoach.com<br /> writeordie.com<br />  brainfacts.org<br /> https://www.ck12.org/<br /> http://www.paultaylor.eu/~pt/prafm/summary.html<br /> https://quod.lib.umich.edu/u/umhistmath/AAW5995.0001.001?rgn=main;view=fulltext<br /> https://www.encyclopediaofmath.org/index.php/Special:AllPages<br /> http://www-cs-faculty.stanford.edu/~knuth/klr.html<br /> https://onlinebooks.library.upenn.edu/webbin/book/browse?type=lcsubc&key=Mathematics<br /> http://openbookproject.net/courses/intro2ict/index.html<br /> http://linear.ups.edu/html/fcla.html<br /> http://www.stitz-zeager.com/szca07042013.pdf<br /> http://www.reality.org.uk/TheBook/<br /></div>
-    <button aria-expanded="false" aria-controls="more-2" class="toggle-content" hidden><span class="text">Show More</span> <span class="visually-hidden">about My second article</span></button>
+    <button aria-expanded="false" aria-controls="more-1" class="toggle-content" hidden><span class="text">Show More</span> <span class="visually-hidden">about My second article</span></button>
     <br /><hr /><br />
           <hr />
 <br /><strong><span style="color: #ffff00; background-color: #800080;">Other Overflow\ Displaced Download Links Textfile {Hasn't Been Proofread} - <a href="links-list.rtf">Click Here</a> -11:09:53 PM 03/20/2019<br /></span></strong>
@@ -1717,40 +1717,40 @@ function showPage() {
   document.getElementById("myDiv").style.display = "block";
 }
     </script>
-      	<script>
-		// cut the mustard
-		if ('querySelector' in document && 
-			'addEventListener' in window) {
-			var toggleButtons = document.querySelectorAll('.toggle-content');
-			var fullTextWrappers = document.querySelectorAll('.fulltext');
+      	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+        // cut the mustard
+			var $toggleButtons = $('.toggle-content');
+			var $fullTextWrappers = $('.fulltext');
 			var fullText;
 			var toggleButtonText;
 			
-			[].forEach.call(fullTextWrappers, function(fullTextWrapper) {
-				// hide all full text on load
-				fullTextWrapper.setAttribute('hidden', true);
-			});
-			[].forEach.call(toggleButtons, function(toggleButton) {
-				// show toggle more buttons
-				toggleButton.removeAttribute('hidden');
-				// add listener for each button
-				toggleButton.addEventListener('click', function () {
-					fullTextWrapper = this.parentElement.querySelector('.fulltext');
-					toggleButtonText = this.querySelector('.text');
+			$fullTextWrappers.attr('hidden', true);
+
+			$toggleButtons.removeAttr('hidden');
+
+			// add listener for each button
+			$toggleButtons.each(function () {
+
+				$(this).on('click', function () {
+
+					fullTextWrapper = $(this).parent().find('.fulltext');
+					toggleButtonText = $(this).find('.text');
+
+					console.log(fullTextWrapper);
+
 					// change attributes and text if full text is shown/hidden
-					console.log(fullTextWrapper.hasAttribute('hidden'));
-					if (!fullTextWrapper.hasAttribute('hidden')) {
-						toggleButtonText.innerText = 'Show More';
-						fullTextWrapper.setAttribute('hidden', true);
-						toggleButton.setAttribute('aria-expanded', false);
+					if (!fullTextWrapper.attr('hidden')) {
+						toggleButtonText.text('Show More');
+						fullTextWrapper.attr('hidden', true);
+						$(this).attr('aria-expanded', false);
 					} else {
-						toggleButtonText.innerText = 'Show Less';
-						fullTextWrapper.removeAttribute('hidden');
-						toggleButton.setAttribute('aria-expanded', true);
+						toggleButtonText.text('Show Less');
+						fullTextWrapper.removeAttr('hidden');
+						$(this).attr('aria-expanded', true);
 					}
 				});
 			});
-		}
 	</script>
     </body>
 </html>
