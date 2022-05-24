@@ -1058,40 +1058,46 @@ function showPage() {
   document.getElementById("myDiv").style.display = "block";
 }
 	</script>
-              	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script>
-        // cut the mustard
-			var $toggleButtons = $('.toggle-content');
-			var $fullTextWrappers = $('.fulltext');
+      	<script>
+		// cut the mustard
+		if ('querySelector' in document && 
+			'addEventListener' in window) {
+
+			var toggleButtons = document.querySelectorAll('.toggle-content');
+			var fullTextWrappers = document.querySelectorAll('.fulltext');
 			var fullText;
 			var toggleButtonText;
 			
-			$fullTextWrappers.attr('hidden', true);
 
-			$toggleButtons.removeAttr('hidden');
+			[].forEach.call(fullTextWrappers, function(fullTextWrapper) {
+				// hide all full text on load
+				fullTextWrapper.setAttribute('hidden', true);
+			});
 
-			// add listener for each button
-			$toggleButtons.each(function () {
+			[].forEach.call(toggleButtons, function(toggleButton) {
+				// show toggle more buttons
+				toggleButton.removeAttribute('hidden');
 
-				$(this).on('click', function () {
+				// add listener for each button
+				toggleButton.addEventListener('click', function () {
 
-					fullTextWrapper = $(this).parent().find('.fulltext');
-					toggleButtonText = $(this).find('.text');
-
-					console.log(fullTextWrapper);
+					fullTextWrapper = this.parentElement.querySelector('.fulltext');
+					toggleButtonText = this.querySelector('.text');
 
 					// change attributes and text if full text is shown/hidden
-					if (!fullTextWrapper.attr('hidden')) {
-						toggleButtonText.text('Show More');
-						fullTextWrapper.attr('hidden', true);
-						$(this).attr('aria-expanded', false);
+					console.log(fullTextWrapper.hasAttribute('hidden'));
+					if (!fullTextWrapper.hasAttribute('hidden')) {
+						toggleButtonText.innerText = 'Show More';
+						fullTextWrapper.setAttribute('hidden', true);
+						toggleButton.setAttribute('aria-expanded', false);
 					} else {
-						toggleButtonText.text('Show Less');
-						fullTextWrapper.removeAttr('hidden');
-						$(this).attr('aria-expanded', true);
+						toggleButtonText.innerText = 'Show Less';
+						fullTextWrapper.removeAttribute('hidden');
+						toggleButton.setAttribute('aria-expanded', true);
 					}
 				});
 			});
+		}
 	</script>
 </body>
 </html>
