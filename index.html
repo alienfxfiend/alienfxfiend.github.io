@@ -195,6 +195,169 @@ window.onload=kissbegin
         ***********************************************/
 
     </script>
+    
+            <style>
+    #tickertape {
+        position: relative;
+        width: 100%;
+        height: 20px;
+    }
+
+    #subtickertape {
+        background-color: black;
+        position: absolute;
+        border: 1px solid black;
+        width: 100%;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        padding: 0 4px;
+        box-sizing: border-box;
+        justify-content: center;  /* ADD this line */
+        text-align: center;       /* ADD this line */
+    }
+
+    .subtickertapefont {
+        font: 12px Verdana, sans-serif;
+        text-decoration: none;
+        color: white;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .subtickertapefont a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .subtickertapefont a:hover {
+        text-decoration: underline;
+    }
+    </style>
+
+        <script>
+    /*
+        Fading Ticker Tape Script (Modernized)
+        Original: Dynamic Drive (www.dynamicdrive.com)
+        Fading background color component by Dave Methvin, Windows Magazine
+        Modernized for all current browsers.
+    */
+
+    (function() {
+        'use strict';
+
+        // ═══════════════════════════════════════
+        // CONFIGURATION
+        // ═══════════════════════════════════════
+
+        // Speed in milliseconds (4.5 seconds default)
+        var speed = 4500;
+
+        // Messages — expand or shorten as desired
+        var news = [
+            "Welcome to Knightmare&#8482; Site - The Internets Elite Online Club",
+            "The place for intriguing content and reference material",
+            "A vast pool of resources gathered over intensive research efforts",
+            "Experience the best articles and topics covering many engrossing topics!",
+            "I hope you enjoy your visit!"
+        ];
+
+        // ═══════════════════════════════════════
+        // INTERNAL VARIABLES
+        // ═══════════════════════════════════════
+        var currentIndex = 0;
+        var tickerElement = null;
+
+        // Fade variables
+        var sred, sgrn, sblu, ered, egrn, eblu;
+        var fadeInc, fadeStep;
+
+        // ═══════════════════════════════════════
+        // NUMBER TO HEX COLOR (the key fix)
+        // Old script assigned raw numbers as colors
+        // Modern CSS requires "#RRGGBB" format
+        // ═══════════════════════════════════════
+        function toHexColor(r, g, b) {
+            r = Math.min(255, Math.max(0, Math.floor(r)));
+            g = Math.min(255, Math.max(0, Math.floor(g)));
+            b = Math.min(255, Math.max(0, Math.floor(b)));
+            return '#' +
+                ('0' + r.toString(16)).slice(-2) +
+                ('0' + g.toString(16)).slice(-2) +
+                ('0' + b.toString(16)).slice(-2);
+        }
+
+        // ═══════════════════════════════════════
+        // BACKGROUND FADE FUNCTION
+        // Fades from white to black (flash effect)
+        // ═══════════════════════════════════════
+        function bgFade(red1, grn1, blu1, red2, grn2, blu2, steps) {
+            sred = red1; sgrn = grn1; sblu = blu1;
+            ered = red2; egrn = grn2; eblu = blu2;
+            fadeInc = steps;
+            fadeStep = 0;
+            runFader();
+        }
+
+        function runFader() {
+            var epct = fadeStep / fadeInc;
+            var spct = 1 - epct;
+
+            var r = sred * spct + ered * epct;
+            var g = sgrn * spct + egrn * epct;
+            var b = sblu * spct + eblu * epct;
+
+            tickerElement.style.backgroundColor = toHexColor(r, g, b);
+
+            if (fadeStep < fadeInc) {
+                setTimeout(runFader, 50);
+            }
+            fadeStep++;
+        }
+
+        // ═══════════════════════════════════════
+        // UPDATE TICKER MESSAGE
+        // ═══════════════════════════════════════
+        function update() {
+            // Flash: fade from white (0xFF) to black (0x00)
+            bgFade(0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 10);
+
+            // Update message content
+            tickerElement.innerHTML = news[currentIndex];
+
+            // Cycle to next message
+            currentIndex = (currentIndex + 1) % news.length;
+
+            // Schedule next update
+            setTimeout(update, speed);
+        }
+
+        // ═══════════════════════════════════════
+        // INITIALIZE
+        // ═══════════════════════════════════════
+        function init() {
+            tickerElement = document.getElementById('subtickertape');
+
+            if (!tickerElement) {
+                console.log('❌ Ticker element not found!');
+                return;
+            }
+
+            console.log('✅ Ticker tape initialized!');
+            update();
+        }
+
+        // Wait for DOM to be ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            // DOM already loaded
+            init();
+        }
+
+    })();
+    </script>
+    
 <style type="text/css">
 .style1 {
 	text-align: left;
@@ -264,6 +427,11 @@ window.onload = start;
     <div id="banner-edit"><img style="width: 100px; height: 75px;" alt="Green Skulls (Rotating" src="skullgre.gif" align="middle" vspace="30" /><img style="width: 600px; height: 48px;" alt="Logo text banner" src="coollogo_com-32082252.png" align="middle" /><img style="width: 100px; height: 75px;" alt="Green Skulls (Rotating" src="skullgre.gif" align="top" vspace="30" /></div>
   </div>
   <div id="container">
+      <div id="tickertape">
+    <div id="subtickertape" class="subtickertapefont">
+        Initializing...
+    </div>
+</div>      
     <div id="col-1">
       <div class="NavBox">
         <div class="NavHead">
